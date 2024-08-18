@@ -25,7 +25,9 @@ function TableHeader({ sort, handleChangeSortKey, columns }: IProps) {
         <HeaderCell
           {...rest}
           key={`statistic-header-${key}`}
-          onClick={() => handleChangeSortKey(key, baseOrder)}
+          onClick={() => {
+            if (!noSorted) handleChangeSortKey(key, baseOrder);
+          }}
           label={label || capitalize(key)}
           state={noSorted ? undefined : key === sort.key ? sort.order : "none"}
         />

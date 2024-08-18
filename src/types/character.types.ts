@@ -6,10 +6,10 @@ export type Archetype =
   | "striker"
   | "forward"
   | "long-shooter"
-  | "offensive-midfielder"
-  | "complete-midfielder"
+  | "attacking-midfielder"
+  | "central-midfielder"
   | "defensive-midfielder"
-  | "complete-defender"
+  | "defender"
   | "wall-defender"
   | "goalkeeper"
   | "none";

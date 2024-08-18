@@ -42,7 +42,7 @@ function NavLink({ navLink, active }: { navLink: INavLink; active: boolean }) {
         className={`text-lg font-semibold px-2 rounded duration-200 flex gap-1 items-center whitespace-nowrap ${
           active
             ? "bg-raimon-blue text-white"
-            : "hover:bg-raimon-blue hover:bg-opacity-50"
+            : "hover:bg-raimon-blue hover:bg-opacity-40"
         }`}
       >
         <Link href={href}>{label}</Link>

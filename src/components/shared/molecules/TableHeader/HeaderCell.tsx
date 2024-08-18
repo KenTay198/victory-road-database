@@ -36,7 +36,7 @@ function HeaderCell({
     >
       <div
         style={{ width: `${width || 100}px` }}
-        className="flex items-center cursor-pointer justify-center h-[48px] mx-auto"
+        className={`flex items-center justify-center h-[48px] mx-auto ${state ? "cursor-pointer" : ""}`}
       >
         <p>{label}</p>
         {SortIcon && <SortIcon />}

@@ -1,4 +1,4 @@
-import { HissatsuCharacteristic, hissatsuTypes } from "@/types/hissatsu.types";
+import { hissatsuCharacteristics, hissatsuTypes } from "@/types/hissatsu.types";
 import { elements } from "@utils/variables";
 import { Schema, model, models } from "mongoose";
 
@@ -17,7 +17,7 @@ const HissatsuSchema = new Schema(
     },
     characteristic: {
       type: String,
-      enum: HissatsuCharacteristic,
+      enum: hissatsuCharacteristics,
     },
   },
   { timestamps: true }

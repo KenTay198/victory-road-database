@@ -10,6 +10,7 @@ import { useConfirmModalState } from "@context/ConfirmModalContext";
 import { useLoadingState } from "@context/LoadingContext";
 import {
   advancedStatisticsLabels,
+  archetypesDatas,
   elementDatas,
   hissatsuTypeDatas,
   statisticsLabels,
@@ -184,8 +185,8 @@ function CharacterTableRow({ character, averages, info }: IProps) {
           width={30}
         />
       </td>
-      <td title={archetypes.join(", ")}>
-        {archetypes.join(", ")}
+      <td title={archetypes.join("/")}>
+        {archetypes.map((e) => archetypesDatas[e].label).join("/")}
       </td>
       {displayColumns()}
       <td>

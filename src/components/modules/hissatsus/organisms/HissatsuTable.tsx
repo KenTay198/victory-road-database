@@ -10,7 +10,7 @@ import IHissatsu, {
   hissatsuCharacteristics,
   hissatsuTypes,
 } from "@/types/hissatsu.types";
-import { capitalize } from "@utils/functions";
+import { capitalize, normalize } from "@utils/functions";
 import Image from "next/image";
 import { elementDatas, elements } from "@utils/variables";
 import Link from "next/link";
@@ -33,6 +33,7 @@ function HissatsuTable({ hissatsus, className, ...props }: IProps) {
     characteristics: [...hissatsuCharacteristics, "none"],
     types: hissatsuTypes,
     elements: elements,
+    query: "",
   });
   const [sort, setSort] = useState<ISort>({
     key: "name",
@@ -60,10 +61,13 @@ function HissatsuTable({ hissatsus, className, ...props }: IProps) {
 
   const handleChangeSortKey = (key: string, order?: "asc" | "desc") => {
     if (key === sort.key)
-      return setSort((old) => ({
-        ...old,
-        order: order || old.order === "asc" ? "desc" : "asc",
-      }));
+      return setSort((old) => {
+        const baseOrder = order === old.order ? order : old.order;
+        return {
+          ...old,
+          order: baseOrder === "asc" ? "desc" : "asc",
+        };
+      });
 
     return setSort({ key, order: order || "desc" });
   };
@@ -71,19 +75,32 @@ function HissatsuTable({ hissatsus, className, ...props }: IProps) {
   useEffect(() => {
     const hissa = Array.from(hissatsus);
 
+    const { elements, characteristics, types, query } = filters;
+
     setFilteredHissatsus(() =>
-      hissa.filter(({ element, type, characteristic }) => {
-        if (characteristic) {
-          if (!filters.characteristics.includes(characteristic)) return false;
-        } else {
-          if (!filters.characteristics.includes("none")) return false;
-        }
-        if (!filters.elements.includes(element)) return false;
-        if (!filters.types.includes(type)) return false;
-        return true;
-      })
+      hissa
+        .filter(({ name, element, type, characteristic }) => {
+          if (query && !normalize(name).includes(normalize(query))) return false;
+
+          if (characteristic) {
+            if (!characteristics.includes(characteristic)) return false;
+          } else {
+            if (!characteristics.includes("none")) return false;
+          }
+
+          if (!elements.includes(element)) return false;
+          if (!types.includes(type)) return false;
+          return true;
+        })
+        .sort((a, b) => {
+          const key = sort.key as keyof IHissatsu;
+          const aValue = a[key] as string;
+          const bValue = b[key] as string;
+          if (sort.order === "desc") return bValue.localeCompare(aValue);
+          return aValue.localeCompare(bValue);
+        })
     );
-  }, [hissatsus, filters]);
+  }, [sort, hissatsus, filters]);
 
   const getColumns = (): IHeaderColumn[] => {
     return [
@@ -93,9 +110,9 @@ function HissatsuTable({ hissatsus, className, ...props }: IProps) {
         baseOrder: "asc",
         className: "rounded-tl-[9px]",
       },
-      { key: "types" },
-      { key: "elements" },
-      { key: "characteristics" },
+      { key: "element" },
+      { key: "type" },
+      { key: "characteristic" },
     ];
   };
 

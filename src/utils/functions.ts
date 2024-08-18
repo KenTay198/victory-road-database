@@ -104,8 +104,6 @@ export const getArchetypes = (
   )
     aboveAverage.push("duel-def");
 
-  console.log(aboveAverage);
-
   const has = (key: keyof IHissatsu, value: string) =>
     hissatsus.some(
       ({ hissatsuId }) =>
@@ -126,21 +124,16 @@ export const getArchetypes = (
     archetypes.push("long-shooter");
 
   if (isAbove("focus-att") && isAbove("total-att") && has("type", "dribble"))
-    archetypes.push("offensive-midfielder");
+    archetypes.push("attacking-midfielder");
 
   if (isAbove("duel-att") && isAbove("duel-def") && has("type", "dribble"))
-    archetypes.push("complete-midfielder");
+    archetypes.push("central-midfielder");
 
-  if (
-    isAbove("focus-att") &&
-    isAbove("focus-def") &&
-    isAbove("scramble-def") &&
-    has("type", "defense")
-  )
+  if (isAbove("focus-att") && isAbove("duel-def") && has("type", "defense"))
     archetypes.push("defensive-midfielder");
 
   if (isAbove("duel-def") && has("type", "defense"))
-    archetypes.push("complete-defender");
+    archetypes.push("defender");
 
   if (isAbove("wall-def") && has("characteristic", "block"))
     archetypes.push("wall-defender");
@@ -149,3 +142,9 @@ export const getArchetypes = (
 
   return archetypes;
 };
+
+export const normalize = (str: string) =>
+  str
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase();

@@ -1,5 +1,6 @@
 "use client";
 import {
+  Archetype,
   ICharacter,
   ICompleteCharacter,
   ICompleteStatistics,
@@ -9,6 +10,7 @@ import {
   getAdvancedStats,
   getArchetypes,
   getTotalStats,
+  normalize,
 } from "@utils/functions";
 import {
   advancedStatisticsLabels,
@@ -65,6 +67,7 @@ function CharacterTable({ characters, className, ...props }: IProps) {
     positions: positions,
     elements: elements.filter((e) => e !== "void"),
     archetypes: archetypes,
+    query: "",
   });
 
   const handleChangeSortKey = (key: string, order?: "asc" | "desc") => {
@@ -82,15 +85,28 @@ function CharacterTable({ characters, className, ...props }: IProps) {
 
     const chars = Array.from(completeCharacters);
 
+    const { elements, positions, query } = filters;
     setFilteredCharacters(() =>
       chars
-        .filter(({ defaultPosition, element, archetypes }) => {
-          if (!archetypes.some((e) => filters.archetypes.includes(e)))
-            return false;
-          if (!filters.elements.includes(element)) return false;
-          if (!filters.positions.includes(defaultPosition)) return false;
-          return true;
-        })
+        .filter(
+          ({ defaultPosition, element, archetypes, firstName, lastName }) => {
+            if (query) {
+              const name = `${normalize(firstName)}${
+                lastName ? " " + normalize(lastName) : ""
+              }`;
+              if (!name.includes(normalize(query))) return false;
+            }
+            if (
+              !filters.archetypes.some((e) =>
+                archetypes.includes(e as Archetype)
+              )
+            )
+              return false;
+            if (!elements.includes(element)) return false;
+            if (!positions.includes(defaultPosition)) return false;
+            return true;
+          }
+        )
         .sort((a, b) => {
           switch (key) {
             case "total": {
@@ -101,7 +117,7 @@ function CharacterTable({ characters, className, ...props }: IProps) {
               return aTotal - bTotal;
             }
 
-            case "element":
+            case "elements":
               if (order === "desc") return b.element.localeCompare(a.element);
               return a.element.localeCompare(b.element);
 
@@ -147,7 +163,6 @@ function CharacterTable({ characters, className, ...props }: IProps) {
     setAverages(averages as ICompleteStatistics);
 
     const archetypeCharacters = completeCharacters.map((c) => {
-      console.log(c.firstName);
       const archetypes = getArchetypes(
         c.statistics,
         c.hissatsus,
@@ -167,8 +182,8 @@ function CharacterTable({ characters, className, ...props }: IProps) {
         baseOrder: "asc",
         className: "rounded-tl-[9px]",
       },
-      { key: "archetypes", noSorted: true },
       { key: "elements" },
+      { key: "archetypes", noSorted: true },
     ];
 
     switch (filters.info) {

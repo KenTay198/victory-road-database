@@ -4,6 +4,7 @@ import WindImage from "@images/icons/elements/wind.png";
 import ForestImage from "@images/icons/elements/forest.png";
 import VoidImage from "@images/icons/elements/void.webp";
 import { StaticImageData } from "next/image";
+import { Archetype } from "@/types/character.types";
 
 export const statisticsLabels = [
   "kick",
@@ -35,10 +36,10 @@ export const archetypes = [
   "striker",
   "forward",
   "long-shooter",
-  "offensive-midfielder",
-  "complete-midfielder",
+  "attacking-midfielder",
+  "central-midfielder",
   "defensive-midfielder",
-  "complete-defender",
+  "defender",
   "wall-defender",
   "goalkeeper",
   "none",
@@ -60,4 +61,37 @@ export const hissatsuTypeDatas: Record<string, { label: string }> = {
   keep: { label: "GK" },
   dribble: { label: "ATT" },
   defense: { label: "DEF" },
+};
+
+export const archetypesDatas: Record<Archetype, { label: string }> = {
+  goalkeeper: {
+    label: "GK",
+  },
+  forward: {
+    label: "F",
+  },
+  defender: {
+    label: "D",
+  },
+  striker: {
+    label: "S",
+  },
+  "long-shooter": {
+    label: "LS",
+  },
+  "attacking-midfielder": {
+    label: "AM",
+  },
+  "central-midfielder": {
+    label: "CM",
+  },
+  "defensive-midfielder": {
+    label: "DM",
+  },
+  "wall-defender": {
+    label: "WD",
+  },
+  none: {
+    label: "N/A",
+  },
 };

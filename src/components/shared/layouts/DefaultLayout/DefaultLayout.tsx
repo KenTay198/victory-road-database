@@ -8,6 +8,8 @@ import { FaTimes } from "react-icons/fa";
 import Header from "./Header";
 
 function DefaultLayout({ children }: { children: React.ReactNode }) {
+  console.log("layout");
+  
   const { isLoading } = useLoadingState();
   const { modalOpen, modalDatas } = useConfirmModalState();
 

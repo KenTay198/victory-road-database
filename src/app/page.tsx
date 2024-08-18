@@ -1,4 +1,3 @@
-import Button from "@atoms/Button";
 import React from "react";
 
 export default function Home() {

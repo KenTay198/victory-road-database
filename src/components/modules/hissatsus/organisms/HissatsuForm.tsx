@@ -1,6 +1,7 @@
 "use client";
 import IHissatsu, {
   HissatsuCharacteristic,
+  hissatsuCharacteristics,
   HissatsuType,
   hissatsuTypes,
 } from "@/types/hissatsu.types";
@@ -25,7 +26,7 @@ function HissatsuForm({ hissatsu }: { hissatsu?: IHissatsu }) {
   const router = useRouter();
   const isUpdating = !!hissatsu;
 
-  useEffect(() => {    
+  useEffect(() => {
     if (hissatsu) {
       const { name, element, type, characteristic } = hissatsu;
       setFormData({
@@ -102,7 +103,7 @@ function HissatsuForm({ hissatsu }: { hissatsu?: IHissatsu }) {
       <SelectInput
         label="Characteristic"
         id="characteristic"
-        options={HissatsuCharacteristic.map((e) => ({
+        options={hissatsuCharacteristics.map((e) => ({
           value: e,
           label: capitalize(e),
         }))}
