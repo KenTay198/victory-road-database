@@ -18,6 +18,19 @@
       }
     ],
     "paths": {
+      "@images/*": ["./public/images/*"],
+      "@models/*": ["./src/models/*"],
+      "@lib/*": ["./src/lib/*"],
+      "@hooks/*": ["./src/hooks/*"],
+      "@context/*": ["./src/context/*"],
+      "@utils/*": ["./src/utils/*"],
+      "@styles/*": ["./src/styles/*"],
+      "@layouts/*": ["./src/components/shared/layouts/*"],
+      "@organisms/*": ["./src/components/shared/organisms/*"],
+      "@molecules/*": ["./src/components/shared/molecules/*"],
+      "@atoms/*": ["./src/components/shared/atoms/*"],
+      "@shared/*": ["./src/components/shared/*"],
+      "@components/*": ["./src/components/*"],
       "@/*": ["./src/*"]
     }
   },
