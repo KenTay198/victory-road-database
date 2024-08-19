@@ -80,7 +80,8 @@ function HissatsuTable({ hissatsus, className, ...props }: IProps) {
     setFilteredHissatsus(() =>
       hissa
         .filter(({ name, element, type, characteristic }) => {
-          if (query && !normalize(name).includes(normalize(query))) return false;
+          if (query && !normalize(name).includes(normalize(query)))
+            return false;
 
           if (characteristic) {
             if (!characteristics.includes(characteristic)) return false;
@@ -134,56 +135,62 @@ function HissatsuTable({ hissatsus, className, ...props }: IProps) {
             columns={getColumns()}
           />
           <tbody>
-            {filteredHissatsus.map(
-              ({ _id, name, element, type, characteristic }) => {
-                return (
-                  <tr key={`hissatsu-${_id}`}>
-                    <td className="px-2 py-2">
-                      <Link
-                        href={`https://inazuma-eleven.fandom.com/fr/wiki/${name.replace(
-                          " ",
-                          "_"
-                        )}`}
-                        target="_blank"
-                      >
-                        {name}
-                      </Link>
-                    </td>
-                    <td>
-                      <Image
-                        src={elementDatas[element].image}
-                        alt={"Element " + element}
-                        className="mx-auto"
-                        width={30}
-                      />
-                    </td>{" "}
-                    <td className="px-2">{capitalize(type)}</td>
-                    <td className="px-2">
-                      {characteristic && capitalize(characteristic)}
-                    </td>
-                    <td>
-                      <div className="px-1 flex gap-1 items-center">
-                        <Button
-                          color="blue"
-                          href={"/hissatsus/" + _id}
-                          icon={GrUpdate}
-                          title="Update"
+            {filteredHissatsus.length > 0 ? (
+              filteredHissatsus.map(
+                ({ _id, name, element, type, characteristic }) => {
+                  return (
+                    <tr key={`hissatsu-${_id}`}>
+                      <td className="px-2 py-2">
+                        <Link
+                          href={`https://inazuma-eleven.fandom.com/fr/wiki/${name.replace(
+                            " ",
+                            "_"
+                          )}`}
+                          target="_blank"
                         >
-                          <span className="hidden">Update</span>
-                        </Button>
-                        <Button
-                          color="blue"
-                          icon={FaTrash}
-                          onClick={() => handleDelete(_id, name)}
-                          title="Delete"
-                        >
-                          <span className="hidden">Delete</span>
-                        </Button>
-                      </div>
-                    </td>
-                  </tr>
-                );
-              }
+                          {name}
+                        </Link>
+                      </td>
+                      <td>
+                        <Image
+                          src={elementDatas[element].image}
+                          alt={"Element " + element}
+                          className="mx-auto"
+                          width={30}
+                        />
+                      </td>{" "}
+                      <td className="px-2">{capitalize(type)}</td>
+                      <td className="px-2">
+                        {characteristic && capitalize(characteristic)}
+                      </td>
+                      <td>
+                        <div className="px-1 flex gap-1 justify-center items-center">
+                          <Button
+                            color="blue"
+                            href={"/hissatsus/" + _id}
+                            icon={GrUpdate}
+                            title="Update"
+                          >
+                            <span className="hidden">Update</span>
+                          </Button>
+                          <Button
+                            color="blue"
+                            icon={FaTrash}
+                            onClick={() => handleDelete(_id, name)}
+                            title="Delete"
+                          >
+                            <span className="hidden">Delete</span>
+                          </Button>
+                        </div>
+                      </td>
+                    </tr>
+                  );
+                }
+              )
+            ) : (
+              <tr>
+                <td colSpan={100}>No hissatsus</td>
+              </tr>
             )}
           </tbody>
         </table>

@@ -1,7 +1,8 @@
 import Character from "@models/character.model";
 import { connectToDatabase } from "@/lib/mongoose";
 import { ICharacter } from "@/types/character.types";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
+import Hissatsu from "@models/hissatsu.model";
 
 export async function POST(request: Request) {
   try {
@@ -31,7 +32,7 @@ export async function POST(request: Request) {
     await newCharacter.save();
 
     return NextResponse.json(newCharacter, { status: 201 });
-  } catch (error : any) {
+  } catch (error: any) {
     console.error(error);
     return NextResponse.json(
       { error: error.message || "Internal Server Error" },
@@ -40,14 +41,18 @@ export async function POST(request: Request) {
   }
 }
 
-export async function GET() {
+export async function GET(req: NextRequest) {
+  const completeHissatsus =
+    req.nextUrl.searchParams.get("completeHissatsus");
+
   try {
     await connectToDatabase();
-    const characters = await Character.find()
-      .populate("hissatsus.hissatsuId")
-      .lean();
+    const promise = Character.find();
+    if (completeHissatsus === "true")
+      promise.populate({ path: "hissatsus.hissatsuId", model: Hissatsu });
+    const characters = await promise.lean();
     return NextResponse.json(characters);
-  } catch (error : any) {
+  } catch (error: any) {
     console.error(error);
     return NextResponse.json(
       { error: error.message || "Internal Server Error" },

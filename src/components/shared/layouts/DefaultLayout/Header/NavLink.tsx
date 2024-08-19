@@ -14,7 +14,7 @@ function NavLink({ navLink, className, pathname, ...props }: IProps) {
   const hasSublinks = subLinks && subLinks.length > 0;
 
   const ExpandIcon = expanded ? FaChevronUp : FaChevronDown;
-  const maxHeight = hasSublinks && expanded ? 30 * subLinks.length : 0;
+  const maxHeight = hasSublinks && expanded ? 24 * subLinks.length : 0;
 
   const isActive = (href: string) => href === pathname;
   const active = isActive(href);
@@ -52,7 +52,7 @@ function NavLink({ navLink, className, pathname, ...props }: IProps) {
                 key={`sub-link-${navLink.label}-${sub.label}`}
                 pathname={pathname}
                 navLink={sub}
-                className="text-base"
+                className="!text-base"
               />
             ))}
           </div>

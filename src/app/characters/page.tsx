@@ -9,12 +9,17 @@ export const metadata = {
 };
 
 async function CharacterListPage() {
-  const characters = await getCharacters();
+  const characters = await getCharacters({ completeHissatsus: true });
 
   return (
     <div>
       <h1>Character list</h1>
-      <Button color="blue" href="/characters/add" icon={FaPlus} className="mb-2">
+      <Button
+        color="blue"
+        href="/characters/add"
+        icon={FaPlus}
+        className="mb-2"
+      >
         Add character
       </Button>
       <CharacterTable characters={characters} />

@@ -28,8 +28,17 @@ function UserCard() {
       >
         <p className="font-semibold">{user.username}</p>
       </Button>
-      {expanded && (
-        <div className="bg-raimon-yellow absolute top-[105%] right-0 overflow-hidden rounded flex flex-col">
+
+      <div
+        className={`bg-raimon-yellow absolute top-[105%] right-0 overflow-hidden rounded duration-300 ${
+          expanded ? "max-h-[64px]" : "max-h-0 pointer-events-none"
+        }`}
+      >
+        <div
+          className={`flex flex-col duration-200 ${
+            expanded ? "opacity-100" : "opacity-0"
+          }`}
+        >
           <Link href="/dashboard" onClick={() => setExpanded(false)}>
             <div className="bg-raimon-yellow flex gap-1 items-center whitespace-nowrap px-2 py-1 duration-200 hover:brightness-75">
               <MdSpaceDashboard />
@@ -41,7 +50,7 @@ function UserCard() {
             <p className="font-semibold">Se déconnecter</p>
           </div>
         </div>
-      )}
+      </div>
     </div>
   );
 }

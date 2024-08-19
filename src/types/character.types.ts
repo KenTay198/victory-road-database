@@ -55,14 +55,3 @@ export interface ICompleteCharacter extends ICharacter {
   statistics: ICompleteStatistics;
   archetypes: Archetype[];
 }
-
-export interface IPostCharacter
-  extends Omit<
-    Partial<ICharacter>,
-    "hissatsus" | "statistics" | "element" | "defaultPosition"
-  > {
-  hissatsus?: Partial<ICharacterHissatsu>[];
-  statistics?: Partial<IStatistics>;
-  element?: string;
-  defaultPosition?: string;
-}

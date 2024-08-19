@@ -241,16 +241,22 @@ function CharacterTable({ characters, className, ...props }: IProps) {
           />
           <tbody>
             <CharacterAveragesRow averages={averages} info={filters.info} />
-            {filteredCharacters.map((character) => {
-              return (
-                <CharacterTableRow
-                  key={`character-${character._id}`}
-                  character={character}
-                  averages={averages}
-                  info={filters.info}
-                />
-              );
-            })}
+            {filteredCharacters.length > 0 ? (
+              filteredCharacters.map((character) => {
+                return (
+                  <CharacterTableRow
+                    key={`character-${character._id}`}
+                    character={character}
+                    averages={averages}
+                    info={filters.info}
+                  />
+                );
+              })
+            ) : (
+              <tr>
+                <td colSpan={100}>No characters</td>
+              </tr>
+            )}
           </tbody>
         </table>
       </div>

@@ -1,34 +1,66 @@
 "use server";
-import { ICharacter, IPostCharacter } from "@/types/character.types";
+import {
+  ICharacter,
+  ICharacterHissatsu,
+  IStatistics,
+} from "@/types/character.types";
 import { revalidatePath } from "next/cache";
 
-export const getCharacters = async () => {
-  return new Promise<ICharacter[]>((resolve, reject) => {
-    fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/characters`, {
-      method: "GET",
-    })
-      .then((response) => {
-        if (!response.ok) {
-          return response.json().then(reject);
-        }
+interface IPostCharacter
+  extends Omit<
+    Partial<ICharacter>,
+    "hissatsus" | "statistics" | "element" | "defaultPosition"
+  > {
+  hissatsus?: Partial<ICharacterHissatsu>[];
+  statistics?: Partial<IStatistics>;
+  element?: string;
+  defaultPosition?: string;
+}
 
-        response.json().then(resolve).catch(reject);
+type Query = "completeHissatsus";
+
+export const getCharacters = async (query?: Partial<Record<Query, any>>) => {
+  const params = new URLSearchParams(query);
+  return new Promise<ICharacter[]>((resolve, reject) => {
+    fetch(
+      `${process.env.NEXT_PUBLIC_SITE_URL}/api/characters?${params.toString()}`,
+      {
+        method: "GET",
+      }
+    )
+      .then(async (response) => {
+        const data = await response.json().catch(reject);
+
+        if (!response.ok)
+          throw new Error(data.error || "An unexpected error occurred");
+
+        resolve(data);
       })
       .catch(reject);
   });
 };
 
-export const getCharacterById = async (id: string) => {
+export const getCharacterById = async (
+  id: string,
+  query?: Partial<Record<Query, any>>
+) => {
+  const params = new URLSearchParams(query);
   return new Promise<ICharacter>((resolve, reject) => {
-    fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/characters/${id}`, {
-      method: "GET",
-    })
-      .then((response) => {
-        if (!response.ok) {
-          return response.json().then(reject);
-        }
+    fetch(
+      `${
+        process.env.NEXT_PUBLIC_SITE_URL
+      }/api/characters/${id}?${params.toString()}`,
+      {
+        method: "GET",
+      }
+    )
+      .then(async (response) => {
+        const data = await response.json().catch(reject);
 
-        response.json().then(resolve).catch(reject);
+        if (!response.ok)
+          throw new Error(data.error || "An unexpected error occurred");
+
+        resolve(data);
       })
       .catch((err) => {
         reject(err);
@@ -45,14 +77,14 @@ export const postCharacter = async (data: IPostCharacter) => {
       },
       body: JSON.stringify(data),
     })
-      .then((response) => {
-        if (!response.ok) {
-          return response.json().then(reject);
-        }
+      .then(async (response) => {
+        const data = await response.json().catch(reject);
+
+        if (!response.ok)
+          throw new Error(data.error || "An unexpected error occurred");
 
         revalidatePath(`/characters`);
-
-        response.json().then(resolve).catch(reject);
+        resolve(data);
       })
       .catch(reject);
   });
@@ -67,13 +99,15 @@ export const putCharacter = async (id: string, data: IPostCharacter) => {
       },
       body: JSON.stringify(data),
     })
-      .then((response) => {
-        if (!response.ok) {
-          return response.json().then(reject);
-        }
+      .then(async (response) => {
+        const data = await response.json().catch(reject);
+
+        if (!response.ok)
+          throw new Error(data.error || "An unexpected error occurred");
+
         revalidatePath(`/characters`);
         revalidatePath(`/characters/${id}`);
-        response.json().then(resolve).catch(reject);
+        resolve(data);
       })
       .catch(reject);
   });
@@ -84,13 +118,15 @@ export const deleteCharacter = async (id: string) => {
     fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/characters/${id}`, {
       method: "DELETE",
     })
-      .then((response) => {
-        if (!response.ok) {
-          return response.json().then(reject);
-        }
+      .then(async (response) => {
+        const data = await response.json().catch(reject);
+
+        if (!response.ok)
+          throw new Error(data.error || "An unexpected error occurred");
+
         revalidatePath(`/characters`);
         revalidatePath(`/characters/${id}`);
-        response.json().then(resolve).catch(reject);
+        resolve(data);
       })
       .catch(reject);
   });

@@ -7,28 +7,30 @@ export const getHissatsus = async () => {
     fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/hissatsus`, {
       method: "GET",
     })
-      .then((response) => {
-        if (!response.ok) {
-          return response.json().then(reject);
-        }
+      .then(async (response) => {
+        const data = await response.json().catch(reject);
 
-        response.json().then(resolve).catch(reject);
+        if (!response.ok)
+          throw new Error(data.error || "An unexpected error occurred");
+
+        resolve(data);
       })
       .catch(reject);
   });
 };
 
 export const getHissatsuById = async (id: string) => {
-  return new Promise<IHissatsu>((resolve, reject) => {
+  return new Promise<IHissatsu | void>((resolve, reject) => {
     fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/hissatsus/${id}`, {
       method: "GET",
     })
-      .then((response) => {
-        if (!response.ok) {
-          return response.json().then(reject);
-        }
+      .then(async (response) => {
+        const data = await response.json().catch(reject);
 
-        response.json().then(resolve).catch(reject);
+        if (!response.ok)
+          throw new Error(data.error || "An unexpected error occurred");
+
+        resolve(data);
       })
       .catch((err) => {
         reject(err);
@@ -45,13 +47,14 @@ export const postHissatsu = async (data: Partial<IHissatsu>) => {
       },
       body: JSON.stringify(data),
     })
-      .then((response) => {
-        if (!response.ok) {
-          return response.json().then(reject);
-        }
+      .then(async (response) => {
+        const data = await response.json().catch(reject);
+
+        if (!response.ok)
+          throw new Error(data.error || "An unexpected error occurred");
 
         revalidatePath(`/hissatsus`);
-        response.json().then(resolve).catch(reject);
+        resolve(data);
       })
       .catch(reject);
   });
@@ -66,13 +69,15 @@ export const putHissatsu = async (id: string, data: Partial<IHissatsu>) => {
       },
       body: JSON.stringify(data),
     })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Failed to update hissatsu");
-        }
+      .then(async (response) => {
+        const data = await response.json().catch(reject);
+
+        if (!response.ok)
+          throw new Error(data.error || "An unexpected error occurred");
+
         revalidatePath(`/hissatsus`);
         revalidatePath(`/hissatsus/${id}`);
-        response.json().then(resolve).catch(reject);
+        resolve(data);
       })
       .catch(reject);
   });
@@ -83,13 +88,15 @@ export const deleteHissatsu = async (id: string) => {
     fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/hissatsus/${id}`, {
       method: "DELETE",
     })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Failed to delete hissatsu");
-        }
+      .then(async (response) => {
+        const data = await response.json().catch(reject);
+
+        if (!response.ok)
+          throw new Error(data.error || "An unexpected error occurred");
+
         revalidatePath(`/hissatsus`);
         revalidatePath(`/hissatsus/${id}`);
-        response.json().then(resolve).catch(reject);
+        resolve(data);
       })
       .catch(reject);
   });

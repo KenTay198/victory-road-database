@@ -17,12 +17,12 @@ export const register = async (data: {
       body: JSON.stringify(data),
     })
       .then(async (response) => {
-        if (!response.ok) {
-          const errorData = await response.json();
-          throw new Error(errorData.error || "An unexpected error occurred");
-        }
+        const data = await response.json().catch(reject);
 
-        response.json().then(resolve).catch(reject);
+        if (!response.ok)
+          throw new Error(data.error || "An unexpected error occurred");
+
+        resolve(data);
       })
       .catch(reject);
   });
@@ -38,30 +38,23 @@ export const login = async (data: { identifier: string; password: string }) => {
       body: JSON.stringify(data),
     })
       .then(async (response) => {
-        if (!response.ok) {
-          const errorData = await response.json();
-          throw new Error(errorData.error || "An unexpected error occurred");
-        }
+        const data = await response.json().catch(reject);
 
-        response
-          .json()
-          .then((token) => {
-            console.log("token", token);
+        if (!response.ok)
+          throw new Error(data.error || "An unexpected error occurred");
 
-            if (!process.env.JWT_COOKIE_NAME)
-              throw new Error("No cookie name defined");
+        if (!process.env.JWT_COOKIE_NAME)
+          throw new Error("No cookie name defined");
 
-            cookies().set({
-              name: process.env.JWT_COOKIE_NAME,
-              value: token,
-              httpOnly: true,
-              sameSite: true,
-              secure: process.env.ENVIRONMENT === "prod",
-              maxAge: 60 * 60 * 24 * 7,
-            });
-            resolve();
-          })
-          .catch(reject);
+        cookies().set({
+          name: process.env.JWT_COOKIE_NAME,
+          value: data,
+          httpOnly: true,
+          sameSite: true,
+          secure: process.env.ENVIRONMENT === "prod",
+          maxAge: 60 * 60 * 24 * 7,
+        });
+        resolve();
       })
       .catch(reject);
   });
@@ -82,12 +75,21 @@ export const isAuth = async () => {
       credentials: "include",
     })
       .then(async (response) => {
-        if (!response.ok) {
-          const errorData = await response.json();
-          throw new Error(errorData.error || "An unexpected error occurred");
-        }
+        const data = await response.json().catch(reject);
 
-        response.json().then(resolve).catch(reject);
+        if (!response.ok)
+          throw new Error(data.error || "An unexpected error occurred");
+
+        cookies().set({
+          name: "victory-road-user-id",
+          value: data._id,
+          httpOnly: true,
+          sameSite: true,
+          secure: process.env.ENVIRONMENT === "prod",
+          maxAge: 60 * 60 * 24 * 7,
+        });
+
+        resolve(data);
       })
       .catch(reject);
   });
