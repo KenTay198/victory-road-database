@@ -95,3 +95,5 @@ export const archetypesDatas: Record<Archetype, { label: string }> = {
     label: "N/A",
   },
 };
+
+export const passwordSpecialChars = "!@#$%^&*";

@@ -18,10 +18,10 @@ export async function POST(request: Request) {
     await newHissatsu.save();
 
     return NextResponse.json(newHissatsu, { status: 201 });
-  } catch (error) {
+  } catch (error : any) {
     console.error(error);
     return NextResponse.json(
-      { error: "Internal Server Error" },
+      { error: error.message || "Internal Server Error" },
       { status: 500 }
     );
   }
@@ -32,10 +32,10 @@ export async function GET() {
     await connectToDatabase();
     const hissatsus = await Hissatsu.find().lean();
     return NextResponse.json(hissatsus);
-  } catch (error) {
+  } catch (error : any) {
     console.error(error);
     return NextResponse.json(
-      { error: "Internal Server Error" },
+      { error: error.message || "Internal Server Error" },
       { status: 500 }
     );
   }

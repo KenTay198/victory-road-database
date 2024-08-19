@@ -5,25 +5,26 @@ import { useConfirmModalState } from "@context/ConfirmModalContext";
 import { useLoadingState } from "@context/LoadingContext";
 import React from "react";
 import { FaTimes } from "react-icons/fa";
-import Header from "./Header";
+import Header from "./Header/Header";
+import ProtectedRoute from "@layouts/ProtectedRoute";
 
 function DefaultLayout({ children }: { children: React.ReactNode }) {
-  console.log("layout");
-  
   const { isLoading } = useLoadingState();
   const { modalOpen, modalDatas } = useConfirmModalState();
 
   return (
-    <div className="relative">
-      {modalOpen && modalDatas && <ConfirmModal />}
-      {isLoading && (
-        <div className="fixed w-screen h-screen top-0 left-0 z-[12] bg-white bg-opacity-70">
-          <Spinner />
-        </div>
-      )}
-      <Header />
-      <main className="p-5 pt-12">{children}</main>
-    </div>
+    <ProtectedRoute>
+      <div className="relative">
+        {modalOpen && modalDatas && <ConfirmModal />}
+        {isLoading && (
+          <div className="fixed w-screen h-screen top-0 left-0 z-[12] bg-white bg-opacity-70">
+            <Spinner />
+          </div>
+        )}
+        <Header />
+        <main className="p-5 pt-12">{children}</main>
+      </div>
+    </ProtectedRoute>
   );
 }
 

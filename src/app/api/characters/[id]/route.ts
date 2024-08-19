@@ -65,10 +65,10 @@ export async function PUT(
     )
 
     return NextResponse.json({ status: 200 });
-  } catch (error) {
+  } catch (error : any) {
     console.error(error);
     return NextResponse.json(
-      { error: "Internal Server Error" },
+      { error: error.message || "Internal Server Error" },
       { status: 500 }
     );
   }
@@ -88,10 +88,10 @@ export async function DELETE(
     await Character.deleteOne({ _id: params.id });
 
     return NextResponse.json({ status: 200 });
-  } catch (error) {
+  } catch (error : any) {
     console.error(error);
     return NextResponse.json(
-      { error: "Internal Server Error" },
+      { error: error.message || "Internal Server Error" },
       { status: 500 }
     );
   }

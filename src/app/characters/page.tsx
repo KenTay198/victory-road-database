@@ -4,6 +4,10 @@ import CharacterTable from "@components/modules/characters/organisms/CharacterTa
 import { getCharacters } from "@/controllers/characters.controller";
 import { FaPlus } from "react-icons/fa";
 
+export const metadata = {
+  title: "Character list | Victory Road Database",
+};
+
 async function CharacterListPage() {
   const characters = await getCharacters();
 

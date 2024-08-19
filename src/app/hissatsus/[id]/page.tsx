@@ -3,6 +3,10 @@ import BackButton from "@atoms/BackButton";
 import HissatsuForm from "@components/modules/hissatsus/organisms/HissatsuForm";
 import React from "react";
 
+export const metadata = {
+  title: "Update hissatsu | Victory Road Database",
+};
+
 async function UpdateHissatsuPage({ params }: { params: any }) {
   const hissatsu = await getHissatsuById(params.id);
 

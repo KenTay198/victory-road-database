@@ -3,6 +3,10 @@ import BackButton from "@atoms/BackButton";
 import CharacterForm from "@components/modules/characters/organisms/CharacterForm";
 import React from "react";
 
+export const metadata = {
+  title: "Update character | Victory Road Database",
+};
+
 async function UpdateCharacterPage({ params }: { params: any }) {
   const character = await getCharacterById(params.id);
 

@@ -9,7 +9,7 @@ export const getHissatsus = async () => {
     })
       .then((response) => {
         if (!response.ok) {
-          throw new Error("Failed to add hissatsu");
+          return response.json().then(reject);
         }
 
         response.json().then(resolve).catch(reject);
@@ -25,7 +25,7 @@ export const getHissatsuById = async (id: string) => {
     })
       .then((response) => {
         if (!response.ok) {
-          throw new Error("Failed to add hissatsu");
+          return response.json().then(reject);
         }
 
         response.json().then(resolve).catch(reject);
@@ -47,7 +47,7 @@ export const postHissatsu = async (data: Partial<IHissatsu>) => {
     })
       .then((response) => {
         if (!response.ok) {
-          throw new Error("Failed to add hissatsu");
+          return response.json().then(reject);
         }
 
         revalidatePath(`/hissatsus`);

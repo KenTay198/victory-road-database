@@ -4,8 +4,13 @@ import {
   ICompleteStatistics,
   IStatistics,
 } from "@/types/character.types";
-import { advancedStatisticsLabels, statisticsLabels } from "./variables";
+import {
+  advancedStatisticsLabels,
+  passwordSpecialChars,
+  statisticsLabels,
+} from "./variables";
 import IHissatsu from "@/types/hissatsu.types";
+import { IPasswordRequirements } from "@/types/types";
 
 export const capitalize = (str: string) =>
   str.charAt(0).toUpperCase() + str.slice(1);
@@ -148,3 +153,29 @@ export const normalize = (str: string) =>
     .normalize("NFD")
     .replace(/[\u0300-\u036f]/g, "")
     .toLowerCase();
+
+export const isValidEmail = (email: string): boolean => {
+  const regex =
+    /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  return regex.test(email);
+};
+
+export const getPasswordRequirements = (
+  password: string
+): Required<IPasswordRequirements> => {
+  const requirements: IPasswordRequirements = {};
+  requirements.length = password.length >= 8;
+  requirements.upperLetter = /[A-Z]/.test(password);
+  requirements.lowerLetter = /[a-z]/.test(password);
+  requirements.number = /\d/.test(password);
+  requirements.specialChar = new RegExp(`[${passwordSpecialChars}]`).test(
+    password
+  );
+
+  return requirements as Required<IPasswordRequirements>;
+};
+
+export const isValidPassword = (password: string): boolean => {
+  const requirements = getPasswordRequirements(password);
+  return !Object.values(requirements).some((e) => !e);
+};

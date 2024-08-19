@@ -39,7 +39,7 @@ const CharacterSchema = new Schema(
     statistics: { type: StatisticsSchema, default: {} },
     hissatsus: { type: [CharacterHissatsuSchema], default: [] },
   },
-  { timestamps: true, strict: true }
+  { timestamps: true }
 );
 
 if (models.Character) delete models.Character;

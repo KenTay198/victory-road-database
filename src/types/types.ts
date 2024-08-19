@@ -17,3 +17,11 @@ export interface ISort {
   key: string;
   order: "asc" | "desc";
 }
+
+export interface IPasswordRequirements {
+  length?: boolean;
+  upperLetter?: boolean;
+  lowerLetter?: boolean;
+  number?: boolean;
+  specialChar?: boolean;
+}

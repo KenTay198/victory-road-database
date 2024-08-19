@@ -4,6 +4,10 @@ import { getHissatsus } from "@/controllers/hissatsus.controller";
 import { FaPlus } from "react-icons/fa";
 import HissatsuTable from "@components/modules/hissatsus/organisms/HissatsuTable";
 
+export const metadata = {
+  title: "Hissatsu list | Victory Road Database",
+};
+
 async function HissatsuListPage() {
   const hissatsus = await getHissatsus();
 

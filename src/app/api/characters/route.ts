@@ -31,10 +31,10 @@ export async function POST(request: Request) {
     await newCharacter.save();
 
     return NextResponse.json(newCharacter, { status: 201 });
-  } catch (error) {
+  } catch (error : any) {
     console.error(error);
     return NextResponse.json(
-      { error: "Internal Server Error" },
+      { error: error.message || "Internal Server Error" },
       { status: 500 }
     );
   }
@@ -47,10 +47,10 @@ export async function GET() {
       .populate("hissatsus.hissatsuId")
       .lean();
     return NextResponse.json(characters);
-  } catch (error) {
+  } catch (error : any) {
     console.error(error);
     return NextResponse.json(
-      { error: "Internal Server Error" },
+      { error: error.message || "Internal Server Error" },
       { status: 500 }
     );
   }

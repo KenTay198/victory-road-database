@@ -9,7 +9,7 @@ export const getCharacters = async () => {
     })
       .then((response) => {
         if (!response.ok) {
-          throw new Error("Failed to add character");
+          return response.json().then(reject);
         }
 
         response.json().then(resolve).catch(reject);
@@ -25,7 +25,7 @@ export const getCharacterById = async (id: string) => {
     })
       .then((response) => {
         if (!response.ok) {
-          throw new Error("Failed to get character by id");
+          return response.json().then(reject);
         }
 
         response.json().then(resolve).catch(reject);
@@ -47,7 +47,7 @@ export const postCharacter = async (data: IPostCharacter) => {
     })
       .then((response) => {
         if (!response.ok) {
-          throw new Error("Failed to add character");
+          return response.json().then(reject);
         }
 
         revalidatePath(`/characters`);
@@ -69,7 +69,7 @@ export const putCharacter = async (id: string, data: IPostCharacter) => {
     })
       .then((response) => {
         if (!response.ok) {
-          throw new Error("Failed to update character");
+          return response.json().then(reject);
         }
         revalidatePath(`/characters`);
         revalidatePath(`/characters/${id}`);
@@ -86,7 +86,7 @@ export const deleteCharacter = async (id: string) => {
     })
       .then((response) => {
         if (!response.ok) {
-          throw new Error("Failed to delete character");
+          return response.json().then(reject);
         }
         revalidatePath(`/characters`);
         revalidatePath(`/characters/${id}`);
