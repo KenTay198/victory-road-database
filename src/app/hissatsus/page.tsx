@@ -16,7 +16,7 @@ async function HissatsuListPage() {
       <h1>Hissatsu list</h1>
       <Button
         color="blue"
-        href="/characters/add"
+        href="/hissatsus/add"
         icon={FaPlus}
         className="mb-2"
       >

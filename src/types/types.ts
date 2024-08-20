@@ -25,3 +25,8 @@ export interface IPasswordRequirements {
   number?: boolean;
   specialChar?: boolean;
 }
+
+export interface IOption {
+  value: string;
+  label: string;
+}

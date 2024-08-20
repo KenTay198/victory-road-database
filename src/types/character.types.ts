@@ -54,4 +54,5 @@ export interface ICharacter extends IDocument {
 export interface ICompleteCharacter extends ICharacter {
   statistics: ICompleteStatistics;
   archetypes: Archetype[];
+  name: string;
 }

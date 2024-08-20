@@ -136,7 +136,7 @@ export const putRoster = async (id: string, data: Partial<IPostRoster>) => {
 };
 
 export const deleteRoster = async (id: string) => {
-  return new Promise<IRoster>((resolve, reject) => {
+  return new Promise<void>((resolve, reject) => {
     fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/rosters/${id}`, {
       method: "DELETE",
     })
@@ -149,7 +149,7 @@ export const deleteRoster = async (id: string) => {
         revalidateTag("/rosters");
         if (data.owner) revalidateTag(`/rosters/user/${data.owner}`);
         revalidateTag(`/rosters/${id}`);
-        resolve(data);
+        resolve();
       })
       .catch(reject);
   });

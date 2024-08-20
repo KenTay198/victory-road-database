@@ -5,10 +5,28 @@ import HeaderCell from "./HeaderCell";
 
 export interface IHeaderColumn {
   key: string;
+  type: "string" | "number" | "date" | "array";
+  parent?: {
+    key: string;
+    index?: number;
+  };
+  tab?: string;
+  displayFunction?: (data: any) => string | React.ReactNode;
+  arrayOptions?: {
+    type?: "length" | "join";
+    labelKey?: string;
+    arrayIndex?: number;
+  };
+  imageObject?: {
+    object: Record<string, any>;
+    key: string;
+  };
   className?: string;
   label?: string;
   baseOrder?: "asc" | "desc";
   width?: number;
+  averageLabel?: boolean;
+  withAverage?: boolean;
   noSorted?: boolean;
 }
 
@@ -39,7 +57,7 @@ function TableHeader({ sort, handleChangeSortKey, columns }: IProps) {
     <thead>
       <tr className="border-b-2 border-gray-300">
         {displayColumns()}
-        <HeaderCell label="Functions" className="rounded-tr-[9px]" />
+        <HeaderCell label="Functions" className="rounded-tr-[9px]" width={150} />
       </tr>
     </thead>
   );

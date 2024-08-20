@@ -26,7 +26,7 @@ function LinkButton({
   ...props
 }: IProps & Omit<ILinkProps, "href"> & { href: string }) {
   return (
-    <Link href={href} target={target}>
+    <Link href={href} target={target} className="flex w-fit">
       <InnerButton {...props} />
     </Link>
   );

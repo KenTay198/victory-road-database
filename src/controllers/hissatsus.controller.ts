@@ -84,7 +84,7 @@ export const putHissatsu = async (id: string, data: Partial<IHissatsu>) => {
 };
 
 export const deleteHissatsu = async (id: string) => {
-  return new Promise<IHissatsu>((resolve, reject) => {
+  return new Promise<void>((resolve, reject) => {
     fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/hissatsus/${id}`, {
       method: "DELETE",
     })
@@ -96,7 +96,7 @@ export const deleteHissatsu = async (id: string) => {
 
         revalidatePath(`/hissatsus`);
         revalidatePath(`/hissatsus/${id}`);
-        resolve(data);
+        resolve();
       })
       .catch(reject);
   });

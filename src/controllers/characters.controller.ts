@@ -114,7 +114,7 @@ export const putCharacter = async (id: string, data: IPostCharacter) => {
 };
 
 export const deleteCharacter = async (id: string) => {
-  return new Promise<ICharacter>((resolve, reject) => {
+  return new Promise<void>((resolve, reject) => {
     fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/characters/${id}`, {
       method: "DELETE",
     })
@@ -126,7 +126,7 @@ export const deleteCharacter = async (id: string) => {
 
         revalidatePath(`/characters`);
         revalidatePath(`/characters/${id}`);
-        resolve(data);
+        resolve();
       })
       .catch(reject);
   });

@@ -2,6 +2,7 @@
 import {
   Archetype,
   ICharacter,
+  ICharacterHissatsu,
   ICompleteCharacter,
   ICompleteStatistics,
 } from "@/types/character.types";
@@ -15,32 +16,36 @@ import {
 import {
   advancedStatisticsLabels,
   archetypes,
+  archetypesDatas,
+  elementDatas,
   elements,
+  hissatsuTypeDatas,
   positions,
   statisticsLabels,
 } from "@utils/variables";
 import React, { useEffect, useState } from "react";
-import CharacterTableFilters, {
-  ICharacterFilters,
-} from "../molecules/CharacterTableFilters";
-import CharacterTableRow from "../molecules/CharacterTableRow";
-import { ISort } from "@/types/types";
-import TableHeader, { IHeaderColumn } from "@molecules/TableHeader/TableHeader";
-import CharacterAveragesRow from "../molecules/CharacterAveragesRow";
+import Table from "@organisms/Table/Table";
+import { deleteCharacter } from "@/controllers/characters.controller";
+import Link from "next/link";
+import { IHeaderColumn } from "@organisms/Table/TableHeader/TableHeader";
+
+export interface ICharacterFilters {
+  info: "basic" | "advanced" | "hissatsus";
+  positions: string[];
+  elements: string[];
+  archetypes: string[];
+  query: string;
+}
 
 interface IProps extends React.HTMLAttributes<HTMLDivElement> {
   characters: ICharacter[];
 }
 
-function CharacterTable({ characters, className, ...props }: IProps) {
+function CharacterTable({ characters, ...props }: IProps) {
   const [completeCharacters, setCompleteCharacters] = useState<
     ICompleteCharacter[]
   >([]);
-  const [sort, setSort] = useState<ISort>({
-    key: "total",
-    order: "desc",
-  });
-  const [averages, setAverages] = useState<ICompleteStatistics>({
+  const [averages, setAverages] = useState<Record<string, number>>({
     kick: 0,
     control: 0,
     pressure: 0,
@@ -59,92 +64,16 @@ function CharacterTable({ characters, className, ...props }: IProps) {
     "scramble-def": 0,
     gk: 0,
   });
-  const [filteredCharacters, setFilteredCharacters] = useState<
-    ICompleteCharacter[]
-  >([]);
-  const [filters, setFilters] = useState<ICharacterFilters>({
-    info: "basic",
-    positions: positions,
-    elements: elements.filter((e) => e !== "void"),
-    archetypes: archetypes,
-    query: "",
-  });
-
-  const handleChangeSortKey = (key: string, order?: "asc" | "desc") => {
-    if (key === sort.key)
-      return setSort((old) => ({
-        ...old,
-        order: order || old.order === "asc" ? "desc" : "asc",
-      }));
-
-    return setSort({ key, order: order || "desc" });
-  };
-
-  useEffect(() => {
-    const { key, order } = sort;
-
-    const chars = Array.from(completeCharacters);
-
-    const { elements, positions, query } = filters;
-    setFilteredCharacters(() =>
-      chars
-        .filter(
-          ({ defaultPosition, element, archetypes, firstName, lastName }) => {
-            if (query) {
-              const name = `${normalize(firstName)}${
-                lastName ? " " + normalize(lastName) : ""
-              }`;
-              if (!name.includes(normalize(query))) return false;
-            }
-            if (
-              !filters.archetypes.some((e) =>
-                archetypes.includes(e as Archetype)
-              )
-            )
-              return false;
-            if (!elements.includes(element)) return false;
-            if (!positions.includes(defaultPosition)) return false;
-            return true;
-          }
-        )
-        .sort((a, b) => {
-          switch (key) {
-            case "total": {
-              const aTotal = getTotalStats(a.statistics);
-              const bTotal = getTotalStats(b.statistics);
-
-              if (order === "desc") return bTotal - aTotal;
-              return aTotal - bTotal;
-            }
-
-            case "elements":
-              if (order === "desc") return b.element.localeCompare(a.element);
-              return a.element.localeCompare(b.element);
-
-            default: {
-              if (
-                statisticsLabels.includes(key) ||
-                advancedStatisticsLabels.includes(key)
-              ) {
-                const aValue: number = a.statistics[key as keyof object];
-                const bValue: number = b.statistics[key as keyof object];
-                if (order === "desc") return bValue - aValue;
-                return aValue - bValue;
-              }
-
-              if (order === "desc")
-                return b.firstName.localeCompare(a.firstName);
-              return a.firstName.localeCompare(b.firstName);
-            }
-          }
-        })
-    );
-  }, [sort, completeCharacters, filters]);
 
   useEffect(() => {
     const completeCharacters: ICompleteCharacter[] = characters.map((c) => {
       const statistics = getAdvancedStats(c.statistics);
-      return { ...c, statistics, archetypes: [] };
+      return {
+        ...c,
+        name: `${c.firstName}${c.lastName ? " " + c.lastName : ""}`,
+        statistics,
+        archetypes: [],
+      };
     });
 
     const averages: Partial<ICompleteStatistics> = {};
@@ -160,7 +89,7 @@ function CharacterTable({ characters, className, ...props }: IProps) {
 
     averages.total = getTotalStats(averages as ICompleteStatistics);
 
-    setAverages(averages as ICompleteStatistics);
+    setAverages(averages);
 
     const archetypeCharacters = completeCharacters.map((c) => {
       const archetypes = getArchetypes(
@@ -181,86 +110,180 @@ function CharacterTable({ characters, className, ...props }: IProps) {
         width: 150,
         baseOrder: "asc",
         className: "rounded-tl-[9px]",
+        type: "string",
+        averageLabel: true,
       },
-      { key: "elements" },
-      { key: "archetypes", noSorted: true },
+      {
+        key: "element",
+        type: "string",
+        imageObject: { key: "image", object: elementDatas },
+      },
+      {
+        key: "archetypes",
+        type: "array",
+        noSorted: true,
+        displayFunction: (archetypes: Archetype[]) => {
+          return (
+            <div title={archetypes.join("/")}>
+              {archetypes.map((e) => archetypesDatas[e].label).join("/")}
+            </div>
+          );
+        },
+      },
     ];
 
-    switch (filters.info) {
-      case "basic":
-        columns.push(...[...statisticsLabels, "total"].map((key) => ({ key })));
-        break;
-      case "advanced":
-        columns.push(
-          ...advancedStatisticsLabels.map((key) => {
-            const parts = key.split("-");
-            const label =
-              parts.length > 1
-                ? `${capitalize(parts[0])} ${parts[1].toUpperCase()}`
-                : parts[0].toUpperCase();
-            return { key, label };
-          })
-        );
-        break;
-      case "hissatsus":
-        columns.push(
-          ...[...Array(2)].map(
-            (_e, i) =>
-              ({
-                key: `hissatsu-${i + 1}`,
-                label: `Hissatsu ${i + 1}`,
-                noSorted: true,
-              } as IHeaderColumn)
-          )
-        );
-        break;
+    columns.push(
+      ...[...statisticsLabels, "total"].map(
+        (key) =>
+          ({
+            key,
+            type: "number",
+            parent: { key: "statistics" },
+            tab: "basic",
+            withAverage: true,
+          } as IHeaderColumn)
+      )
+    );
 
-      default:
-        break;
-    }
+    columns.push(
+      ...advancedStatisticsLabels.map((key) => {
+        const parts = key.split("-");
+        const label =
+          parts.length > 1
+            ? `${capitalize(parts[0])} ${parts[1].toUpperCase()}`
+            : parts[0].toUpperCase();
+        return {
+          key,
+          label,
+          type: "number",
+          parent: { key: "statistics" },
+          tab: "advanced",
+          withAverage: true,
+        } as IHeaderColumn;
+      })
+    );
+
+    columns.push(
+      ...[...Array(2)].map(
+        (_e, i) =>
+          ({
+            key: `hissatsu-${i + 1}`,
+            label: `Hissatsu ${i + 1}`,
+            noSorted: true,
+            type: "string",
+            tab: "hissatsus",
+            parent: { key: "hissatsus", index: i },
+            displayFunction: ({
+              hissatsuId,
+              learnLevel,
+            }: ICharacterHissatsu) => {
+              const data =
+                typeof hissatsuId === "object" ? hissatsuId : undefined;
+              const label = data
+                ? `${hissatsuTypeDatas[data.type].label} - ${
+                    data.name
+                  } (lvl. ${learnLevel})`
+                : "Inconnu";
+              const element =
+                elementDatas[(data?.element || "") as keyof object];
+              const href = `https://inazuma-eleven.fandom.com/fr/wiki/${
+                data?.name.replace(" ", "_") || ""
+              }`;
+
+              return (
+                <Link
+                  style={{
+                    color: element?.color,
+                  }}
+                  href={href}
+                  target="_blank"
+                  className="font-semibold"
+                >
+                  {label}
+                </Link>
+              );
+            },
+          } as IHeaderColumn)
+      )
+    );
 
     return columns;
   };
 
+  const filter = (datas: ICompleteCharacter[], filters: ICharacterFilters) => {
+    const { elements, query } = filters;
+    return datas.filter(
+      ({ defaultPosition, element, archetypes, firstName, lastName }) => {
+        if (query) {
+          const name = `${normalize(firstName)}${
+            lastName ? " " + normalize(lastName) : ""
+          }`;
+          if (!name.includes(normalize(query))) return false;
+        }
+        if (
+          filters.archetypes &&
+          !filters.archetypes.some((e) => archetypes.includes(e as Archetype))
+        )
+          return false;
+        if (elements && !elements.includes(element)) return false;
+        if (positions && !positions.includes(defaultPosition)) return false;
+        return true;
+      }
+    );
+  };
+
   return (
-    <>
-      <CharacterTableFilters filters={filters} handleChange={setFilters} />
-      <div
-        {...props}
-        className={[
-          "relative rounded-lg w-fit shadow",
-          "after:border-2 after:rounded-lg after:pointer-events-none after:border-gray-300 after:absolute after:top-0 after:left-0 after:w-full after:h-full",
-          className,
-        ].join(" ")}
-      >
-        <table className="text-center">
-          <TableHeader
-            sort={sort}
-            handleChangeSortKey={handleChangeSortKey}
-            columns={getColumns()}
-          />
-          <tbody>
-            <CharacterAveragesRow averages={averages} info={filters.info} />
-            {filteredCharacters.length > 0 ? (
-              filteredCharacters.map((character) => {
-                return (
-                  <CharacterTableRow
-                    key={`character-${character._id}`}
-                    character={character}
-                    averages={averages}
-                    info={filters.info}
-                  />
-                );
-              })
-            ) : (
-              <tr>
-                <td colSpan={100}>No characters</td>
-              </tr>
-            )}
-          </tbody>
-        </table>
-      </div>
-    </>
+    <Table
+      {...props}
+      defaultSort={{ key: "name", order: "asc" }}
+      datas={completeCharacters}
+      columns={getColumns()}
+      filterFunction={filter}
+      baseUrl="/characters"
+      nameSlug="name"
+      deleteFunction={deleteCharacter}
+      itemName="character"
+      defaultTab="basic"
+      averages={averages}
+      tabs={[
+        {
+          value: "basic",
+          label: "Basic stats",
+        },
+        {
+          value: "advanced",
+          label: "Advanced stats",
+        },
+        {
+          value: "hissatsus",
+          label: "Hissatsus",
+        },
+      ]}
+      filters={[
+        {
+          key: "positions",
+          type: "checkbox",
+          options: positions.map((p) => ({
+            value: p,
+            label: capitalize(p),
+          })),
+        },
+        {
+          key: "element",
+          type: "checkbox",
+          options: elements
+            .filter((e) => e !== "void")
+            .map((p) => ({ value: p, label: capitalize(p) })),
+        },
+        {
+          key: "archetypes",
+          type: "checkbox",
+          options: archetypes
+            .filter((e) => e !== "void")
+            .map((p) => ({ value: p, label: capitalize(p) })),
+        },
+      ]}
+    />
   );
 }
 
