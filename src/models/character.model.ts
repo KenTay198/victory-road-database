@@ -38,6 +38,7 @@ const CharacterSchema = new Schema(
     defaultPosition: { type: String, enum: positions, required: true },
     statistics: { type: StatisticsSchema, default: {} },
     hissatsus: { type: [CharacterHissatsuSchema], default: [] },
+    imageUrl: { type: String },
   },
   { timestamps: true }
 );

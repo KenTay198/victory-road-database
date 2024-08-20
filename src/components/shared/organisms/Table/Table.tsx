@@ -8,20 +8,26 @@ import TableHeader, {
 } from "@organisms/Table/TableHeader/TableHeader";
 import React, { useEffect, useMemo, useState } from "react";
 import { FaEye, FaTrash } from "react-icons/fa";
-import { GrUpdate } from "react-icons/gr";
 import { toast } from "sonner";
 import TableFilters, { IFilter } from "./TableHeader/TableFilters";
 import Image from "next/image";
 import AveragesRow from "./TableHeader/AveragesRow";
+import { GrUpdate } from "react-icons/gr";
+import CheckboxInput from "@atoms/Inputs/CheckboxInput";
+import FunctionBar, { IBarFunction } from "./TableHeader/FunctionBar";
 
 interface IProps extends React.HTMLAttributes<HTMLDivElement> {
   defaultSort: ISort;
   columns: IHeaderColumn[];
   datas: IDocument[];
-  filterFunction: (datas: any[], filters: any) => any[];
   baseUrl: string;
   nameSlug: string;
-  deleteFunction: (id: string) => Promise<void>;
+  functions: {
+    filter: (datas: any[], filters: any) => any[];
+    deleteOne: (id: string) => Promise<void>;
+    deleteMultiple: (ids: string[]) => Promise<void>;
+    others?: IBarFunction[];
+  };
   tabs?: IOption[];
   defaultTab?: string;
   filters?: IFilter[];
@@ -30,12 +36,10 @@ interface IProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 function Table({
-  filterFunction,
   columns,
   datas,
   defaultSort,
   className,
-  deleteFunction,
   baseUrl,
   itemName,
   nameSlug,
@@ -43,6 +47,7 @@ function Table({
   tabs,
   defaultTab,
   averages,
+  functions,
   ...props
 }: IProps) {
   const { showConfirm } = useConfirmModalState();
@@ -52,6 +57,12 @@ function Table({
   const [filtersValue, setFiltersValue] = useState<Record<string, any>>({});
   const [query, setQuery] = useState("");
   const [selectedTab, setSelectedTab] = useState(defaultTab || "");
+  const [itemsSelected, setItemsSelected] = useState<string[]>([]);
+  const allSelected = useMemo(
+    () => filteredDatas.every(({ _id }) => itemsSelected.includes(_id)),
+    [filteredDatas, itemsSelected]
+  );
+  const oneSelected = useMemo(() => itemsSelected.length > 0, [itemsSelected]);
   const tabColumns = useMemo(
     () => columns.filter(({ tab }) => !tab || tab === selectedTab),
     [columns, selectedTab]
@@ -74,11 +85,32 @@ function Table({
       async () => {
         setIsLoading(true);
         try {
-          await deleteFunction(id);
+          await functions.deleteOne(id);
           toast.success(`The ${itemName} "${name}" has been deleted`);
         } catch (error) {
           console.log(error);
           toast.error(`An error has occured while deleting the ${itemName}`);
+        }
+        setIsLoading(false);
+      },
+      { width: 600 }
+    );
+  };
+
+  const handleDeleteMultiple = (ids: string[]) => {
+    const nb = ids.length;
+    const name = `${itemName}${nb > 1 ? "s" : ""}`;
+    showConfirm(
+      "Delete a " + itemName,
+      `Do you really want to delete ${nb} ${name} ?`,
+      async () => {
+        setIsLoading(true);
+        try {
+          await functions.deleteMultiple(ids);
+          toast.success(`${nb} ${name} has been deleted`);
+        } catch (error) {
+          console.log(error);
+          toast.error(`An error has occured while deleting the ${name}`);
         }
         setIsLoading(false);
       },
@@ -93,8 +125,9 @@ function Table({
 
     setFilteredDatas((old) => {
       if (!column) return old;
-      return filterFunction(arrayData, { ...filtersValue, query }).sort(
-        (a, b) => {
+      return functions
+        .filter(arrayData, { ...filtersValue, query })
+        .sort((a, b) => {
           const { parent, type } = column;
           const aObject = parent?.key ? a[parent.key] : a;
           const bObject = parent?.key ? b[parent.key] : b;
@@ -118,8 +151,7 @@ function Table({
                 return (bValue as string).localeCompare(aValue as string);
               return (aValue as string).localeCompare(bValue as string);
           }
-        }
-      );
+        });
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sort, datas, filtersValue, query]);
@@ -197,77 +229,123 @@ function Table({
       <div
         {...props}
         className={[
-          "relative rounded-lg w-fit shadow",
-          "after:border-2 after:rounded-lg after:pointer-events-none after:border-gray-300 after:absolute after:top-0 after:left-0 after:w-full after:h-full",
+          "relative w-fit max-w-full h-full max-h-[500px] rounded-[9px] overflow-auto shadow-lg",
           className,
-        ].join(" ")}
+        ].join("")}
       >
-        <table className="text-center">
-          <TableHeader
-            sort={sort}
-            handleChangeSortKey={handleChangeSortKey}
-            columns={tabColumns}
-          />
-          <tbody>
-            {tabColumns.some(({ withAverage }) => withAverage) && averages && (
-              <AveragesRow averages={averages} columns={tabColumns} />
-            )}
-            {filteredDatas.length > 0 ? (
-              filteredDatas.map(({ _id, ...element }) => {
-                const baseKey = `roster-${_id}`;
-                return (
-                  <tr key={baseKey}>
-                    {tabColumns.map((column) => {
-                      const { key, parent } = column;
-                      const elementObject = parent?.key
-                        ? element[parent.key as keyof object]
-                        : element;
-
-                      const value =
-                        elementObject[
-                          (parent?.index !== undefined
-                            ? parent.index
-                            : key) as keyof object
-                        ];
-                      return (
-                        <td key={`${baseKey}-${key}`} className="px-2 py-2">
-                          {displayCellValue(value, column)}
-                        </td>
-                      );
-                    })}
-                    <td>
-                      <div className="px-1 flex gap-1 justify-center items-center">
-                        <Button
-                          color="blue"
-                          href={`${baseUrl}/${_id}`}
-                          icon={FaEye}
-                          title="View"
-                        >
-                          <span className="hidden">View</span>
-                        </Button>
-                        <Button
-                          color="blue"
-                          icon={FaTrash}
-                          onClick={() =>
-                            handleDelete(_id, element[nameSlug as keyof object])
-                          }
-                          title="Delete"
-                        >
-                          <span className="hidden">Delete</span>
-                        </Button>
-                      </div>
-                    </td>
-                  </tr>
-                );
-              })
-            ) : (
-              <tr>
-                <td colSpan={100}>No {itemName ? itemName + "s" : "datas"}</td>
-              </tr>
-            )}
-          </tbody>
-        </table>
+        <div className="relative rounded-lg w-fit h-full">
+          <table className="text-center">
+            <TableHeader
+              sort={sort}
+              handleChangeSortKey={handleChangeSortKey}
+              columns={tabColumns}
+              allSelected={allSelected}
+              handleChangeSelectAll={(val) =>
+                setItemsSelected(val ? filteredDatas.map(({ _id }) => _id) : [])
+              }
+            />
+            <tbody>
+              {tabColumns.some(({ withAverage }) => withAverage) &&
+                averages && (
+                  <AveragesRow averages={averages} columns={tabColumns} />
+                )}
+              {filteredDatas.length > 0 ? (
+                filteredDatas.map(({ _id, ...element }) => {
+                  const baseKey = `${itemName || "data"}-${_id}`;
+                  const selected = itemsSelected.includes(_id);
+                  const toggleSelected = (val: boolean) =>
+                    setItemsSelected(
+                      val
+                        ? [...itemsSelected, _id]
+                        : itemsSelected.filter((e) => e !== _id)
+                    );
+                  return (
+                    <tr
+                      key={baseKey}
+                      className="relative z-0 bg-white duration-200 cursor-pointer hover:brightness-95"
+                      onClick={() => toggleSelected(!selected)}
+                    >
+                      <th className="px-2">
+                        <CheckboxInput
+                          id={`${baseKey}-select-checkbox`}
+                          checked={selected}
+                          handleChange={toggleSelected}
+                        />
+                      </th>
+                      {tabColumns.map((column) => {
+                        const { key, parent } = column;
+                        const elementObject = parent?.key
+                          ? element[parent.key as keyof object]
+                          : element;
+                        const value =
+                          elementObject[
+                            (parent?.index !== undefined
+                              ? parent.index
+                              : key) as keyof object
+                          ];
+                        return (
+                          <td key={`${baseKey}-${key}`} className="px-2 py-2">
+                            {displayCellValue(value, column)}
+                          </td>
+                        );
+                      })}
+                      <td>
+                        <div className="px-1 flex gap-1 justify-center items-center">
+                          <Button
+                            color="blue"
+                            href={`${baseUrl}/${_id}`}
+                            icon={FaEye}
+                            onClick={(e) => e.stopPropagation()}
+                            title="View"
+                          >
+                            <span className="hidden">View</span>
+                          </Button>
+                          <Button
+                            color="blue"
+                            href={`${baseUrl}/update/${_id}`}
+                            icon={GrUpdate}
+                            onClick={(e) => e.stopPropagation()}
+                            title="Update"
+                          >
+                            <span className="hidden">Update</span>
+                          </Button>
+                          <Button
+                            color="blue"
+                            icon={FaTrash}
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              handleDelete(
+                                _id,
+                                element[nameSlug as keyof object]
+                              );
+                            }}
+                            title="Delete"
+                          >
+                            <span className="hidden">Delete</span>
+                          </Button>
+                        </div>
+                      </td>
+                    </tr>
+                  );
+                })
+              ) : (
+                <tr>
+                  <td colSpan={100}>
+                    No {itemName ? itemName + "s" : "datas"}
+                  </td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        </div>
       </div>
+      {oneSelected && (
+        <FunctionBar
+          ids={itemsSelected}
+          deleteMultiple={() => handleDeleteMultiple(itemsSelected)}
+          otherFunctions={functions.others}
+        />
+      )}
     </>
   );
 }

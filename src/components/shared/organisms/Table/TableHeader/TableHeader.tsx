@@ -2,6 +2,7 @@ import { ISort } from "@/types/types";
 import { capitalize } from "@utils/functions";
 import React from "react";
 import HeaderCell from "./HeaderCell";
+import CheckboxInput from "@atoms/Inputs/CheckboxInput";
 
 export interface IHeaderColumn {
   key: string;
@@ -34,9 +35,17 @@ interface IProps {
   sort: ISort;
   handleChangeSortKey: (key: string, order?: "asc" | "desc") => void;
   columns: IHeaderColumn[];
+  allSelected: boolean;
+  handleChangeSelectAll: (val: boolean) => void;
 }
 
-function TableHeader({ sort, handleChangeSortKey, columns }: IProps) {
+function TableHeader({
+  sort,
+  handleChangeSortKey,
+  columns,
+  allSelected,
+  handleChangeSelectAll,
+}: IProps) {
   const displayColumns = () => (
     <>
       {columns.map(({ key, label, baseOrder, noSorted, ...rest }) => (
@@ -56,8 +65,19 @@ function TableHeader({ sort, handleChangeSortKey, columns }: IProps) {
   return (
     <thead>
       <tr className="border-b-2 border-gray-300">
+        <th className="bg-raimon-yellow px-2 sticky top-0 z-[1] rounded-tl-[9px]">
+          <CheckboxInput
+            id="select-all"
+            checked={allSelected}
+            handleChange={handleChangeSelectAll}
+          />
+        </th>
         {displayColumns()}
-        <HeaderCell label="Functions" className="rounded-tr-[9px]" width={150} />
+        <HeaderCell
+          label="Functions"
+          className="rounded-tr-[9px]"
+          width={150}
+        />
       </tr>
     </thead>
   );

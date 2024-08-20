@@ -8,6 +8,7 @@ import {
 } from "@/types/character.types";
 import {
   capitalize,
+  getAdvancedStatLabel,
   getAdvancedStats,
   getArchetypes,
   getTotalStats,
@@ -25,9 +26,13 @@ import {
 } from "@utils/variables";
 import React, { useEffect, useState } from "react";
 import Table from "@organisms/Table/Table";
-import { deleteCharacter } from "@/controllers/characters.controller";
+import {
+  deleteCharacter,
+  deleteMultipleCharacters,
+} from "@/controllers/characters.controller";
 import Link from "next/link";
 import { IHeaderColumn } from "@organisms/Table/TableHeader/TableHeader";
+import CompareCharacters from "../molecules/CompareCharacters";
 
 export interface ICharacterFilters {
   info: "basic" | "advanced" | "hissatsus";
@@ -64,6 +69,9 @@ function CharacterTable({ characters, ...props }: IProps) {
     "scramble-def": 0,
     gk: 0,
   });
+  const [compareCharacters, setCompareCharacters] = useState<
+    ICompleteCharacter[]
+  >([]);
 
   useEffect(() => {
     const completeCharacters: ICompleteCharacter[] = characters.map((c) => {
@@ -109,7 +117,6 @@ function CharacterTable({ characters, ...props }: IProps) {
         key: "name",
         width: 150,
         baseOrder: "asc",
-        className: "rounded-tl-[9px]",
         type: "string",
         averageLabel: true,
       },
@@ -147,11 +154,7 @@ function CharacterTable({ characters, ...props }: IProps) {
 
     columns.push(
       ...advancedStatisticsLabels.map((key) => {
-        const parts = key.split("-");
-        const label =
-          parts.length > 1
-            ? `${capitalize(parts[0])} ${parts[1].toUpperCase()}`
-            : parts[0].toUpperCase();
+        const label = getAdvancedStatLabel(key);
         return {
           key,
           label,
@@ -233,57 +236,79 @@ function CharacterTable({ characters, ...props }: IProps) {
   };
 
   return (
-    <Table
-      {...props}
-      defaultSort={{ key: "name", order: "asc" }}
-      datas={completeCharacters}
-      columns={getColumns()}
-      filterFunction={filter}
-      baseUrl="/characters"
-      nameSlug="name"
-      deleteFunction={deleteCharacter}
-      itemName="character"
-      defaultTab="basic"
-      averages={averages}
-      tabs={[
-        {
-          value: "basic",
-          label: "Basic stats",
-        },
-        {
-          value: "advanced",
-          label: "Advanced stats",
-        },
-        {
-          value: "hissatsus",
-          label: "Hissatsus",
-        },
-      ]}
-      filters={[
-        {
-          key: "positions",
-          type: "checkbox",
-          options: positions.map((p) => ({
-            value: p,
-            label: capitalize(p),
-          })),
-        },
-        {
-          key: "element",
-          type: "checkbox",
-          options: elements
-            .filter((e) => e !== "void")
-            .map((p) => ({ value: p, label: capitalize(p) })),
-        },
-        {
-          key: "archetypes",
-          type: "checkbox",
-          options: archetypes
-            .filter((e) => e !== "void")
-            .map((p) => ({ value: p, label: capitalize(p) })),
-        },
-      ]}
-    />
+    <>
+      <Table
+        {...props}
+        defaultSort={{ key: "name", order: "asc" }}
+        datas={completeCharacters}
+        columns={getColumns()}
+        functions={{
+          filter,
+          deleteOne: deleteCharacter,
+          deleteMultiple: deleteMultipleCharacters,
+          others: [
+            {
+              label: "Compare characters",
+              action: (ids: string[]) => {
+                setCompareCharacters(
+                  completeCharacters.filter(({ _id }) => ids.includes(_id))
+                );
+              },
+            },
+          ],
+        }}
+        baseUrl="/characters"
+        nameSlug="name"
+        itemName="character"
+        defaultTab="basic"
+        averages={averages}
+        tabs={[
+          {
+            value: "basic",
+            label: "Basic stats",
+          },
+          {
+            value: "advanced",
+            label: "Advanced stats",
+          },
+          {
+            value: "hissatsus",
+            label: "Hissatsus",
+          },
+        ]}
+        filters={[
+          {
+            key: "positions",
+            type: "checkbox",
+            options: positions.map((p) => ({
+              value: p,
+              label: capitalize(p),
+            })),
+          },
+          {
+            key: "element",
+            type: "checkbox",
+            options: elements
+              .filter((e) => e !== "void")
+              .map((p) => ({ value: p, label: capitalize(p) })),
+          },
+          {
+            key: "archetypes",
+            type: "checkbox",
+            options: archetypes
+              .filter((e) => e !== "void")
+              .map((p) => ({ value: p, label: capitalize(p) })),
+          },
+        ]}
+      />
+
+      {compareCharacters.length > 0 && (
+        <CompareCharacters
+          characters={compareCharacters}
+          close={() => setCompareCharacters([])}
+        />
+      )}
+    </>
   );
 }
 

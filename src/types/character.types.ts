@@ -49,6 +49,7 @@ export interface ICharacter extends IDocument {
   hissatsus: ICharacterHissatsu[];
   element: Element;
   defaultPosition: Position;
+  imageUrl?: string;
 }
 
 export interface ICompleteCharacter extends ICharacter {

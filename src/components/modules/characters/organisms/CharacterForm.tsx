@@ -5,7 +5,7 @@ import {
   IStatistics,
 } from "@/types/character.types";
 import TextInput from "@atoms/Inputs/TextInput";
-import { capitalize } from "@utils/functions";
+import { capitalize, isValidUrl } from "@utils/functions";
 import React, { useEffect, useState } from "react";
 import CharacterHissatsuForm, {
   FormHissatsu,
@@ -23,10 +23,12 @@ import { useRouter } from "next/navigation";
 import { elements, positions, statisticsLabels } from "@utils/variables";
 import SelectInput from "@atoms/Inputs/SelectInput";
 import NumberInput from "@atoms/Inputs/NumberInput";
+import Image from "next/image";
 
 interface IFormData {
   firstName: string;
   lastName?: string;
+  imageUrl?: string;
   statistics: Partial<IStatistics>;
   hissatsus: FormHissatsu[];
   element: string;
@@ -60,6 +62,7 @@ function CharacterForm({ character }: { character?: ICharacter }) {
         statistics,
         element,
         defaultPosition,
+        imageUrl,
       } = character;
       setFormData({
         firstName,
@@ -68,14 +71,16 @@ function CharacterForm({ character }: { character?: ICharacter }) {
         statistics,
         element,
         defaultPosition,
+        imageUrl,
       });
     }
   }, [character]);
 
   const checkErrors = () => {
-    const { firstName, statistics, hissatsus } = formData;
+    const { firstName, statistics, hissatsus, imageUrl } = formData;
     const errors: string[] = [];
     if (!firstName) errors.push("firstName");
+    if (imageUrl && !isValidUrl(imageUrl)) errors.push("imageUrl");
     if (statistics) {
       for (const value of Object.values(statistics)) {
         if (value === undefined || value === null) {
@@ -166,6 +171,25 @@ function CharacterForm({ character }: { character?: ICharacter }) {
         handleChange={(lastName) => setFormData({ ...formData, lastName })}
         error={errors.includes("lastName")}
       />
+      <TextInput
+        id="imageUrl"
+        label="Image URL"
+        value={formData.imageUrl || ""}
+        labelClassName="text-lg"
+        handleChange={(imageUrl) => setFormData({ ...formData, imageUrl })}
+        error={errors.includes("imageUrl")}
+        autoComplete="off"
+      />
+      {formData.imageUrl && isValidUrl(formData.imageUrl) && (
+        <Image
+          src={formData.imageUrl}
+          alt="Input image"
+          width={0}
+          height={0}
+          sizes="100vw"
+          style={{ width: "100px", height: "auto" }}
+        />
+      )}
       <SelectInput
         label="Element"
         id={"element"}

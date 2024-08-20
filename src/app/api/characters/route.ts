@@ -15,6 +15,7 @@ export async function POST(request: Request) {
       statistics,
       defaultPosition,
       element,
+      imageUrl,
     }: ICharacter = await request.json();
 
     if (!firstName) {
@@ -28,6 +29,7 @@ export async function POST(request: Request) {
       statistics,
       defaultPosition,
       element,
+      imageUrl,
     });
     await newCharacter.save();
 
@@ -42,8 +44,7 @@ export async function POST(request: Request) {
 }
 
 export async function GET(req: NextRequest) {
-  const completeHissatsus =
-    req.nextUrl.searchParams.get("completeHissatsus");
+  const completeHissatsus = req.nextUrl.searchParams.get("completeHissatsus");
 
   try {
     await connectToDatabase();

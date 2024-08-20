@@ -2,4 +2,5 @@
 - Character comparator
 - Link on players
 - Player image
-- Visualize character
+- Visualize hissatsu
+- Visualize roster

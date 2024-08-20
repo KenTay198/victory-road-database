@@ -9,15 +9,13 @@ interface IProps {
 function AveragesRow({ averages, columns }: IProps) {
   return (
     <tr className="font-bold">
+      <th className="sticky top-12 z-[1] bg-gray-300"></th>
       {columns.map(({ key, averageLabel, withAverage }) => (
-        <th
-          key={`averages-row-${key}`}
-          className="sticky top-[96px] bg-gray-300"
-        >
+        <th key={`averages-row-${key}`} className="sticky top-12 z-[1] bg-gray-300">
           {averageLabel ? "Averages" : withAverage && averages[key]}
         </th>
       ))}
-      <th className="sticky top-[96px] bg-gray-300"></th>
+      <th className="sticky top-12 z-[1] bg-gray-300"></th>
     </tr>
   );
 }

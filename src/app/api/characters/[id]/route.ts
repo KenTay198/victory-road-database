@@ -42,11 +42,8 @@ export async function PUT(
       statistics,
       defaultPosition,
       element,
+      imageUrl,
     }: ICharacter = await request.json();
-
-    if (!firstName) {
-      return NextResponse.json({ error: "Invalid data" }, { status: 400 });
-    }
 
     await Character.updateOne(
       { _id: params.id },
@@ -58,6 +55,7 @@ export async function PUT(
           statistics,
           defaultPosition,
           element,
+          imageUrl,
         },
       }
     );
@@ -83,7 +81,13 @@ export async function DELETE(
       return NextResponse.json({ error: "Invalid ID" }, { status: 400 });
     }
 
-    await Character.deleteOne({ _id: params.id });
+    const res = await Character.deleteOne({ _id: params.id });
+
+    if (res.deletedCount === 0)
+      return NextResponse.json(
+        { error: "No character deleted" },
+        { status: 400 }
+      );
 
     return NextResponse.json({ status: 200 });
   } catch (error: any) {

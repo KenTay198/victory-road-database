@@ -32,13 +32,15 @@ function HeaderCell({
   return (
     <th
       {...props}
-      className={["bg-raimon-yellow px-2 sticky top-12", className].join(" ")}
+      className={["bg-raimon-yellow px-2 sticky top-0 z-[1]", className].join(" ")}
     >
       <div
         style={{ width: `${width || 100}px` }}
-        className={`flex items-center justify-center h-[48px] mx-auto ${state ? "cursor-pointer" : ""}`}
+        className={`flex items-center justify-center h-[48px] mx-auto ${
+          state ? "cursor-pointer" : ""
+        }`}
       >
-        <p>{label}</p>
+        <p className="sticky top-16">{label}</p>
         {SortIcon && <SortIcon />}
       </div>
     </th>

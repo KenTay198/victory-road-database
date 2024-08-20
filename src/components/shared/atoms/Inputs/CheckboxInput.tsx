@@ -3,16 +3,21 @@ import { IBaseProps } from "./types";
 
 interface IProps
   extends IBaseProps,
-    React.InputHTMLAttributes<HTMLInputElement> {
+    Omit<React.InputHTMLAttributes<HTMLInputElement>, "onChange"> {
   id: string;
-  label: string;
+  handleChange: (val: boolean) => void;
 }
 
-function CheckboxInput({ className, label, ...props }: IProps) {
+function CheckboxInput({ className, label, handleChange, ...props }: IProps) {
   return (
     <div className={["flex items-center gap-1", className].join(" ")}>
-      <input {...props} type="checkbox" checked={props.checked} />
-      <label htmlFor={props.id}>{label}</label>
+      <input
+        {...props}
+        type="checkbox"
+        checked={props.checked}
+        onChange={(e) => handleChange(e.target.checked)}
+      />
+      {label && <label htmlFor={props.id}>{label}</label>}
     </div>
   );
 }

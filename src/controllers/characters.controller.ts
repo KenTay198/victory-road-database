@@ -131,3 +131,26 @@ export const deleteCharacter = async (id: string) => {
       .catch(reject);
   });
 };
+
+export const deleteMultipleCharacters = async (ids: string[]) => {
+  return new Promise<void>((resolve, reject) => {
+    fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/characters/delete`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ ids }),
+    })
+      .then(async (response) => {
+        const data = await response.json().catch(reject);
+
+        if (!response.ok)
+          throw new Error(data.error || "An unexpected error occurred");
+
+        revalidatePath(`/characters`);
+        for (const id of ids) revalidatePath(`/characters/${id}`);
+        resolve();
+      })
+      .catch(reject);
+  });
+};
