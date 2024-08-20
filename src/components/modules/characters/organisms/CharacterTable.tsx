@@ -214,7 +214,7 @@ function CharacterTable({ characters, ...props }: IProps) {
   };
 
   const filter = (datas: ICompleteCharacter[], filters: ICharacterFilters) => {
-    const { elements, query } = filters;
+    const { elements, positions, query } = filters;
     return datas.filter(
       ({ defaultPosition, element, archetypes, firstName, lastName }) => {
         if (query) {
@@ -286,7 +286,7 @@ function CharacterTable({ characters, ...props }: IProps) {
             })),
           },
           {
-            key: "element",
+            key: "elements",
             type: "checkbox",
             options: elements
               .filter((e) => e !== "void")

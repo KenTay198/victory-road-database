@@ -154,3 +154,26 @@ export const deleteRoster = async (id: string) => {
       .catch(reject);
   });
 };
+
+export const deleteMultipleRosters = async (ids: string[]) => {
+  return new Promise<void>((resolve, reject) => {
+    fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/rosters/delete`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ ids }),
+    })
+      .then(async (response) => {
+        const data = await response.json().catch(reject);
+
+        if (!response.ok)
+          throw new Error(data.error || "An unexpected error occurred");
+
+        revalidateTag(`/rosters`);
+        for (const id of ids) revalidateTag(`/rosters/${id}`);
+        resolve();
+      })
+      .catch(reject);
+  });
+};

@@ -48,9 +48,9 @@ function TableHeader({
 }: IProps) {
   const displayColumns = () => (
     <>
-      {columns.map(({ key, label, baseOrder, noSorted, ...rest }) => (
+      {columns.map(({ key, label, baseOrder, noSorted, className }) => (
         <HeaderCell
-          {...rest}
+          className={className}
           key={`statistic-header-${key}`}
           onClick={() => {
             if (!noSorted) handleChangeSortKey(key, baseOrder);

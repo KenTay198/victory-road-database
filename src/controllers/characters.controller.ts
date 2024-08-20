@@ -4,7 +4,7 @@ import {
   ICharacterHissatsu,
   IStatistics,
 } from "@/types/character.types";
-import { revalidatePath } from "next/cache";
+import { revalidateTag } from "next/cache";
 
 interface IPostCharacter
   extends Omit<
@@ -26,6 +26,7 @@ export const getCharacters = async (query?: Partial<Record<Query, any>>) => {
       `${process.env.NEXT_PUBLIC_SITE_URL}/api/characters?${params.toString()}`,
       {
         method: "GET",
+        next: { tags: ["/characters"] },
       }
     )
       .then(async (response) => {
@@ -52,6 +53,7 @@ export const getCharacterById = async (
       }/api/characters/${id}?${params.toString()}`,
       {
         method: "GET",
+        next: { tags: ["/characters/" + id] },
       }
     )
       .then(async (response) => {
@@ -83,7 +85,7 @@ export const postCharacter = async (data: IPostCharacter) => {
         if (!response.ok)
           throw new Error(data.error || "An unexpected error occurred");
 
-        revalidatePath(`/characters`);
+        revalidateTag(`/characters`);
         resolve(data);
       })
       .catch(reject);
@@ -105,8 +107,8 @@ export const putCharacter = async (id: string, data: IPostCharacter) => {
         if (!response.ok)
           throw new Error(data.error || "An unexpected error occurred");
 
-        revalidatePath(`/characters`);
-        revalidatePath(`/characters/${id}`);
+        revalidateTag(`/characters`);
+        revalidateTag(`/characters/${id}`);
         resolve(data);
       })
       .catch(reject);
@@ -124,8 +126,8 @@ export const deleteCharacter = async (id: string) => {
         if (!response.ok)
           throw new Error(data.error || "An unexpected error occurred");
 
-        revalidatePath(`/characters`);
-        revalidatePath(`/characters/${id}`);
+        revalidateTag(`/characters`);
+        revalidateTag(`/characters/${id}`);
         resolve();
       })
       .catch(reject);
@@ -147,8 +149,8 @@ export const deleteMultipleCharacters = async (ids: string[]) => {
         if (!response.ok)
           throw new Error(data.error || "An unexpected error occurred");
 
-        revalidatePath(`/characters`);
-        for (const id of ids) revalidatePath(`/characters/${id}`);
+        revalidateTag(`/characters`);
+        for (const id of ids) revalidateTag(`/characters/${id}`);
         resolve();
       })
       .catch(reject);

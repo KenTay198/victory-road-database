@@ -40,7 +40,7 @@ function HeaderCell({
           state ? "cursor-pointer" : ""
         }`}
       >
-        <p className="sticky top-16">{label}</p>
+        <p>{label}</p>
         {SortIcon && <SortIcon />}
       </div>
     </th>

@@ -7,7 +7,10 @@ import IHissatsu, {
 import { capitalize, normalize } from "@utils/functions";
 import { elementDatas, elements } from "@utils/variables";
 import { IHeaderColumn } from "@organisms/Table/TableHeader/TableHeader";
-import { deleteHissatsu } from "@/controllers/hissatsus.controller";
+import {
+  deleteHissatsu,
+  deleteMultipleHissatsus,
+} from "@/controllers/hissatsus.controller";
 import Table from "@organisms/Table/Table";
 
 export interface IHissatsuFilters {
@@ -66,10 +69,13 @@ function HissatsuTable({ hissatsus, ...props }: IProps) {
       defaultSort={{ key: "name", order: "asc" }}
       datas={hissatsus}
       columns={getColumns()}
-      filterFunction={filter}
+      functions={{
+        filter,
+        deleteOne: deleteHissatsu,
+        deleteMultiple: deleteMultipleHissatsus,
+      }}
       baseUrl="/hissatsus"
       nameSlug="name"
-      deleteFunction={deleteHissatsu}
       itemName="hissatsu"
       filters={[
         {

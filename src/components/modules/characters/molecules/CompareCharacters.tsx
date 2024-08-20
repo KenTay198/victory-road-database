@@ -18,6 +18,7 @@ interface IData {
 }
 
 function CompareCharacters({ characters, close }: IProps) {
+  const charactersMax = 6;
   const datas: IData[] = [
     {
       categoryLabel: "Basic statistics",
@@ -46,120 +47,120 @@ function CompareCharacters({ characters, close }: IProps) {
       className="fixed w-screen h-screen top-0 left-0 bg-black bg-opacity-70 z-[11]"
       onClick={() => close()}
     >
-      <div
-        className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 px-5 bg-white w-fit p-5 rounded"
-        onClick={(e) => e.stopPropagation()}
-      >
-        <p className="text-xl text-center mb-5 font-bold">
-          Character comparison
-        </p>
-        <div className="flex gap-5 flex-wrap items-center justify-center">
-          {characters.length > 4 ? (
+      <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 px-2 w-full flex items-center justify-center">
+        <div
+          className="rounded p-5 bg-white max-w-full"
+          onClick={(e) => e.stopPropagation()}
+        >
+          <p className="text-xl text-center mb-5 font-bold">
+            Character comparison
+          </p>
+          {characters.length > charactersMax ? (
             <div>
-              You selected too many characters to compare. Please select up to 4
-              characters.
+              You selected too many characters to compare. Please select up to{" "}
+              {charactersMax} characters.
             </div>
           ) : (
-            <>
-              <table className="rounded border">
-                <thead>
-                  <tr>
-                    <th></th>
-                    {characters.map(({ _id, name, imageUrl }) => (
-                      <th
-                        key={`compare-character-${_id}`}
-                        className="px-2 border-x"
-                      >
-                        <div className="flex flex-col items-center">
-                          {imageUrl && (
-                            <Image
-                              src={imageUrl}
-                              alt={`${name} image`}
-                              width={0}
-                              height={0}
-                              sizes="100vw"
-                              style={{ width: "100px", height: "auto" }}
-                            />
-                          )}
-                          <p className="font-bold">{name}</p>
-                        </div>
-                      </th>
-                    ))}
-                  </tr>
-                </thead>
-                <tbody>
-                  {datas.map(({ categoryLabel, datas }) => {
-                    const baseKey = `compare-character-category-${categoryLabel}`;
-                    return (
-                      <React.Fragment key={baseKey}>
-                        <tr>
-                          <td
-                            colSpan={100}
-                            className="text-center bg-gray-400 font-bold"
+            <div
+              style={{ width: `${140 * (characters.length + 1)}px` }}
+              className="max-w-full overflow-auto"
+            >
+              <div className="w-fit mx-auto">
+                <table className="border">
+                  <thead>
+                    <tr className="border-b">
+                      <th></th>
+                      {characters.map(({ _id, name, imageUrl }) => (
+                        <th
+                          key={`compare-character-image-${_id}`}
+                          className="px-2 border-x"
+                        >
+                          <div
+                            style={{ width: "120px", height: "auto" }}
+                            className="flex flex-col items-center"
                           >
-                            {categoryLabel}
-                          </td>
-                        </tr>
-                        {datas.map(({ comparisonKey, values }) => {
-                          const key = `${baseKey}-row-${comparisonKey}`;
-                          const max = Math.max(
-                            ...values.map(({ value }) => value)
-                          );
-                          const min = Math.min(
-                            ...values.map(({ value }) => value)
-                          );
-                          return (
-                            <tr
-                              key={key}
-                              className="border-b last-of-type:border-0"
+                            {imageUrl && (
+                              <Image
+                                src={imageUrl}
+                                alt={`${name} image`}
+                                // layout="responsive"
+                                unoptimized
+                                width={0}
+                                height={0}
+                                // sizes="100vw"
+                                className="flex-1 h-full w-auto"
+                                // style={{ width: "auto", height: "100%" }}
+                              />
+                            )}
+                          </div>
+                        </th>
+                      ))}
+                    </tr>
+                    <tr>
+                      <th></th>
+                      {characters.map(({ _id, name }) => (
+                        <th
+                          key={`compare-character-name-${_id}`}
+                          className="px-2 border-x"
+                        >
+                          <p>{name}</p>
+                        </th>
+                      ))}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {datas.map(({ categoryLabel, datas }) => {
+                      const baseKey = `compare-character-category-${categoryLabel}`;
+                      return (
+                        <React.Fragment key={baseKey}>
+                          <tr>
+                            <td
+                              colSpan={100}
+                              className="text-center bg-gray-400 font-bold"
                             >
-                              <td className="px-2 border-r font-semibold">
-                                {comparisonKey}
-                              </td>
-                              {values.map(({ id, value }) => (
-                                <td
-                                  key={`${key}-${id}`}
-                                  className={`text-center border-r last-of-type:border-0 ${
-                                    max === value
-                                      ? "bg-green-300"
-                                      : min === value
-                                      ? "bg-red-300"
-                                      : ""
-                                  }`}
-                                >
-                                  {value}
+                              {categoryLabel}
+                            </td>
+                          </tr>
+                          {datas.map(({ comparisonKey, values }) => {
+                            const key = `${baseKey}-row-${comparisonKey}`;
+                            const max = Math.max(
+                              ...values.map(({ value }) => value)
+                            );
+                            const min = Math.min(
+                              ...values.map(({ value }) => value)
+                            );
+                            return (
+                              <tr
+                                key={key}
+                                className="border-b last-of-type:border-0"
+                              >
+                                <td className="px-2 border-r font-semibold">
+                                  {comparisonKey}
                                 </td>
-                              ))}
-                            </tr>
-                          );
-                        })}
-                      </React.Fragment>
-                    );
-                  })}
-                </tbody>
-              </table>
-              {/* {characters.map(({ _id, name, imageUrl }) => (
-                <div
-                  key={`compare-character-${_id}`}
-                  className="bg-gray-200 p-2 rounded flex flex-col gap-2 items-center"
-                >
-                  <div>
-                    {imageUrl && (
-                      <Image
-                        src={imageUrl}
-                        alt={`${name} image`}
-                        width={0}
-                        height={0}
-                        sizes="100vw"
-                        style={{ width: "100px", height: "auto" }}
-                      />
-                    )}
-                  </div>
-                  <p className="text-lg font-bold">{name}</p>
-                  <div className=""></div>
-                </div>
-              ))} */}
-            </>
+                                {values.map(({ id, value }) => (
+                                  <td
+                                    key={`${key}-${id}`}
+                                    className={`text-center border-r last-of-type:border-0 ${
+                                      max === value
+                                        ? "bg-green-300"
+                                        : min === value
+                                        ? "bg-red-300"
+                                        : ""
+                                    }`}
+                                  >
+                                    {value}
+                                  </td>
+                                ))}
+                              </tr>
+                            );
+                          })}
+                        </React.Fragment>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
+            </div>
           )}
         </div>
       </div>

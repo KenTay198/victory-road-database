@@ -1,20 +1,13 @@
 "use client";
 import { IDocument, IOption, ISort } from "@/types/types";
-import Button from "@atoms/Button";
-import { useConfirmModalState } from "@context/ConfirmModalContext";
-import { useLoadingState } from "@context/LoadingContext";
 import TableHeader, {
   IHeaderColumn,
 } from "@organisms/Table/TableHeader/TableHeader";
 import React, { useEffect, useMemo, useState } from "react";
-import { FaEye, FaTrash } from "react-icons/fa";
-import { toast } from "sonner";
 import TableFilters, { IFilter } from "./TableHeader/TableFilters";
-import Image from "next/image";
 import AveragesRow from "./TableHeader/AveragesRow";
-import { GrUpdate } from "react-icons/gr";
-import CheckboxInput from "@atoms/Inputs/CheckboxInput";
 import FunctionBar, { IBarFunction } from "./TableHeader/FunctionBar";
+import ItemRow from "./TableHeader/ItemRow";
 
 interface IProps extends React.HTMLAttributes<HTMLDivElement> {
   defaultSort: ISort;
@@ -35,6 +28,17 @@ interface IProps extends React.HTMLAttributes<HTMLDivElement> {
   averages?: Record<string, number>;
 }
 
+const getDefaultFilters = (filters?: IFilter[]): Record<string, any> =>
+  filters?.reduce((acc, filter) => {
+    if (filter.type === "checkbox") {
+      acc[filter.key] = filter.options.map((option) => option.value);
+    } else if (filter.type === "radio") {
+      acc[filter.key] =
+        filter.options.length > 0 ? filter.options[0].value : null;
+    }
+    return acc;
+  }, {} as Record<string, any>) || {};
+
 function Table({
   columns,
   datas,
@@ -50,11 +54,11 @@ function Table({
   functions,
   ...props
 }: IProps) {
-  const { showConfirm } = useConfirmModalState();
-  const { setIsLoading } = useLoadingState();
   const [sort, setSort] = useState<ISort>(defaultSort);
   const [filteredDatas, setFilteredDatas] = useState<IDocument[]>([]);
-  const [filtersValue, setFiltersValue] = useState<Record<string, any>>({});
+  const [filtersValue, setFiltersValue] = useState<Record<string, any>>(
+    getDefaultFilters(filters)
+  );
   const [query, setQuery] = useState("");
   const [selectedTab, setSelectedTab] = useState(defaultTab || "");
   const [itemsSelected, setItemsSelected] = useState<string[]>([]);
@@ -72,50 +76,10 @@ function Table({
     if (key === sort.key)
       return setSort((old) => ({
         ...old,
-        order: order || old.order === "asc" ? "desc" : "asc",
+        order: old.order === "asc" ? "desc" : "asc",
       }));
 
     return setSort({ key, order: order || "desc" });
-  };
-
-  const handleDelete = (id: string, name: string) => {
-    showConfirm(
-      "Delete a " + itemName,
-      `Do you really want to delete "${name}" ?`,
-      async () => {
-        setIsLoading(true);
-        try {
-          await functions.deleteOne(id);
-          toast.success(`The ${itemName} "${name}" has been deleted`);
-        } catch (error) {
-          console.log(error);
-          toast.error(`An error has occured while deleting the ${itemName}`);
-        }
-        setIsLoading(false);
-      },
-      { width: 600 }
-    );
-  };
-
-  const handleDeleteMultiple = (ids: string[]) => {
-    const nb = ids.length;
-    const name = `${itemName}${nb > 1 ? "s" : ""}`;
-    showConfirm(
-      "Delete a " + itemName,
-      `Do you really want to delete ${nb} ${name} ?`,
-      async () => {
-        setIsLoading(true);
-        try {
-          await functions.deleteMultiple(ids);
-          toast.success(`${nb} ${name} has been deleted`);
-        } catch (error) {
-          console.log(error);
-          toast.error(`An error has occured while deleting the ${name}`);
-        }
-        setIsLoading(false);
-      },
-      { width: 600 }
-    );
   };
 
   useEffect(() => {
@@ -156,64 +120,8 @@ function Table({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sort, datas, filtersValue, query]);
 
-  const compareStatAverage = (key: string, value: number) => {
-    const average = averages?.[key] || 0;
-    if (value === 0 || value < average) return "below";
-    if (value === average) return "equal";
-    return "above";
-  };
-
-  const displayCellValue = (
-    value: any,
-    { key, type, imageObject, arrayOptions, displayFunction }: IHeaderColumn
-  ): string | React.ReactNode => {
-    if (displayFunction) return displayFunction(value);
-    switch (type) {
-      case "date":
-        return new Date(value).toLocaleDateString();
-      case "array":
-        if (arrayOptions?.type && arrayOptions.type === "length")
-          return value.length;
-        if (arrayOptions?.labelKey)
-          return value
-            .map((e: any) => e[arrayOptions?.labelKey as keyof object])
-            .join(", ");
-        return value.map((e: any) => e.toString()).join(", ");
-      case "number": {
-        const state = compareStatAverage(key, value);
-
-        return (
-          <span
-            className={`${
-              state === "above"
-                ? "text-green-700"
-                : state === "below"
-                ? "text-red-700"
-                : ""
-            }`}
-          >
-            {value}
-          </span>
-        );
-      }
-      default:
-        if (imageObject) {
-          const { object, key } = imageObject;
-          return (
-            <Image
-              src={object[value][key]}
-              alt={value}
-              className="mx-auto"
-              width={30}
-            />
-          );
-        }
-        return value;
-    }
-  };
-
   return (
-    <>
+    <div className="pb-16">
       <TableFilters
         value={filtersValue}
         handleChange={setFiltersValue}
@@ -250,82 +158,20 @@ function Table({
                   <AveragesRow averages={averages} columns={tabColumns} />
                 )}
               {filteredDatas.length > 0 ? (
-                filteredDatas.map(({ _id, ...element }) => {
-                  const baseKey = `${itemName || "data"}-${_id}`;
-                  const selected = itemsSelected.includes(_id);
-                  const toggleSelected = (val: boolean) =>
-                    setItemsSelected(
-                      val
-                        ? [...itemsSelected, _id]
-                        : itemsSelected.filter((e) => e !== _id)
-                    );
+                filteredDatas.map((element) => {
                   return (
-                    <tr
-                      key={baseKey}
-                      className="relative z-0 bg-white duration-200 cursor-pointer hover:brightness-95"
-                      onClick={() => toggleSelected(!selected)}
-                    >
-                      <th className="px-2">
-                        <CheckboxInput
-                          id={`${baseKey}-select-checkbox`}
-                          checked={selected}
-                          handleChange={toggleSelected}
-                        />
-                      </th>
-                      {tabColumns.map((column) => {
-                        const { key, parent } = column;
-                        const elementObject = parent?.key
-                          ? element[parent.key as keyof object]
-                          : element;
-                        const value =
-                          elementObject[
-                            (parent?.index !== undefined
-                              ? parent.index
-                              : key) as keyof object
-                          ];
-                        return (
-                          <td key={`${baseKey}-${key}`} className="px-2 py-2">
-                            {displayCellValue(value, column)}
-                          </td>
-                        );
-                      })}
-                      <td>
-                        <div className="px-1 flex gap-1 justify-center items-center">
-                          <Button
-                            color="blue"
-                            href={`${baseUrl}/${_id}`}
-                            icon={FaEye}
-                            onClick={(e) => e.stopPropagation()}
-                            title="View"
-                          >
-                            <span className="hidden">View</span>
-                          </Button>
-                          <Button
-                            color="blue"
-                            href={`${baseUrl}/update/${_id}`}
-                            icon={GrUpdate}
-                            onClick={(e) => e.stopPropagation()}
-                            title="Update"
-                          >
-                            <span className="hidden">Update</span>
-                          </Button>
-                          <Button
-                            color="blue"
-                            icon={FaTrash}
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              handleDelete(
-                                _id,
-                                element[nameSlug as keyof object]
-                              );
-                            }}
-                            title="Delete"
-                          >
-                            <span className="hidden">Delete</span>
-                          </Button>
-                        </div>
-                      </td>
-                    </tr>
+                    <ItemRow
+                      key={`${itemName || "data"}-${element._id}`}
+                      itemName={itemName}
+                      element={element}
+                      itemsSelected={itemsSelected}
+                      setItemsSelected={setItemsSelected}
+                      columns={tabColumns}
+                      averages={averages}
+                      baseUrl={baseUrl}
+                      nameSlug={nameSlug}
+                      deleteFunction={functions.deleteOne}
+                    />
                   );
                 })
               ) : (
@@ -342,11 +188,11 @@ function Table({
       {oneSelected && (
         <FunctionBar
           ids={itemsSelected}
-          deleteMultiple={() => handleDeleteMultiple(itemsSelected)}
+          deleteMultiple={functions.deleteMultiple}
           otherFunctions={functions.others}
         />
       )}
-    </>
+    </div>
   );
 }
 
