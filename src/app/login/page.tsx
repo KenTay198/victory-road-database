@@ -2,6 +2,10 @@ import LoginForm from "@components/modules/authentication/organisms/LoginForm";
 import Link from "next/link";
 import React from "react";
 
+export const metadata = {
+  title: "Login | Victory Road Database",
+};
+
 function LoginPage() {
   return (
     <div>

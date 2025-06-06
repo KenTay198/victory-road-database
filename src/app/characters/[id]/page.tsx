@@ -1,4 +1,4 @@
-import { getCharacterById } from "@/controllers/characters.controller";
+import { getCompleteCharacterById } from "@/controllers/characters.controller";
 import BackButton from "@atoms/BackButton";
 import Button from "@atoms/Button";
 import CharacterView from "@components/modules/characters/organisms/CharacterView";
@@ -10,9 +10,7 @@ export const metadata = {
 };
 
 async function ViewCharacterPage({ params }: { params: any }) {
-  const character = await getCharacterById(params.id, {
-    completeHissatsus: true,
-  });
+  const character = await getCompleteCharacterById(params.id);
 
   return (
     <div>

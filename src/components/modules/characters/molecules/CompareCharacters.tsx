@@ -1,5 +1,6 @@
 import { ICompleteCharacter, IStatistics } from "@/types/character.types";
-import { capitalize, getAdvancedStatLabel } from "@utils/functions";
+import { getAdvancedStatLabel } from "@utils/characters.functions";
+import { capitalize } from "@utils/functions";
 import { advancedStatisticsLabels, statisticsLabels } from "@utils/variables";
 import Image from "next/image";
 import React from "react";
@@ -83,13 +84,10 @@ function CompareCharacters({ characters, close }: IProps) {
                               <Image
                                 src={imageUrl}
                                 alt={`${name} image`}
-                                // layout="responsive"
                                 unoptimized
                                 width={0}
                                 height={0}
-                                // sizes="100vw"
                                 className="flex-1 h-full w-auto"
-                                // style={{ width: "auto", height: "100%" }}
                               />
                             )}
                           </div>

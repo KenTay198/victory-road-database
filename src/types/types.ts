@@ -1,3 +1,5 @@
+import { Position } from "./character.types";
+
 export type RecursivePartial<T> = T extends object
   ? // eslint-disable-next-line @typescript-eslint/no-explicit-any
     T extends any[]
@@ -29,4 +31,17 @@ export interface IPasswordRequirements {
 export interface IOption {
   value: string;
   label: string;
+}
+
+export interface ILinePosition<T> {
+  position: "forward" | "base" | "backward";
+  type : Position;
+  positionMultiplier?: number;
+  character?: T;
+}
+
+export interface IComposition<T> {
+  name: string;
+  type: string;
+  lines: ILinePosition<T>[][];
 }

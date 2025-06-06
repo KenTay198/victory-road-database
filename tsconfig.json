@@ -32,8 +32,9 @@
       "@shared/*": ["./src/components/shared/*"],
       "@components/*": ["./src/components/*"],
       "@/*": ["./src/*"]
-    }
+    },
+    "target": "ES2017"
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/types/**/*.ts"],
   "exclude": ["node_modules"]
 }

@@ -1,29 +1,28 @@
 "use client";
-import { isAuth } from "@/controllers/users.controller";
 import { useAuthState } from "@context/AuthContext";
-import { usePathname, useRouter } from "next/navigation";
-import React, { useEffect } from "react";
+import Link from "next/link";
+import React from "react";
 
 interface IProps {
   children: React.ReactNode;
 }
 
 function ProtectedRoute({ children }: IProps) {
-  const pathname = usePathname();
-  const router = useRouter();
-  const { setUser } = useAuthState();
+  const { user, authLoading } = useAuthState();
 
-  useEffect(() => {
-    isAuth()
-      .then((user) => {
-        if (pathname === "/login") router.push("/");
-        setUser(user);
-      })
-      .catch((err) => console.log(err.message));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  if (authLoading) return <p>En attente de connexion...</p>;
 
-  return <>{children}</>;
+  if (!user)
+    return (
+      <div className="text-center pt-10 text-xl">
+        <p>You are not authenticated</p>
+        <Link href="/login">
+          <p className="underline font-semibold">Click here to sign in !</p>
+        </Link>
+      </div>
+    );
+
+  return children;
 }
 
 export default ProtectedRoute;

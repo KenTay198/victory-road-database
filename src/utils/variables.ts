@@ -4,33 +4,17 @@ import WindImage from "@images/icons/elements/wind.png";
 import ForestImage from "@images/icons/elements/forest.png";
 import VoidImage from "@images/icons/elements/void.webp";
 import { StaticImageData } from "next/image";
-import { Archetype } from "@/types/character.types";
+import { Archetype, Position } from "@/types/character.types";
 
-export const statisticsLabels = [
-  "kick",
-  "control",
-  "pressure",
-  "physical",
-  "agility",
-  "intelligence",
-  "technique",
-];
+export const statisticsLabels = ["kick", "control", "pressure", "physical", "agility", "intelligence", "technique"];
 
-export const advancedStatisticsLabels = [
-  "total-att",
-  "shoot-att",
-  "focus-att",
-  "scramble-att",
-  "total-def",
-  "wall-def",
-  "focus-def",
-  "scramble-def",
-  "gk",
-];
+export const advancedStatisticsLabels = ["total-att", "shoot-att", "focus-att", "scramble-att", "total-def", "wall-def", "focus-def", "scramble-def", "gk"];
 
 export const elements = ["forest", "earth", "fire", "wind", "void"];
 
-export const positions = ["goalkeeper", "forward", "defender", "midfielder"];
+export const characterElements = elements.filter((e) => e !== "void");
+
+export const positions = ["goalkeeper", "defender", "midfielder", "forward"];
 
 export const archetypes = [
   "striker",
@@ -45,15 +29,19 @@ export const archetypes = [
   "none",
 ];
 
-export const elementDatas: Record<
-  string,
-  { image: StaticImageData; color: string }
-> = {
+export const elementDatas: Record<string, { image: StaticImageData; color: string }> = {
   earth: { image: EarthImage, color: "#E39B2E" },
   fire: { image: FireImage, color: "#E45D42" },
   wind: { image: WindImage, color: "#7BB3F7" },
   forest: { image: ForestImage, color: "#93E22B" },
   void: { image: VoidImage, color: "#6507DB" },
+};
+
+export const positionAbreviations: Record<string, Position> = {
+  GK: "goalkeeper",
+  FW: "forward",
+  DF: "defender",
+  MF: "midfielder",
 };
 
 export const hissatsuTypeDatas: Record<string, { label: string }> = {

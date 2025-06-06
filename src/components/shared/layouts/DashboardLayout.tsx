@@ -11,7 +11,6 @@ const links = [
 
 function DashboardLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
-
   const isActive = (href: string) => href === pathname;
 
   return (

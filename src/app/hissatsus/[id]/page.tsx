@@ -1,21 +1,31 @@
 import { getHissatsuById } from "@/controllers/hissatsus.controller";
 import BackButton from "@atoms/BackButton";
-import HissatsuForm from "@components/modules/hissatsus/organisms/HissatsuForm";
+import Button from "@atoms/Button";
+import HissatsuView from "@components/modules/hissatsus/organisms/HissatsuView";
 import React from "react";
+import { GrUpdate } from "react-icons/gr";
 
 export const metadata = {
-  title: "Update hissatsu | Victory Road Database",
+  title: "View hissatsu | Victory Road Database",
 };
 
-async function UpdateHissatsuPage({ params }: { params: any }) {
+async function ViewHissatsuPage({ params }: { params: any }) {
   const hissatsu = await getHissatsuById(params.id);
 
   return (
     <div>
       <BackButton href="/hissatsus" label="Back to hissatsus list" />
-      <h1>Update hissatsu</h1>
+      <h1>View hissatsu</h1>
+      <Button
+        color="blue"
+        href={`/hissatsus/update/${params.id}`}
+        icon={GrUpdate}
+        className="mb-2"
+      >
+        Update hissatsu
+      </Button>
       {hissatsu ? (
-        <HissatsuForm hissatsu={hissatsu} />
+        <HissatsuView hissatsu={hissatsu} />
       ) : (
         <p>This hissatsu doesn&apos;t exist.</p>
       )}
@@ -23,4 +33,4 @@ async function UpdateHissatsuPage({ params }: { params: any }) {
   );
 }
 
-export default UpdateHissatsuPage;
+export default ViewHissatsuPage;

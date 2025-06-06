@@ -3,6 +3,7 @@ import { isAuth, login } from "@/controllers/users.controller";
 import Button from "@atoms/Button";
 import PasswordInput from "@atoms/Inputs/PasswordInput";
 import TextInput from "@atoms/Inputs/TextInput";
+import { useAuthState } from "@context/AuthContext";
 import { useLoadingState } from "@context/LoadingContext";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
@@ -19,6 +20,7 @@ function LoginForm() {
   const [errorMessage, setErrorMessage] = useState("");
   const router = useRouter();
   const { setIsLoading } = useLoadingState();
+  const { setUser } = useAuthState();
 
   const checkErrors = () => {
     const errors: string[] = [];
@@ -40,7 +42,10 @@ function LoginForm() {
     login({ identifier, password })
       .then(() => {
         toast.success("Login successful.");
-        isAuth().then(() => router.push("/dashboard"));
+        isAuth().then((user) => {
+          setUser(user);
+          router.push("/dashboard");
+        });
       })
       .catch((err) => {
         setErrorMessage(err.message);

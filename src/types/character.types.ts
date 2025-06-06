@@ -42,15 +42,29 @@ export interface ICharacterHissatsu {
   learnLevel: number;
 }
 
-export interface ICharacter extends IDocument {
+export interface ICharacterNames {
+  dub: {
+    firstName: string;
+    lastName?: string;
+  };
+  og: {
+    firstName: string;
+    lastName?: string;
+  };
+}
+
+export interface ICharacterData {
   firstName: string;
   lastName?: string;
+  names: ICharacterNames;
   statistics: IStatistics;
   hissatsus: ICharacterHissatsu[];
   element: Element;
   defaultPosition: Position;
   imageUrl?: string;
 }
+
+export type ICharacter = ICharacterData & IDocument;
 
 export interface ICompleteCharacter extends ICharacter {
   statistics: ICompleteStatistics;

@@ -9,7 +9,7 @@ import { MdSpaceDashboard } from "react-icons/md";
 
 function UserCard() {
   const [expanded, setExpanded] = useState(false);
-  const { user } = useAuthState();
+  const { user, logout } = useAuthState();
 
   if (!user)
     return (
@@ -20,12 +20,7 @@ function UserCard() {
 
   return (
     <div className="relative h-full flex items-center">
-      <Button
-        color="blue"
-        icon={IoPersonCircle}
-        iconSize={30}
-        onClick={() => setExpanded(!expanded)}
-      >
+      <Button color="blue" icon={IoPersonCircle} iconSize={30} onClick={() => setExpanded(!expanded)}>
         <p className="font-semibold">{user.username}</p>
       </Button>
 
@@ -34,18 +29,23 @@ function UserCard() {
           expanded ? "max-h-[64px]" : "max-h-0 pointer-events-none"
         }`}
       >
-        <div
-          className={`flex flex-col duration-200 ${
-            expanded ? "opacity-100" : "opacity-0"
-          }`}
-        >
+        <div className={`flex flex-col duration-200 ${expanded ? "opacity-100" : "opacity-0"}`}>
           <Link href="/dashboard" onClick={() => setExpanded(false)}>
             <div className="bg-raimon-yellow flex gap-1 items-center whitespace-nowrap px-2 py-1 duration-200 hover:brightness-75">
               <MdSpaceDashboard />
               <p className="font-semibold">Dashboard</p>
             </div>
           </Link>
-          <div className="bg-raimon-yellow flex gap-1 items-center whitespace-nowrap px-2 py-1 duration-200 hover:brightness-75 cursor-pointer">
+          <Link href="/admin" onClick={() => setExpanded(false)}>
+            <div className="bg-raimon-yellow flex gap-1 items-center whitespace-nowrap px-2 py-1 duration-200 hover:brightness-75">
+              <MdSpaceDashboard />
+              <p className="font-semibold">Admin</p>
+            </div>
+          </Link>
+          <div
+            className="bg-raimon-yellow flex gap-1 items-center whitespace-nowrap px-2 py-1 duration-200 hover:brightness-75 cursor-pointer"
+            onClick={logout}
+          >
             <FaPowerOff />
             <p className="font-semibold">Se déconnecter</p>
           </div>

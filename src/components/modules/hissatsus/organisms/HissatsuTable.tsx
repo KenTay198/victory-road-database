@@ -31,7 +31,6 @@ function HissatsuTable({ hissatsus, ...props }: IProps) {
         key: "name",
         width: 150,
         baseOrder: "asc",
-        className: "rounded-tl-[9px]",
         type: "string",
       },
       {

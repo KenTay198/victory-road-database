@@ -1,11 +1,7 @@
 "use client";
-import {
-  ICharacter,
-  ICompleteStatistics,
-  IStatistics,
-} from "@/types/character.types";
-import { capitalize, getAdvancedStats } from "@utils/functions";
-import React, { useEffect, useState } from "react";
+import { ICompleteCharacter, IStatistics } from "@/types/character.types";
+import { capitalize } from "@utils/functions";
+import React from "react";
 import {
   advancedStatisticsLabels,
   elementDatas,
@@ -14,12 +10,10 @@ import {
 } from "@utils/variables";
 import Image from "next/image";
 import Link from "next/link";
+import ElementImage from "@atoms/ElementImage";
+import { getAdvancedStatLabel } from "@utils/characters.functions";
 
-function CharacterView({ character }: { character: ICharacter }) {
-  const [totalStats, setTotalStats] = useState<number>();
-  const [completeStatistics, setCompleteStatistics] = useState<
-    ICompleteStatistics | undefined
-  >();
+function CharacterView({ character }: { character: ICompleteCharacter }) {
   const {
     firstName,
     lastName,
@@ -28,19 +22,8 @@ function CharacterView({ character }: { character: ICharacter }) {
     defaultPosition,
     hissatsus,
     imageUrl,
+    archetypes,
   } = character;
-
-  useEffect(() => {
-    const completeStats = getAdvancedStats(statistics);
-    setCompleteStatistics(completeStats);
-    setTotalStats(() => {
-      if (!statistics) return 0;
-      return Object.values(statistics).reduce(
-        (acc: number, curr: number) => acc + parseInt(curr.toString()) || 0,
-        0
-      );
-    });
-  }, [statistics]);
 
   return (
     <div className="flex flex-row-reverse justify-end flex-wrap gap-10">
@@ -67,51 +50,44 @@ function CharacterView({ character }: { character: ICharacter }) {
           <p>
             <span className="font-semibold">Element : </span>
           </p>
-          <Image
-            src={elementDatas[element].image}
-            alt={`Element ${element}`}
-            width={25}
-            height={25}
-          />
+          <ElementImage element={element} />
           <p>{capitalize(element)}</p>
         </div>
         <p>
           <span className="font-semibold">Default position : </span>
           {capitalize(defaultPosition)}
         </p>
+        <p className="max-w-[450px]">
+          <span className="font-semibold">Archetypes : </span>
+          {archetypes.map((e) => capitalize(e)).join(" / ")}
+        </p>
         <p className="font-semibold">Statistics</p>
-        <div className="flex flex-wrap gap-5 text-base">
-          <div>
-            <p className="font-semibold mb-1">Base statistics</p>
-            <ul className="pl-8 border-l list-disc flex-1">
-              {statisticsLabels.map((stat) => (
-                <li key={"statistic-" + stat}>
-                  {capitalize(stat)} : {statistics[stat as keyof IStatistics]}
-                </li>
-              ))}
-              <li>Total statistics : {totalStats}</li>
-            </ul>
-          </div>
-          {completeStatistics && (
+        {statistics && (
+          <div className="flex flex-wrap gap-5 text-base">
+            <div>
+              <p className="font-semibold mb-1">Base statistics</p>
+              <ul className="pl-8 border-l list-disc flex-1">
+                {statisticsLabels.map((stat) => (
+                  <li key={"statistic-" + stat}>
+                    {capitalize(stat)} : {statistics[stat as keyof IStatistics]}
+                  </li>
+                ))}
+                <li>Total statistics : {statistics.total}</li>
+              </ul>
+            </div>
             <div>
               <p className="font-semibold mb-1">Advanced statistics</p>
               <ul className="pl-8 border-l list-disc flex-1">
-                {advancedStatisticsLabels.map((stat) => {
-                  const parts = stat.split("-");
-                  const label =
-                    parts.length > 1
-                      ? `${capitalize(parts[0])} ${parts[1].toUpperCase()}`
-                      : parts[0].toUpperCase();
-                  return (
-                    <li key={"statistic-" + stat}>
-                      {label} : {completeStatistics[stat as keyof IStatistics]}
-                    </li>
-                  );
-                })}
+                {advancedStatisticsLabels.map((stat) => (
+                  <li key={"statistic-" + stat}>
+                    {getAdvancedStatLabel(stat)} :{" "}
+                    {statistics[stat as keyof IStatistics]}
+                  </li>
+                ))}
               </ul>
             </div>
-          )}
-        </div>
+          </div>
+        )}
         <div>
           <p className="font-semibold text-lg">Hissatsus</p>
           <ul className="pl-5 list-disc">

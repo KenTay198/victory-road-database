@@ -23,7 +23,7 @@ interface IProps {
   handleChangeTab?: (val: string) => void;
   tabs?: IOption[];
   filters?: IFilter[];
-  itemName?: string;
+  itemName: string;
 }
 
 function TableFilters({
@@ -71,38 +71,40 @@ function TableFilters({
 
   return (
     <>
-      <div className="bg-gray-300 mb-2 p-2 rounded w-fit">
-        <div
-          className="flex items-center gap-3 cursor-pointer border-b"
-          onClick={() => setExpanded(!expanded)}
-        >
-          <p className="font-semibold text-lg">Filters</p>
-          <ExpandIcon />
+      {filters && (
+        <div className="bg-gray-300 mb-2 p-2 rounded w-fit">
+          <div
+            className="flex items-center gap-3 cursor-pointer border-b"
+            onClick={() => setExpanded(!expanded)}
+          >
+            <p className="font-semibold text-lg">Filters</p>
+            <ExpandIcon />
+          </div>
+          {expanded && (
+            <>
+              {filters.map((filter) => (
+                <React.Fragment key={`filters-${filter.key}`}>
+                  {displayInput(filter)}
+                </React.Fragment>
+              ))}
+              {tabs && (
+                <RadioGroup
+                  id="filters-tabs"
+                  label="Displayed infos"
+                  options={tabs}
+                  value={tab || ""}
+                  handleChange={(val) => {
+                    if (handleChangeTab) handleChangeTab(val);
+                  }}
+                />
+              )}
+            </>
+          )}
         </div>
-        {filters && expanded && (
-          <>
-            {filters.map((filter) => (
-              <React.Fragment key={`filters-${filter.key}`}>
-                {displayInput(filter)}
-              </React.Fragment>
-            ))}
-            {tabs && (
-              <RadioGroup
-                id="filters-tabs"
-                label="Displayed infos"
-                options={tabs}
-                value={tab || ""}
-                handleChange={(val) => {
-                  if (handleChangeTab) handleChangeTab(val);
-                }}
-              />
-            )}
-          </>
-        )}
-      </div>
+      )}
       <TextInput
-        id={`${capitalize(itemName || "data")} search`}
-        placeholder={`Search ${itemName || "data"}...`}
+        id={`${capitalize(itemName)} search`}
+        placeholder={`Search ${itemName}...`}
         divClassName="max-w-[500px] w-full mb-2"
         value={query}
         handleChange={(query) => handleChangeQuery(query)}

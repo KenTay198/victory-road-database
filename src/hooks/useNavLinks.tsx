@@ -20,7 +20,7 @@ const useNavLinks = () => {
       label: "Hissatsus",
       subLinks: [{ href: "/hissatsus/add", label: "Add hissatsu" }],
     },
-    { href: "/glossary", label: "Glossary" },
+    { href: "/lexicon", label: "Lexicon" },
   ] as INavLink[];
 };
 

@@ -24,7 +24,7 @@ interface IProps extends React.HTMLAttributes<HTMLDivElement> {
   tabs?: IOption[];
   defaultTab?: string;
   filters?: IFilter[];
-  itemName?: string;
+  itemName: string;
   averages?: Record<string, number>;
 }
 
@@ -45,7 +45,7 @@ function Table({
   defaultSort,
   className,
   baseUrl,
-  itemName,
+  itemName = "data",
   nameSlug,
   filters,
   tabs,
@@ -142,6 +142,7 @@ function Table({
         ].join("")}
       >
         <div className="relative rounded-lg w-fit h-full">
+          <p className="italic">{filteredDatas.length} {itemName}{filteredDatas.length > 0 ? "s" : ""} displayed.</p>
           <table className="text-center">
             <TableHeader
               sort={sort}
@@ -161,7 +162,7 @@ function Table({
                 filteredDatas.map((element) => {
                   return (
                     <ItemRow
-                      key={`${itemName || "data"}-${element._id}`}
+                      key={`${itemName}-${element._id}`}
                       itemName={itemName}
                       element={element}
                       itemsSelected={itemsSelected}
@@ -176,9 +177,7 @@ function Table({
                 })
               ) : (
                 <tr>
-                  <td colSpan={100}>
-                    No {itemName ? itemName + "s" : "datas"}
-                  </td>
+                  <td colSpan={100}>No {itemName + "s"}</td>
                 </tr>
               )}
             </tbody>
@@ -190,6 +189,7 @@ function Table({
           ids={itemsSelected}
           deleteMultiple={functions.deleteMultiple}
           otherFunctions={functions.others}
+          itemName={itemName}
         />
       )}
     </div>

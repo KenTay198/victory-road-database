@@ -13,7 +13,7 @@ interface IProps {
   ids: string[];
   deleteMultiple: (ids: string[]) => Promise<void>;
   otherFunctions?: IBarFunction[];
-  itemName?: string;
+  itemName: string;
 }
 
 function FunctionBar({

@@ -6,7 +6,8 @@ import React from "react";
 import { FaPlus } from "react-icons/fa";
 
 async function RostersPage() {
-  const userId = cookies().get("victory-road-user-id")?.value;
+  const cookieStore = await cookies()
+  const userId = cookieStore.get("victory-road-user-id")?.value;
   let rosters;
   if (userId) rosters = await getRostersByUser(userId);   
 

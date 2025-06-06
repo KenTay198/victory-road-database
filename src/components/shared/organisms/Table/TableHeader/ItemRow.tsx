@@ -36,7 +36,7 @@ function ItemRow({
   const { showConfirm } = useConfirmModalState();
   const { setIsLoading } = useLoadingState();
   const { _id } = element;
-  const baseKey = `${itemName || "data"}-${_id}`;
+  const baseKey = `${itemName}-${_id}`;
   const selected = itemsSelected.includes(_id);
   const toggleSelected = (val: boolean) =>
     setItemsSelected(
@@ -54,6 +54,7 @@ function ItemRow({
     value: any,
     { key, type, imageObject, arrayOptions, displayFunction }: IHeaderColumn
   ): string | React.ReactNode => {
+    if (value === undefined || value === null) return;
     if (displayFunction) return displayFunction(value);
     switch (type) {
       case "date":
@@ -139,6 +140,7 @@ function ItemRow({
           elementObject[
             (parent?.index !== undefined ? parent.index : key) as keyof object
           ];
+
         return (
           <td key={`${baseKey}-${key}`} className="px-2 py-2">
             {displayCellValue(value, column)}

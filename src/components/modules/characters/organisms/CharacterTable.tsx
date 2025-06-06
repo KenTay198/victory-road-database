@@ -4,16 +4,8 @@ import {
   ICharacter,
   ICharacterHissatsu,
   ICompleteCharacter,
-  ICompleteStatistics,
 } from "@/types/character.types";
-import {
-  capitalize,
-  getAdvancedStatLabel,
-  getAdvancedStats,
-  getArchetypes,
-  getTotalStats,
-  normalize,
-} from "@utils/functions";
+import { capitalize, normalize } from "@utils/functions";
 import {
   advancedStatisticsLabels,
   archetypes,
@@ -33,6 +25,10 @@ import {
 import Link from "next/link";
 import { IHeaderColumn } from "@organisms/Table/TableHeader/TableHeader";
 import CompareCharacters from "../molecules/CompareCharacters";
+import {
+  getAdvancedStatLabel,
+  getCompleteCharacters,
+} from "@utils/characters.functions";
 
 export interface ICharacterFilters {
   info: "basic" | "advanced" | "hissatsus";
@@ -74,41 +70,9 @@ function CharacterTable({ characters, ...props }: IProps) {
   >([]);
 
   useEffect(() => {
-    const completeCharacters: ICompleteCharacter[] = characters.map((c) => {
-      const statistics = getAdvancedStats(c.statistics);
-      return {
-        ...c,
-        name: `${c.firstName}${c.lastName ? " " + c.lastName : ""}`,
-        statistics,
-        archetypes: [],
-      };
-    });
-
-    const averages: Partial<ICompleteStatistics> = {};
-
-    for (const stat of [...statisticsLabels, ...advancedStatisticsLabels]) {
-      const key = stat as keyof ICompleteStatistics;
-      const totalValue = completeCharacters.reduce(
-        (acc, curr) => acc + curr.statistics?.[key] || 0,
-        0
-      );
-      averages[key] = Math.round(totalValue / completeCharacters.length);
-    }
-
-    averages.total = getTotalStats(averages as ICompleteStatistics);
-
+    const { characters: chars, averages } = getCompleteCharacters(characters);
     setAverages(averages);
-
-    const archetypeCharacters = completeCharacters.map((c) => {
-      const archetypes = getArchetypes(
-        c.statistics,
-        c.hissatsus,
-        averages as ICompleteStatistics
-      );
-      return { ...c, statistics: c.statistics, archetypes };
-    });
-
-    setCompleteCharacters(archetypeCharacters);
+    setCompleteCharacters(chars);
   }, [characters]);
 
   const getColumns = () => {

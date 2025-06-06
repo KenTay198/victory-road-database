@@ -1,4 +1,5 @@
 "use client";
+import { logout } from "@/controllers/users.controller";
 import { IUser } from "@/types/user.types";
 import React, { createContext, useContext, useState } from "react";
 
@@ -7,6 +8,9 @@ type User = Omit<IUser, "password">;
 interface IAuthContext {
   user?: User;
   setUser: (value: User) => void;
+  authLoading?: boolean;
+  setAuthLoading: (value: boolean) => void;
+  logout: () => void;
 }
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -18,16 +22,14 @@ export const useAuthState = () => {
   return context;
 };
 
-export default function AuthProvider({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
-  const [user, setUser] = useState<User | undefined>();
+export default function AuthProvider({ children }: { children: React.ReactNode }) {
+  const [user, setUser] = useState<User>();
+  const [authLoading, setAuthLoading] = useState(false);
 
-  return (
-    <AuthContext.Provider value={{ user, setUser }}>
-      {children}
-    </AuthContext.Provider>
-  );
+  const handleLogout = () => {
+    setUser(undefined);
+    logout();
+  };
+
+  return <AuthContext.Provider value={{ user, setUser, authLoading, setAuthLoading, logout: handleLogout }}>{children}</AuthContext.Provider>;
 }

@@ -2,6 +2,10 @@ import RegisterForm from "@components/modules/authentication/organisms/RegisterF
 import Link from "next/link";
 import React from "react";
 
+export const metadata = {
+  title: "Register | Victory Road Database",
+};
+
 function RegisterPage() {
   return (
     <div>

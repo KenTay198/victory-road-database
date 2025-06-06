@@ -4,25 +4,24 @@ import { useConfirmModalState } from "@context/ConfirmModalContext";
 import { useLoadingState } from "@context/LoadingContext";
 import React from "react";
 import Header from "./Header/Header";
-import ProtectedRoute from "@layouts/ProtectedRoute";
 import Modal from "@organisms/Modal/Modal";
 
 function DefaultLayout({ children }: { children: React.ReactNode }) {
   const { isLoading } = useLoadingState();
 
   return (
-    <ProtectedRoute>
-      <div className="relative">
-        <ConfirmModal />
-        {isLoading && (
-          <div className="fixed w-screen h-screen top-0 left-0 z-[12] bg-white bg-opacity-70">
-            <Spinner />
-          </div>
-        )}
-        <Header />
-        <main className="p-5 pt-12">{children}</main>
-      </div>
-    </ProtectedRoute>
+    <div className="relative">
+      <ConfirmModal />
+      {isLoading && (
+        <div className="fixed w-screen h-screen top-0 left-0 z-[12] bg-white bg-opacity-70">
+          <Spinner />
+        </div>
+      )}
+      <Header />
+      <main className="p-5 pt-12">
+       {children}
+      </main>
+    </div>
   );
 }
 

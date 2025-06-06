@@ -129,9 +129,10 @@ function RosterForm({
                     .filter(
                       ({ _id }) => _id === id || !formCharacters.includes(_id)
                     )
-                    .map(({ _id, name }) => ({
+                    .sort((a, b) => a.defaultPosition.localeCompare(b.defaultPosition))
+                    .map(({ _id, name, defaultPosition }) => ({
                       value: _id,
-                      label: name,
+                      label: `${name} - ${defaultPosition}`,
                     }))}
                   value={id || ""}
                   handleChange={(val) => updateCharacters(index, val)}

@@ -15,6 +15,7 @@ const nextConfig = {
       fullUrl: true,
     },
   },
+  reactStrictMode: false,
 };
 
 module.exports = nextConfig;

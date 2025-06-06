@@ -24,7 +24,6 @@ function RosterTable({ rosters, ...props }: IProps) {
         key: "name",
         width: 150,
         baseOrder: "asc",
-        className: "rounded-tl-[9px]",
         type: "string",
       },
       {
