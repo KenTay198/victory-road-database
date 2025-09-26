@@ -1,15 +1,19 @@
 import React from "react";
-import CharacterForm from "@components/modules/characters/organisms/CharacterForm";
 import BackButton from "@atoms/BackButton";
+import HissatsuForm from "@components/modules/hissatsus/organisms/HissatsuForm";
 
-function AddCharacterPage() {
+export const metadata = {
+  title: "Add hissatsu | Victory Road Database",
+};
+
+function AddHissatsuPage() {
   return (
     <div>
-      <BackButton href="/characters" label="Back to characters list" />
-      <h1>Add character</h1>
-      <CharacterForm />
+      <BackButton href="/hissatsus" label="Back to hissatsus list" />
+      <h1>Add hissatsu</h1>
+      <HissatsuForm />
     </div>
   );
 }
 
-export default AddCharacterPage;
+export default AddHissatsuPage;

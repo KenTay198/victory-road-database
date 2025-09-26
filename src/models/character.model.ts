@@ -26,10 +26,27 @@ const CharacterHissatsuSchema = new Schema(
   { _id: false }
 );
 
+const CharacterNamesSchema = new Schema(
+  {
+    dub: {
+      firstName: { type: String, required: true },
+      lastName: { type: String, default: "" },
+    },
+    og: {
+      firstName: { type: String, required: true },
+      lastName: { type: String, default: "" },
+    },
+  },
+  { _id: false }
+);
+
 const CharacterSchema = new Schema(
   {
     firstName: { type: String, required: true },
     lastName: { type: String, default: "" },
+    names: {
+      type: CharacterNamesSchema,
+    },
     element: {
       type: String,
       enum: elements.filter((e) => e !== "void"),
@@ -38,8 +55,9 @@ const CharacterSchema = new Schema(
     defaultPosition: { type: String, enum: positions, required: true },
     statistics: { type: StatisticsSchema, default: {} },
     hissatsus: { type: [CharacterHissatsuSchema], default: [] },
+    imageUrl: { type: String },
   },
-  { timestamps: true, strict: true }
+  { timestamps: true }
 );
 
 if (models.Character) delete models.Character;

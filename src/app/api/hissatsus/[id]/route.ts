@@ -1,4 +1,4 @@
-import IHissatsu from "@/types/hissatsu.types";
+import IHissatsu from "@/types/models/hissatsu.types";
 import { connectToDatabase } from "@lib/mongoose";
 import Hissatsu from "@models/hissatsu.model";
 import { NextResponse } from "next/server";
@@ -12,14 +12,6 @@ export async function GET(
   try {
     await connectToDatabase();
     const hissatsu = await Hissatsu.findById(id).lean();
-
-    if (!hissatsu) {
-      return NextResponse.json(
-        { message: "Hissatsu not found" },
-        { status: 404 }
-      );
-    }
-
     return NextResponse.json(hissatsu);
   } catch (error) {
     console.error("Failed to fetch hissatsu:", error);
@@ -40,9 +32,8 @@ export async function PUT(
     const { name, type, element, characteristic }: IHissatsu =
       await request.json();
 
-    if (!name || !type || !element) {
+    if (!name || !type || !element)
       return NextResponse.json({ error: "Invalid data" }, { status: 400 });
-    }
 
     await Hissatsu.updateOne(
       { _id: params.id },
@@ -57,10 +48,10 @@ export async function PUT(
     );
 
     return NextResponse.json({ status: 200 });
-  } catch (error) {
+  } catch (error: any) {
     console.error(error);
     return NextResponse.json(
-      { error: "Internal Server Error" },
+      { error: error.message || "Internal Server Error" },
       { status: 500 }
     );
   }
@@ -77,13 +68,19 @@ export async function DELETE(
       return NextResponse.json({ error: "Invalid ID" }, { status: 400 });
     }
 
-    await Hissatsu.deleteOne({ _id: params.id });
+    const res = await Hissatsu.deleteOne({ _id: params.id });
+
+    if (res.deletedCount === 0)
+      return NextResponse.json(
+        { error: "No hissatsu deleted" },
+        { status: 400 }
+      );
 
     return NextResponse.json({ status: 200 });
-  } catch (error) {
+  } catch (error: any) {
     console.error(error);
     return NextResponse.json(
-      { error: "Internal Server Error" },
+      { error: error.message || "Internal Server Error" },
       { status: 500 }
     );
   }

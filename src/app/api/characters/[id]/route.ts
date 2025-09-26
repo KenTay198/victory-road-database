@@ -1,25 +1,23 @@
-import { ICharacter } from "@/types/character.types";
+import { ICharacter } from "@/types/models/character.types";
 import { connectToDatabase } from "@lib/mongoose";
 import Character from "@models/character.model";
-import { NextResponse } from "next/server";
+import Hissatsu from "@models/hissatsu.model";
+import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(
-  _request: Request,
+  request: NextRequest,
   { params }: { params: { id: string } }
 ) {
+  const completeHissatsus =
+    request.nextUrl.searchParams.get("completeHissatsus");
   const { id } = params;
 
   try {
     await connectToDatabase();
-    const character = await Character.findById(id).lean();
-
-    if (!character) {
-      return NextResponse.json(
-        { message: "Character not found" },
-        { status: 404 }
-      );
-    }
-
+    const promise = Character.findById(id);
+    if (completeHissatsus === "true")
+      promise.populate({ path: "hissatsus.hissatsuId", model: Hissatsu });
+    const character = await promise.lean();
     return NextResponse.json(character);
   } catch (error) {
     console.error("Failed to fetch character:", error);
@@ -44,11 +42,8 @@ export async function PUT(
       statistics,
       defaultPosition,
       element,
+      imageUrl,
     }: ICharacter = await request.json();
-
-    if (!firstName) {
-      return NextResponse.json({ error: "Invalid data" }, { status: 400 });
-    }
 
     await Character.updateOne(
       { _id: params.id },
@@ -60,15 +55,16 @@ export async function PUT(
           statistics,
           defaultPosition,
           element,
+          imageUrl,
         },
       }
-    )
+    );
 
     return NextResponse.json({ status: 200 });
-  } catch (error) {
+  } catch (error: any) {
     console.error(error);
     return NextResponse.json(
-      { error: "Internal Server Error" },
+      { error: error.message || "Internal Server Error" },
       { status: 500 }
     );
   }
@@ -85,13 +81,19 @@ export async function DELETE(
       return NextResponse.json({ error: "Invalid ID" }, { status: 400 });
     }
 
-    await Character.deleteOne({ _id: params.id });
+    const res = await Character.deleteOne({ _id: params.id });
+
+    if (res.deletedCount === 0)
+      return NextResponse.json(
+        { error: "No character deleted" },
+        { status: 400 }
+      );
 
     return NextResponse.json({ status: 200 });
-  } catch (error) {
+  } catch (error: any) {
     console.error(error);
     return NextResponse.json(
-      { error: "Internal Server Error" },
+      { error: error.message || "Internal Server Error" },
       { status: 500 }
     );
   }

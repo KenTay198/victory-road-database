@@ -2,8 +2,10 @@ import React from "react";
 import Link from "next/link";
 import { IconType } from "react-icons";
 
+export type ButtonColor = "default" | "yellow" | "blue" | "success" | "error";
+
 interface IProps extends React.HTMLAttributes<HTMLButtonElement> {
-  color: "default" | "yellow" | "blue" | "success" | "error";
+  color: ButtonColor;
   children: React.ReactNode;
   icon?: IconType;
   isActive?: boolean;
@@ -26,7 +28,7 @@ function LinkButton({
   ...props
 }: IProps & Omit<ILinkProps, "href"> & { href: string }) {
   return (
-    <Link href={href} target={target}>
+    <Link href={href} target={target} className="flex w-fit">
       <InnerButton {...props} />
     </Link>
   );
@@ -70,9 +72,9 @@ function InnerButton({
         classes.push("bg-red-500 border-red-500 text-white hover:text-red-500");
         if (isActive) classes.push("!text-red-500");
         break;
-        default:
-          classes.push("bg-black border-black text-white hover:text-black");
-          if (isActive) classes.push("!text-black");
+      default:
+        classes.push("bg-black border-black text-white hover:text-black");
+        if (isActive) classes.push("!text-black");
         break;
     }
 

@@ -1,17 +1,31 @@
-import { getCharacterById } from "@/controllers/characters.controller";
+import { getCompleteCharacterById } from "@/controllers/characters.controller";
 import BackButton from "@atoms/BackButton";
-import CharacterForm from "@components/modules/characters/organisms/CharacterForm";
+import Button from "@atoms/Button";
+import CharacterView from "@components/modules/characters/organisms/CharacterView";
 import React from "react";
+import { GrUpdate } from "react-icons/gr";
 
-async function UpdateCharacterPage({ params }: { params: any }) {
-  const character = await getCharacterById(params.id);
+export const metadata = {
+  title: "View character | Victory Road Database",
+};
+
+async function ViewCharacterPage({ params }: { params: any }) {
+  const character = await getCompleteCharacterById(params.id);
 
   return (
     <div>
       <BackButton href="/characters" label="Back to characters list" />
-      <h1>Update character</h1>
+      <h1>View character</h1>
+      <Button
+        color="blue"
+        href={`/characters/update/${params.id}`}
+        icon={GrUpdate}
+        className="mb-2"
+      >
+        Update character
+      </Button>
       {character ? (
-        <CharacterForm character={character} />
+        <CharacterView character={character} />
       ) : (
         <p>This character doesn&apos;t exist.</p>
       )}
@@ -19,4 +33,4 @@ async function UpdateCharacterPage({ params }: { params: any }) {
   );
 }
 
-export default UpdateCharacterPage;
+export default ViewCharacterPage;

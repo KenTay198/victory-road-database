@@ -45,7 +45,7 @@ function CheckboxGroup({
           <CheckboxInput
             id={`${props.id}-all`}
             checked={allSelected}
-            onChange={() =>
+            handleChange={() =>
               handleChange(allSelected ? [] : options.map(({ value }) => value))
             }
             label="All"
@@ -58,7 +58,7 @@ function CheckboxGroup({
               id={key}
               key={key}
               checked={props.value.includes(value)}
-              onChange={() =>
+              handleChange={() =>
                 handleChange(
                   props.value.includes(value)
                     ? props.value.filter((v) => v !== value)

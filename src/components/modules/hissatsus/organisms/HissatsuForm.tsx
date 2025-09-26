@@ -4,7 +4,7 @@ import IHissatsu, {
   hissatsuCharacteristics,
   HissatsuType,
   hissatsuTypes,
-} from "@/types/hissatsu.types";
+} from "@/types/models/hissatsu.types";
 import TextInput from "@atoms/Inputs/TextInput";
 import { capitalize } from "@utils/functions";
 import React, { useEffect, useState } from "react";

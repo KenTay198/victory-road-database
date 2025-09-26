@@ -17,3 +17,31 @@ export interface ISort {
   key: string;
   order: "asc" | "desc";
 }
+
+export interface IPasswordRequirements {
+  length?: boolean;
+  upperLetter?: boolean;
+  lowerLetter?: boolean;
+  number?: boolean;
+  specialChar?: boolean;
+}
+
+export interface IOption {
+  value: string;
+  label: string;
+}
+
+export interface ILinePosition<T> {
+  position: "forward" | "base" | "backward";
+  type : Position;
+  positionMultiplier?: number;
+  character?: T;
+}
+
+export interface IComposition<T> {
+  name: string;
+  type: string;
+  lines: ILinePosition<T>[][];
+}
+
+export type Position = "goalkeeper" | "forward" | "defender" | "midfielder";

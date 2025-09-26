@@ -2,6 +2,10 @@ import React from "react";
 import CharacterForm from "@components/modules/characters/organisms/CharacterForm";
 import BackButton from "@atoms/BackButton";
 
+export const metadata = {
+  title: "Add character | Victory Road Database",
+};
+
 function AddCharacterPage() {
   return (
     <div>
