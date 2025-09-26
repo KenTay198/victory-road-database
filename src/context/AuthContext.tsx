@@ -1,6 +1,6 @@
 "use client";
 import { logout } from "@/controllers/users.controller";
-import { IUser } from "@/types/user.types";
+import { IUser } from "@/types/models/user.types";
 import React, { createContext, useContext, useState } from "react";
 
 type User = Omit<IUser, "password">;

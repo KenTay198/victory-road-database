@@ -1,5 +1,5 @@
 import React from "react";
-import { IRoster } from "@/types/roster.types";
+import { IRoster } from "@/types/models/roster.types";
 import ElementImage from "@atoms/ElementImage";
 import { capitalize } from "@utils/functions";
 import { positions } from "@utils/variables";

@@ -4,7 +4,7 @@ import WindImage from "@images/icons/elements/wind.png";
 import ForestImage from "@images/icons/elements/forest.png";
 import VoidImage from "@images/icons/elements/void.webp";
 import { StaticImageData } from "next/image";
-import { Archetype, Position } from "@/types/character.types";
+import { Archetype, Position } from "@/types/models/character.types";
 
 export const statisticsLabels = ["kick", "control", "pressure", "physical", "agility", "intelligence", "technique"];
 

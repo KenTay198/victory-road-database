@@ -1,4 +1,4 @@
-import { IUser } from "./user.types";
+import { IUser } from "./models/user.types";
 
 declare module "next" {
   interface NextApiRequest {

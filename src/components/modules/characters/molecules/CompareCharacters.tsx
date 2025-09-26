@@ -1,4 +1,4 @@
-import { ICompleteCharacter, IStatistics } from "@/types/character.types";
+import { ICompleteCharacter, IStatistics } from "@/types/models/character.types";
 import { getAdvancedStatLabel } from "@utils/characters.functions";
 import { capitalize } from "@utils/functions";
 import { advancedStatisticsLabels, statisticsLabels } from "@utils/variables";

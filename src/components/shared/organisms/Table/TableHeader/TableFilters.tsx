@@ -6,6 +6,7 @@ import TextInput from "@atoms/Inputs/TextInput";
 import { capitalize } from "@utils/functions";
 import React, { useState } from "react";
 import { FaChevronDown, FaChevronUp } from "react-icons/fa";
+import useClickOutside from "@/hooks/useClickOutside";
 
 export interface IFilter {
   key: string;
@@ -26,18 +27,13 @@ interface IProps {
   itemName: string;
 }
 
-function TableFilters({
-  value,
-  handleChange,
-  filters,
-  query,
-  handleChangeQuery,
-  itemName,
-  tabs,
-  tab,
-  handleChangeTab,
-}: IProps) {
+function TableFilters({ value, handleChange, filters, query, handleChangeQuery, itemName, tabs, tab, handleChangeTab }: IProps) {
   const [expanded, setExpanded] = useState(false);
+
+  const filtersRef = useClickOutside<HTMLDivElement>({
+    onClickOutside: () => setExpanded(false),
+    togglerElementId: "filters-toggler",
+  });
 
   const ExpandIcon = expanded ? FaChevronUp : FaChevronDown;
 
@@ -72,33 +68,34 @@ function TableFilters({
   return (
     <>
       {filters && (
-        <div className="bg-gray-300 mb-2 p-2 rounded w-fit">
+        <div className="bg-gray-200 mb-2 p-2 rounded w-fit relative" ref={filtersRef}>
           <div
-            className="flex items-center gap-3 cursor-pointer border-b"
+            id="filters-toggler"
+            className="flex items-center gap-3 cursor-pointer border-b border-b-gray-500"
             onClick={() => setExpanded(!expanded)}
           >
             <p className="font-semibold text-lg">Filters</p>
             <ExpandIcon />
           </div>
           {expanded && (
-            <>
-              {filters.map((filter) => (
-                <React.Fragment key={`filters-${filter.key}`}>
-                  {displayInput(filter)}
-                </React.Fragment>
-              ))}
-              {tabs && (
-                <RadioGroup
-                  id="filters-tabs"
-                  label="Displayed infos"
-                  options={tabs}
-                  value={tab || ""}
-                  handleChange={(val) => {
-                    if (handleChangeTab) handleChangeTab(val);
-                  }}
-                />
-              )}
-            </>
+            <div className="p-2 absolute top-[105%] left-0 rounded bg-gray-200 w-screen max-w-[1000px] z-[2]">
+              <div className="w-full">
+                {filters.map((filter) => (
+                  <React.Fragment key={`filters-${filter.key}`}>{displayInput(filter)}</React.Fragment>
+                ))}
+                {tabs && (
+                  <RadioGroup
+                    id="filters-tabs"
+                    label="Displayed infos"
+                    options={tabs}
+                    value={tab || ""}
+                    handleChange={(val) => {
+                      if (handleChangeTab) handleChangeTab(val);
+                    }}
+                  />
+                )}
+              </div>
+            </div>
           )}
         </div>
       )}

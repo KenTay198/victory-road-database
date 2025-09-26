@@ -12,7 +12,7 @@ function AveragesRow({ averages, columns }: IProps) {
       <th className="sticky top-12 z-[1] bg-gray-300"></th>
       {columns.map(({ key, averageLabel, withAverage }) => (
         <th key={`averages-row-${key}`} className="sticky top-12 z-[1] bg-gray-300">
-          {averageLabel ? "Averages" : withAverage && averages[key]}
+          {averageLabel ? "Averages" : (withAverage && averages[key]) || 0 }
         </th>
       ))}
       <th className="sticky top-12 z-[1] bg-gray-300"></th>

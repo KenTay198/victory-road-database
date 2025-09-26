@@ -1,7 +1,6 @@
 import IHissatsu from "./hissatsu.types";
-import { Element, IDocument } from "./types";
+import { Element, IDocument, Position } from "../types";
 
-export type Position = "goalkeeper" | "forward" | "defender" | "midfielder";
 export type Archetype =
   | "striker"
   | "forward"

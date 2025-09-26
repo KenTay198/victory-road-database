@@ -1,5 +1,5 @@
 "use client";
-import { IStatistics, Position } from "@/types/character.types";
+import { IStatistics, Position } from "@/types/models/character.types";
 import Button from "@atoms/Button";
 import { useAuthState } from "@context/AuthContext";
 import { areStatsValid, getAdvancedStatLabel, getAdvancedStats } from "@utils/characters.functions";

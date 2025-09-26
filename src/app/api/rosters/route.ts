@@ -1,6 +1,6 @@
 import Roster from "@models/roster.model";
 import { connectToDatabase } from "@/lib/mongoose";
-import { IRoster } from "@/types/roster.types";
+import { IRoster } from "@/types/models/roster.types";
 import { NextRequest, NextResponse } from "next/server";
 import Character from "@models/character.model";
 

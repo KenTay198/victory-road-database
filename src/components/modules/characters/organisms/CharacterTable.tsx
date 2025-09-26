@@ -1,10 +1,5 @@
 "use client";
-import {
-  Archetype,
-  ICharacter,
-  ICharacterHissatsu,
-  ICompleteCharacter,
-} from "@/types/character.types";
+import { Archetype, ICharacter, ICharacterHissatsu, ICompleteCharacter } from "@/types/models/character.types";
 import { capitalize, normalize } from "@utils/functions";
 import {
   advancedStatisticsLabels,
@@ -18,17 +13,11 @@ import {
 } from "@utils/variables";
 import React, { useEffect, useState } from "react";
 import Table from "@organisms/Table/Table";
-import {
-  deleteCharacter,
-  deleteMultipleCharacters,
-} from "@/controllers/characters.controller";
+import { deleteCharacter, deleteMultipleCharacters } from "@/controllers/characters.controller";
 import Link from "next/link";
 import { IHeaderColumn } from "@organisms/Table/TableHeader/TableHeader";
 import CompareCharacters from "../molecules/CompareCharacters";
-import {
-  getAdvancedStatLabel,
-  getCompleteCharacters,
-} from "@utils/characters.functions";
+import { getAdvancedStatLabel, getCompleteCharacters } from "@utils/characters.functions";
 
 export interface ICharacterFilters {
   info: "basic" | "advanced" | "hissatsus";
@@ -39,13 +28,11 @@ export interface ICharacterFilters {
 }
 
 interface IProps extends React.HTMLAttributes<HTMLDivElement> {
-  characters: ICharacter[];
+  characters: ICharacter[] | ICompleteCharacter[];
 }
 
 function CharacterTable({ characters, ...props }: IProps) {
-  const [completeCharacters, setCompleteCharacters] = useState<
-    ICompleteCharacter[]
-  >([]);
+  const [completeCharacters, setCompleteCharacters] = useState<ICompleteCharacter[]>([]);
   const [averages, setAverages] = useState<Record<string, number>>({
     kick: 0,
     control: 0,
@@ -65,9 +52,7 @@ function CharacterTable({ characters, ...props }: IProps) {
     "scramble-def": 0,
     gk: 0,
   });
-  const [compareCharacters, setCompareCharacters] = useState<
-    ICompleteCharacter[]
-  >([]);
+  const [compareCharacters, setCompareCharacters] = useState<ICompleteCharacter[]>([]);
 
   useEffect(() => {
     const { characters: chars, averages } = getCompleteCharacters(characters);
@@ -94,11 +79,7 @@ function CharacterTable({ characters, ...props }: IProps) {
         type: "array",
         noSorted: true,
         displayFunction: (archetypes: Archetype[]) => {
-          return (
-            <div title={archetypes.join("/")}>
-              {archetypes.map((e) => archetypesDatas[e].label).join("/")}
-            </div>
-          );
+          return <div title={archetypes.join("/")}>{archetypes.map((e) => archetypesDatas[e].label).join("/")}</div>;
         },
       },
     ];
@@ -140,22 +121,11 @@ function CharacterTable({ characters, ...props }: IProps) {
             type: "string",
             tab: "hissatsus",
             parent: { key: "hissatsus", index: i },
-            displayFunction: ({
-              hissatsuId,
-              learnLevel,
-            }: ICharacterHissatsu) => {
-              const data =
-                typeof hissatsuId === "object" ? hissatsuId : undefined;
-              const label = data
-                ? `${hissatsuTypeDatas[data.type].label} - ${
-                    data.name
-                  } (lvl. ${learnLevel})`
-                : "Inconnu";
-              const element =
-                elementDatas[(data?.element || "") as keyof object];
-              const href = `https://inazuma-eleven.fandom.com/fr/wiki/${
-                data?.name.replace(" ", "_") || ""
-              }`;
+            displayFunction: ({ hissatsuId, learnLevel }: ICharacterHissatsu) => {
+              const data = typeof hissatsuId === "object" ? hissatsuId : undefined;
+              const label = data ? `${hissatsuTypeDatas[data.type].label} - ${data.name} (lvl. ${learnLevel})` : "Inconnu";
+              const element = elementDatas[(data?.element || "") as keyof object];
+              const href = `https://inazuma-eleven.fandom.com/fr/wiki/${data?.name.replace(" ", "_") || ""}`;
 
               return (
                 <Link
@@ -179,24 +149,16 @@ function CharacterTable({ characters, ...props }: IProps) {
 
   const filter = (datas: ICompleteCharacter[], filters: ICharacterFilters) => {
     const { elements, positions, query } = filters;
-    return datas.filter(
-      ({ defaultPosition, element, archetypes, firstName, lastName }) => {
-        if (query) {
-          const name = `${normalize(firstName)}${
-            lastName ? " " + normalize(lastName) : ""
-          }`;
-          if (!name.includes(normalize(query))) return false;
-        }
-        if (
-          filters.archetypes &&
-          !filters.archetypes.some((e) => archetypes.includes(e as Archetype))
-        )
-          return false;
-        if (elements && !elements.includes(element)) return false;
-        if (positions && !positions.includes(defaultPosition)) return false;
-        return true;
+    return datas.filter(({ defaultPosition, element, archetypes, firstName, lastName }) => {
+      if (query) {
+        const name = `${normalize(firstName)}${lastName ? " " + normalize(lastName) : ""}`;
+        if (!name.includes(normalize(query))) return false;
       }
-    );
+      if (filters.archetypes && !filters.archetypes.some((e) => archetypes.includes(e as Archetype))) return false;
+      if (elements && !elements.includes(element)) return false;
+      if (positions && !positions.includes(defaultPosition)) return false;
+      return true;
+    });
   };
 
   return (
@@ -214,9 +176,7 @@ function CharacterTable({ characters, ...props }: IProps) {
             {
               label: "Compare characters",
               action: (ids: string[]) => {
-                setCompareCharacters(
-                  completeCharacters.filter(({ _id }) => ids.includes(_id))
-                );
+                setCompareCharacters(completeCharacters.filter(({ _id }) => ids.includes(_id)));
               },
             },
           ],
@@ -240,38 +200,9 @@ function CharacterTable({ characters, ...props }: IProps) {
             label: "Hissatsus",
           },
         ]}
-        filters={[
-          {
-            key: "positions",
-            type: "checkbox",
-            options: positions.map((p) => ({
-              value: p,
-              label: capitalize(p),
-            })),
-          },
-          {
-            key: "elements",
-            type: "checkbox",
-            options: elements
-              .filter((e) => e !== "void")
-              .map((p) => ({ value: p, label: capitalize(p) })),
-          },
-          {
-            key: "archetypes",
-            type: "checkbox",
-            options: archetypes
-              .filter((e) => e !== "void")
-              .map((p) => ({ value: p, label: capitalize(p) })),
-          },
-        ]}
       />
 
-      {compareCharacters.length > 0 && (
-        <CompareCharacters
-          characters={compareCharacters}
-          close={() => setCompareCharacters([])}
-        />
-      )}
+      {compareCharacters.length > 0 && <CompareCharacters characters={compareCharacters} close={() => setCompareCharacters([])} />}
     </>
   );
 }

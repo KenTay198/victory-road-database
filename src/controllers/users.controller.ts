@@ -1,6 +1,6 @@
 "use server";
 
-import { IUser } from "@/types/user.types";
+import { IUser } from "@/types/models/user.types";
 import { cookies } from "next/headers";
 
 export const register = async (data: { username: string; email: string; password: string }) => {

@@ -3,7 +3,7 @@ import {
   ICharacter,
   ICharacterHissatsu,
   IStatistics,
-} from "@/types/character.types";
+} from "@/types/models/character.types";
 import TextInput from "@atoms/Inputs/TextInput";
 import { capitalize, isValidUrl } from "@utils/functions";
 import React, { useEffect, useState } from "react";
@@ -80,7 +80,7 @@ function CharacterForm({ character }: { character?: ICharacter }) {
     const { firstName, statistics, hissatsus, imageUrl } = formData;
     const errors: string[] = [];
     if (!firstName) errors.push("firstName");
-    if (imageUrl && !isValidUrl(imageUrl)) errors.push("imageUrl");
+    if (!imageUrl) errors.push("imageUrl");
     if (statistics) {
       for (const value of Object.values(statistics)) {
         if (value === undefined || value === null) {

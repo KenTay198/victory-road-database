@@ -1,4 +1,4 @@
-import { ICharacter } from "@/types/character.types";
+import { ICharacter } from "@/types/models/character.types";
 import { connectToDatabase } from "@lib/mongoose";
 import Character from "@models/character.model";
 import Hissatsu from "@models/hissatsu.model";

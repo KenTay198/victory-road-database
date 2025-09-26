@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { ICategoryQueryMember, ICategoryQueryResult, IMemberQueryResult } from "./types";
 import { gameName, queryMemberElements } from "./variables";
-import { ICharacterData } from "@/types/character.types";
+import { ICharacterData } from "@/types/models/character.types";
 import { getPlayerElement, getPlayerNames, getPlayerPosition, getPlayerStats } from "./functions";
 
 const baseUrl = new URL("https://inazuma-eleven.fandom.com/api.php");

@@ -1,4 +1,4 @@
-import IHissatsu from "@/types/hissatsu.types";
+import IHissatsu from "@/types/models/hissatsu.types";
 import { connectToDatabase } from "@lib/mongoose";
 import Hissatsu from "@models/hissatsu.model";
 import { NextResponse } from "next/server";

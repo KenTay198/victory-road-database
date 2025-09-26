@@ -1,6 +1,6 @@
 import Character from "@models/character.model";
 import { connectToDatabase } from "@/lib/mongoose";
-import { ICharacter } from "@/types/character.types";
+import { ICharacter } from "@/types/models/character.types";
 import { NextRequest, NextResponse } from "next/server";
 import Hissatsu from "@models/hissatsu.model";
 

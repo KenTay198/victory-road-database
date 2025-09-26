@@ -1,5 +1,3 @@
-import { Position } from "./character.types";
-
 export type RecursivePartial<T> = T extends object
   ? // eslint-disable-next-line @typescript-eslint/no-explicit-any
     T extends any[]
@@ -45,3 +43,5 @@ export interface IComposition<T> {
   type: string;
   lines: ILinePosition<T>[][];
 }
+
+export type Position = "goalkeeper" | "forward" | "defender" | "midfielder";

@@ -1,4 +1,4 @@
-import { hissatsuCharacteristics, hissatsuTypes } from "@/types/hissatsu.types";
+import { hissatsuCharacteristics, hissatsuTypes } from "@/types/models/hissatsu.types";
 import { elements } from "@utils/variables";
 import { Schema, model, models } from "mongoose";
 

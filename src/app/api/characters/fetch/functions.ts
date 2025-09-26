@@ -1,4 +1,4 @@
-import { ICharacterNames, IStatistics, Position } from "@/types/character.types";
+import { ICharacterNames, IStatistics, Position } from "@/types/models/character.types";
 import { capitalize } from "@utils/functions";
 import { gameName, queryMemberElements } from "./variables";
 import { Element } from "@/types/types";

@@ -1,6 +1,6 @@
 import { connectToDatabase } from "@/lib/mongoose";
 import { NextResponse } from "next/server";
-import { IUser } from "@/types/user.types";
+import { IUser } from "@/types/models/user.types";
 import User from "@models/user.model";
 import { isValidEmail, isValidPassword } from "@utils/functions";
 import { hashPassword } from "@lib/bcrypt";

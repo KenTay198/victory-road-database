@@ -5,8 +5,8 @@ import {
   ICompleteCharacter,
   ICompleteStatistics,
   IStatistics,
-} from "@/types/character.types";
-import IHissatsu from "@/types/hissatsu.types";
+} from "@/types/models/character.types";
+import IHissatsu from "@/types/models/hissatsu.types";
 import { capitalize } from "./functions";
 import { statisticsLabels, advancedStatisticsLabels } from "./variables";
 

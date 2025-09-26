@@ -1,4 +1,4 @@
-import { IUser } from "@/types/user.types";
+import { IUser } from "@/types/models/user.types";
 import { Schema, model, models } from "mongoose";
 
 const UserSchema = new Schema(

@@ -1,4 +1,4 @@
-import { IRoster } from "@/types/roster.types";
+import { IRoster } from "@/types/models/roster.types";
 import { Schema, model, models } from "mongoose";
 
 const RosterSchema = new Schema(

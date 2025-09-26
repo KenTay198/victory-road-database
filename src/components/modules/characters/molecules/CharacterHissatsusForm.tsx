@@ -1,6 +1,6 @@
 import { getHissatsus } from "@/controllers/hissatsus.controller";
-import { ICharacterHissatsu } from "@/types/character.types";
-import IHissatsu, { HissatsuType, hissatsuTypes } from "@/types/hissatsu.types";
+import { ICharacterHissatsu } from "@/types/models/character.types";
+import IHissatsu, { HissatsuType, hissatsuTypes } from "@/types/models/hissatsu.types";
 import { Element } from "@/types/types";
 import Button from "@atoms/Button";
 import NumberInput from "@atoms/Inputs/NumberInput";

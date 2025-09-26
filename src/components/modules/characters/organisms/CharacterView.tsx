@@ -1,5 +1,5 @@
 "use client";
-import { ICompleteCharacter, IStatistics } from "@/types/character.types";
+import { ICompleteCharacter, IStatistics } from "@/types/models/character.types";
 import { capitalize } from "@utils/functions";
 import React from "react";
 import {

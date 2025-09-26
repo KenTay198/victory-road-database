@@ -2,7 +2,7 @@ import { capitalize } from "@utils/functions";
 import React from "react";
 import { elementDatas } from "@utils/variables";
 import Image from "next/image";
-import IHissatsu from "@/types/hissatsu.types";
+import IHissatsu from "@/types/models/hissatsu.types";
 
 function HissatsuView({ hissatsu }: { hissatsu: IHissatsu }) {
   const { name, element, type, characteristic } = hissatsu;

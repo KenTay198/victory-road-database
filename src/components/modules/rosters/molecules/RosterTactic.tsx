@@ -2,12 +2,12 @@
 import Image from "next/image";
 import React, { HTMLAttributes, useEffect, useMemo, useState } from "react";
 import Court from "@images/rosters/court.png";
-import { IRoster } from "@/types/roster.types";
+import { IRoster } from "@/types/models/roster.types";
 import { FaPlus } from "react-icons/fa";
 import { IComposition, ILinePosition } from "@/types/types";
 import SelectInput from "@atoms/Inputs/SelectInput";
 import compositions from "@/datas/compositions";
-import { Position } from "@/types/character.types";
+import { Position } from "@/types/models/character.types";
 
 interface IProps extends HTMLAttributes<HTMLDivElement> {
   roster: IRoster;

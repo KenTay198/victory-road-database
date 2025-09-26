@@ -3,7 +3,7 @@ import React from "react";
 import IHissatsu, {
   hissatsuCharacteristics,
   hissatsuTypes,
-} from "@/types/hissatsu.types";
+} from "@/types/models/hissatsu.types";
 import { capitalize, normalize } from "@utils/functions";
 import { elementDatas, elements } from "@utils/variables";
 import { IHeaderColumn } from "@organisms/Table/TableHeader/TableHeader";

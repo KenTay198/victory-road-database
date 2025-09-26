@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { IUser } from "@/types/user.types";
+import { IUser } from "@/types/models/user.types";
 import { verifyAccessToken } from "@lib/jwt";
 import { Handler } from ".";
 import { NextApiRequest } from "next";

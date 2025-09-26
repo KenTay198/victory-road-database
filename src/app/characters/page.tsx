@@ -1,6 +1,6 @@
 import React from "react";
 import Button from "@atoms/Button";
-import CharacterTable from "@components/modules/characters/organisms/CharacterTable";
+import CharacterListView from "@components/modules/characters/organisms/CharacterListView";
 import { getCharacters } from "@/controllers/characters.controller";
 import { FaPlus } from "react-icons/fa";
 
@@ -22,7 +22,7 @@ async function CharacterListPage() {
       >
         Add character
       </Button>
-      <CharacterTable characters={characters} />
+      <CharacterListView characters={characters} />
     </div>
   );
 }

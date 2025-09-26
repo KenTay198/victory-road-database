@@ -1,4 +1,4 @@
-import { Element, IDocument } from "./types";
+import { Element, IDocument } from "../types";
 
 export const hissatsuTypes = ["kick", "dribble", "defense", "keep"];
 export const hissatsuCharacteristics = ["long", "block"];

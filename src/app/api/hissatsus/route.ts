@@ -1,5 +1,5 @@
 import { connectToDatabase } from "@/lib/mongoose";
-import IHissatsu from "@/types/hissatsu.types";
+import IHissatsu from "@/types/models/hissatsu.types";
 import Hissatsu from "@models/hissatsu.model";
 import { NextResponse } from "next/server";
 

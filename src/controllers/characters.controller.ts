@@ -1,5 +1,5 @@
 "use server";
-import { ICharacter, ICharacterHissatsu, ICompleteCharacter, IStatistics } from "@/types/character.types";
+import { ICharacter, ICharacterHissatsu, ICompleteCharacter, IStatistics } from "@/types/models/character.types";
 import { revalidateTag } from "next/cache";
 
 interface IPostCharacter extends Omit<Partial<ICharacter>, "hissatsus" | "statistics" | "element" | "defaultPosition"> {

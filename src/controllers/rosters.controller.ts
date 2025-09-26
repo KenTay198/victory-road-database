@@ -1,5 +1,5 @@
 "use server";
-import { IRoster } from "@/types/roster.types";
+import { IRoster } from "@/types/models/roster.types";
 import { revalidateTag } from "next/cache";
 
 interface IPostRoster {

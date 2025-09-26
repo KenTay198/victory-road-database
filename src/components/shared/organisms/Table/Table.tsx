@@ -122,17 +122,19 @@ function Table({
 
   return (
     <div className="pb-16">
-      <TableFilters
-        value={filtersValue}
-        handleChange={setFiltersValue}
-        query={query}
-        handleChangeQuery={setQuery}
-        filters={filters}
-        itemName={itemName}
-        tabs={tabs}
-        tab={selectedTab}
-        handleChangeTab={setSelectedTab}
-      />
+      {filters && filters.length > 0 && (
+        <TableFilters
+          value={filtersValue}
+          handleChange={setFiltersValue}
+          query={query}
+          handleChangeQuery={setQuery}
+          filters={filters}
+          itemName={itemName}
+          tabs={tabs}
+          tab={selectedTab}
+          handleChangeTab={setSelectedTab}
+        />
+      )}
 
       <div
         {...props}

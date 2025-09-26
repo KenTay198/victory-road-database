@@ -1,4 +1,4 @@
-import { IRoster } from "@/types/roster.types";
+import { IRoster } from "@/types/models/roster.types";
 import { connectToDatabase } from "@lib/mongoose";
 import Character from "@models/character.model";
 import Roster from "@models/roster.model";

@@ -1,4 +1,4 @@
-import { IDocument } from "./types";
+import { IDocument } from "../types";
 
 export interface IUser extends IDocument {
   username: string;

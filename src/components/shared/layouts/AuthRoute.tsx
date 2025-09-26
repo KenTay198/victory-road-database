@@ -14,13 +14,19 @@ function AuthRoute({ children }: IProps) {
   const { setUser, setAuthLoading } = useAuthState();
 
   useEffect(() => {
-    isAuth()
-      .then((user) => {
-        if (pathname === "/login") router.push("/");
+    async function CheckAuth() {
+      try {
+        const user = await isAuth();
+        if (!user && pathname !== "/login") router.push("/login");
         setUser(user);
-      })
-      .catch((err) => console.log(err.message))
-      .finally(() => setAuthLoading(false));
+      } catch (error : any) {
+        console.log(error.message);
+      } finally {
+        setAuthLoading(false);
+      }
+    }
+
+    CheckAuth();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

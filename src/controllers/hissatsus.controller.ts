@@ -1,5 +1,5 @@
 "use server";
-import IHissatsu from "@/types/hissatsu.types";
+import IHissatsu from "@/types/models/hissatsu.types";
 import { revalidateTag } from "next/cache";
 
 export const getHissatsus = async () => {
