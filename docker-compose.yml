@@ -2,11 +2,12 @@ services:
   mongo:
     image: mongo:latest
     container_name: mongodb
+    restart: "no"
     ports:
-      - "27018:27017"
+      - "27025:27017"
     volumes:
       - mongo-data:/data/db
-    restart: "no"
+  restart: "no"
 
 volumes:
   mongo-data:

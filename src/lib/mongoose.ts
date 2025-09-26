@@ -4,6 +4,11 @@ const MONGODB_URI = process.env.MONGODB_URI;
 
 let cachedClient: mongoose.Mongoose | null = null;
 
+async function preloadModels() {
+  await import("@/models/character.model");
+  await import("@/models/hissatsu.model");
+}
+
 export async function connectToDatabase() {
   if (!MONGODB_URI) {
     throw new Error(
@@ -16,6 +21,8 @@ export async function connectToDatabase() {
   }
 
   const client = await mongoose.connect(MONGODB_URI);
+
+  await preloadModels();
 
   cachedClient = client;
   return client;
