@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "target": "ES2017",
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
@@ -18,23 +19,21 @@
       }
     ],
     "paths": {
-      "@images/*": ["./public/images/*"],
-      "@models/*": ["./src/models/*"],
-      "@lib/*": ["./src/lib/*"],
-      "@hooks/*": ["./src/hooks/*"],
-      "@context/*": ["./src/context/*"],
+      "@meta/*": ["./src/domain/meta/*"],
+      "@settings/*": ["./src/domain/settings/*"],
+      "@character/*": ["./src/domain/character/*"],
+      "@hissatsu/*": ["./src/domain/hissatsu/*"],
+      "@domain/*": ["./src/domain/*"],
+      "@infrastructure/*": ["./src/infrastructure/*"],
       "@utils/*": ["./src/utils/*"],
-      "@styles/*": ["./src/styles/*"],
-      "@layouts/*": ["./src/components/shared/layouts/*"],
-      "@organisms/*": ["./src/components/shared/organisms/*"],
-      "@molecules/*": ["./src/components/shared/molecules/*"],
-      "@atoms/*": ["./src/components/shared/atoms/*"],
-      "@shared/*": ["./src/components/shared/*"],
+      "@context/*": ["./src/context/*"],
+      "@translations/*": ["./src/translations/*"],
       "@components/*": ["./src/components/*"],
+      "@styles/*": ["./src/styles/*"],
+      "@images/*": ["./public/images/*"],
       "@/*": ["./src/*"]
-    },
-    "target": "ES2017"
+    }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/types/**/*.ts"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "tests"],
   "exclude": ["node_modules"]
 }

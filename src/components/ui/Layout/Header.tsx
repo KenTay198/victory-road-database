@@ -1,0 +1,83 @@
+import { useTranslations } from "next-intl";
+import React from "react";
+import { navLinks } from "./navLinks";
+
+type PathSegment = { value: string; label?: string };
+
+type BreadcrumbSegment = {
+  name: string;
+  href: string;
+};
+
+interface IProps extends React.HTMLAttributes<HTMLDivElement> {
+  title: string;
+  path: PathSegment[];
+}
+
+const Header = ({ className, title, path, ...props }: IProps) => {
+  const t = useTranslations("layout.navLinks");
+
+  const getBreadcrumb = (
+    segments: PathSegment[],
+    links = navLinks,
+    parentPath?: string,
+  ): BreadcrumbSegment[] => {
+    const [segment, ...rest] = segments;
+    const fullPath = parentPath
+      ? `${parentPath}/${segment.value}`
+      : `/${segment.value}`;
+    const navItem = links.find(({ url }) => {
+      const matchingSegment = parentPath ? url.replace(parentPath, "") : url;
+      if (matchingSegment.startsWith("/:")) {
+        return true;
+      }
+      return matchingSegment === `/${segment.value}`;
+    });
+
+    if (!navItem) {
+      return [];
+    }
+
+    const name =
+      navItem.url.includes(":") && segment.label
+        ? segment.label
+        : t(navItem.labelKey);
+    if (rest.length === 0) {
+      return [{ name, href: fullPath }];
+    }
+
+    return [{ name, href: fullPath }].concat(
+      getBreadcrumb(rest, navItem.subLinks || [], fullPath),
+    );
+  };
+
+  const breadcrumb = getBreadcrumb(path);
+
+  return (
+    <header
+      {...props}
+      className={[
+        "bg-raimon-blue rounded-lg p-2 text-white mb-8",
+        className,
+      ].join(" ")}
+    >
+      <h1>{title}</h1>
+      <nav>
+        <ul className="flex gap-2 text-sm">
+          {breadcrumb.map((segment) => (
+            <React.Fragment key={segment.href}>
+              <li className="duration-200 font-bold hover:brightness-75 last-of-type:text-raimon-yellow">
+                <a href={segment.href}>{segment.name}</a>
+              </li>
+              <span className="last-of-type:hidden">
+                {breadcrumb.length > 0 ? " / " : ""}
+              </span>
+            </React.Fragment>
+          ))}
+        </ul>
+      </nav>
+    </header>
+  );
+};
+
+export default Header;

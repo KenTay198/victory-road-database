@@ -1,0 +1,15 @@
+@theme {
+  --color-raimon-yellow: #fab629;
+  --color-raimon-yellow-dark: #d59105;
+  --color-raimon-blue: #0e57a7;
+  --color-raimon-blue-dark: #09396d;
+  --color-earth: #e49a2d;
+  --color-fire: #df5f44;
+  --color-wind: #76b4fd;
+  --color-forest: #8ae524;
+  --color-void: #7806ff;
+
+  --breakpoint-laptop: 1024px;
+  --breakpoint-tablet: 768px;
+  --breakpoint-mobile: 480px;
+}

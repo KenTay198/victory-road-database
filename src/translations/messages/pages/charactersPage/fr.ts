@@ -1,0 +1,25 @@
+import characterPageFr from "./characterPage/fr";
+import type ICharactersPageTranslations from "./charactersPage.translations";
+
+const charactersPageFr: ICharactersPageTranslations = {
+  metadata: {
+    title: "Personnages | Victory Road Database",
+    description: "Liste des personnages de Inazuma Eleven: Victory Road",
+  },
+  header: "Liste des personnages",
+  buttons: {
+    mode: {
+      general: "Général",
+      advanced: "Avancé",
+    },
+    display: {
+      table: "Table",
+      grid: "Grille",
+    },
+  },
+  pages: {
+    character: characterPageFr,
+  },
+};
+
+export default charactersPageFr;

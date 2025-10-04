@@ -1,0 +1,66 @@
+import type ICharacterTranslations from "./character.translations";
+
+const characterEn: ICharacterTranslations = {
+  positions: {
+    goalkeeper: "Goalkeeper",
+    defender: "Defender",
+    midfielder: "Midfielder",
+    forward: "Forward",
+  },
+  properties: {
+    fullName: "Full name",
+    firstName: "First name",
+    lastName: "Last name",
+    element: "Element",
+    defaultPosition: "Default position",
+    statistics: "Statistics",
+    advancedStatistics: "Advanced statistics",
+    archetypes: "Archetypes",
+  },
+  statistics: {
+    kick: "Kick",
+    control: "Control",
+    pressure: "Pressure",
+    physical: "Physical",
+    agility: "Agility",
+    intelligence: "Intelligence",
+    technique: "Technique",
+    total: "Total",
+  },
+  advancedStatistics: {
+    shoot: "Shoot Att",
+    focusAtt: "Focus Att",
+    scrambleAtt: "Scramble Att",
+    faceoffAtt: "Faceoff Att",
+    totalAtt: "Total Att",
+    wall: "Wall Def",
+    focusDef: "Focus Def",
+    scrambleDef: "Scramble Def",
+    faceoffDef: "Faceoff Def",
+    totalDef: "Total Def",
+    gk: "Keep",
+  },
+  archetypes: {
+    striker: "Striker",
+    forward: "Forward",
+    "long-shooter": "Long Shooter",
+    "attacking-midfielder": "Attacking Midfielder",
+    "central-midfielder": "Central Midfielder",
+    "defensive-midfielder": "Defensive Midfielder",
+    defender: "Defender",
+    "wall-defender": "Wall Defender",
+    goalkeeper: "Goalkeeper",
+    none: "None",
+  },
+  comparison: {
+    title: "Compare characters",
+    general: "General information",
+    criteria: "Criteria",
+    errors: {
+      min: "Please select at least two characters to compare.",
+      max: "You can compare up to 5 characters at a time.",
+    },
+  },
+};
+
+export default characterEn;

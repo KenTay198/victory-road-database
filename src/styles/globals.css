@@ -1,0 +1,87 @@
+@import "tailwindcss";
+@import "./theme.css";
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply antialiased;
+  }
+}
+
+html {
+  font-size: 16px;
+}
+
+main {
+  h1 {
+    font-size: 2.8rem;
+  }
+
+  h2 {
+    font-size: 2.5rem;
+  }
+
+  h3 {
+    font-size: 2rem;
+  }
+}
+
+table {
+  &.rounded {
+    border-collapse: separate;
+    border-spacing: 0;
+    border-radius: 0.5rem;
+    overflow: hidden;
+
+    th:first-child {
+      border-top-left-radius: 0.5rem;
+    }
+
+    th:last-child {
+      border-top-right-radius: 0.5rem;
+    }
+
+    tr:last-child {
+      td:first-child {
+        border-bottom-left-radius: 0.5rem;
+      }
+
+      td:last-child {
+        border-bottom-right-radius: 0.5rem;
+      }
+    }
+  }
+
+  &.bordered {
+    th,
+    td {
+      padding: 0.2rem 1rem;
+      border-bottom: 1px solid black;
+    }
+
+    th:last-of-type {
+      border-right: 1px solid black;
+    }
+
+    td:last-of-type {
+      border-right: 1px solid black;
+      padding: 0.2rem 1rem;
+    }
+
+    th:first-of-type,
+    th + th {
+      border-top: 1px solid black;
+      border-left: 1px solid black;
+      padding: 0.2rem 1rem;
+    }
+
+    td:first-of-type,
+    td + td {
+      border-left: 1px solid black;
+      padding: 0.2rem 1rem;
+    }
+  }
+}

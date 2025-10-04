@@ -1,0 +1,163 @@
+import Character from "@character/entities/character.entity";
+import type ICharacterRepository from "@character/character.repository";
+import type { ICharacterCreateData } from "@character/character.types";
+
+export default class StubCharacterRepository implements ICharacterRepository {
+  private idCounter = 1;
+  private characters: Character[] = [];
+
+  constructor() {
+    this.characters = [
+      new Character({
+        id: String(this.idCounter++),
+        firstName: "Mark",
+        lastName: "Evans",
+        names: {
+          fr: { firstName: "Mark", lastName: "Evans" },
+          vo: { firstName: "Mamoru", lastName: "Endou" },
+        },
+        element: "earth",
+        defaultPosition: "goalkeeper",
+        learnedHissatsus: [
+          { id: "1", learnLevel: 1 },
+          { id: "2", learnLevel: 22 },
+        ],
+        statistics: {
+          kick: 92,
+          control: 126,
+          pressure: 102,
+          physical: 122,
+          agility: 168,
+          intelligence: 118,
+          technique: 72,
+        },
+        imageUrl: "/images/characters/mark_evans.jpg",
+      }),
+      new Character({
+        id: String(this.idCounter++),
+        firstName: "Riccardo",
+        lastName: "Di Rigo",
+        names: {
+          fr: { firstName: "Riccardo", lastName: "Di Rigo" },
+          vo: { firstName: "Takuto", lastName: "Shindou" },
+        },
+        element: "forest",
+        defaultPosition: "midfielder",
+        statistics: {
+          kick: 116,
+          control: 126,
+          pressure: 112,
+          physical: 88,
+          agility: 104,
+          intelligence: 118,
+          technique: 140,
+        },
+        imageUrl: "/images/characters/riccardo_di_rigo.jpg",
+      }),
+      new Character({
+        id: String(this.idCounter++),
+        firstName: "Victor",
+        lastName: "Blade",
+        names: {
+          fr: { firstName: "Victor", lastName: "Blade" },
+          vo: { firstName: "Kyousuke", lastName: "Tsurugi" },
+        },
+        element: "fire",
+        defaultPosition: "forward",
+        statistics: {
+          kick: 180,
+          control: 130,
+          pressure: 76,
+          physical: 106,
+          agility: 98,
+          intelligence: 94,
+          technique: 116,
+        },
+        imageUrl: "/images/characters/victor_blade.jpg",
+      }),
+      new Character({
+        id: String(this.idCounter++),
+        firstName: "Goldie",
+        lastName: "Lemmon",
+        names: {
+          fr: { firstName: "Goldie", lastName: "Lemmon" },
+          vo: { firstName: "Kinako", lastName: "Nanobana" },
+        },
+        element: "fire",
+        defaultPosition: "defender",
+        statistics: {
+          kick: 124,
+          control: 114,
+          pressure: 130,
+          physical: 106,
+          agility: 112,
+          intelligence: 112,
+          technique: 104,
+        },
+        imageUrl: "/images/characters/goldie_lemmon.jpg",
+      }),
+      new Character({
+        id: String(this.idCounter++),
+        firstName: "Bailong",
+        lastName: "",
+        names: {
+          fr: { firstName: "Bailong", lastName: "" },
+          vo: { firstName: "Hakuryuu", lastName: "" },
+        },
+        element: "wind",
+        defaultPosition: "forward",
+        statistics: {
+          kick: 184,
+          control: 148,
+          pressure: 74,
+          physical: 62,
+          agility: 96,
+          intelligence: 108,
+          technique: 128,
+        },
+        imageUrl: "/images/characters/bailong.jpg",
+      }),
+      new Character({
+        id: String(this.idCounter++),
+        firstName: "Arion",
+        lastName: "Sherwind",
+        names: {
+          fr: { firstName: "Arion", lastName: "Sherwind" },
+          vo: { firstName: "Tenma", lastName: "Matsukaze" },
+        },
+        element: "wind",
+        defaultPosition: "midfielder",
+        learnedHissatsus: [
+          { id: "3", learnLevel: 1 },
+          { id: "4", learnLevel: 14 },
+        ],
+        statistics: {
+          kick: 122,
+          control: 102,
+          pressure: 108,
+          physical: 88,
+          agility: 110,
+          intelligence: 102,
+          technique: 170,
+        },
+        imageUrl: "/images/characters/arion_sherwind.jpg",
+      }),
+    ];
+  }
+
+  async findAll(): Promise<Character[]> {
+    return this.characters;
+  }
+
+  async findById(id: string): Promise<Character | null> {
+    const character = this.characters.find((c) => c.id === id);
+    return character || null;
+  }
+
+  async create(character: ICharacterCreateData): Promise<string> {
+    const id = String(this.idCounter++);
+    const newCharacter = new Character({ id, ...character });
+    this.characters.push(newCharacter);
+    return id;
+  }
+}
