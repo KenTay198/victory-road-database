@@ -7,6 +7,7 @@ export interface BaseInputProps {
   error?: string;
   required?: boolean;
   disabled?: boolean;
+  divClassName?: string;
   className?: string;
   handleChange: (...args: any[]) => void;
 }
@@ -28,22 +29,13 @@ export default function InputWrapper({
   return (
     <div className={`flex flex-col space-y-1 ${className}`}>
       {label && (
-        <label
-          htmlFor={id}
-          className={`text-sm font-medium text-gray-700 ${disabled ? "text-gray-400" : ""}`}
-        >
+        <label htmlFor={id} className={`text-sm font-medium text-gray-700 ${disabled ? "text-gray-400" : ""}`}>
           {label}
           {required && <span className="text-red-500 ml-1">*</span>}
         </label>
       )}
 
-      {description && (
-        <p
-          className={`text-xs text-gray-500 ${disabled ? "text-gray-400" : ""}`}
-        >
-          {description}
-        </p>
-      )}
+      {description && <p className={`text-xs text-gray-500 ${disabled ? "text-gray-400" : ""}`}>{description}</p>}
 
       <div className="relative">{children}</div>
 

@@ -74,16 +74,16 @@ export default class AdvancedStatistics implements IAdvancedStatistics {
   //#region Initialisation
   static initialize(defaultValue = 0): AdvancedStatistics {
     return new AdvancedStatistics({
-      totalAtt: defaultValue,
-      faceoffAtt: defaultValue,
       shoot: defaultValue,
       focusAtt: defaultValue,
       scrambleAtt: defaultValue,
-      totalDef: defaultValue,
+      faceoffAtt: defaultValue * 2,
+      totalAtt: defaultValue * 3,
       wall: defaultValue,
-      faceoffDef: defaultValue,
       focusDef: defaultValue,
       scrambleDef: defaultValue,
+      faceoffDef: defaultValue * 2,
+      totalDef: defaultValue * 3,
       gk: defaultValue,
     });
   }
@@ -104,6 +104,22 @@ export default class AdvancedStatistics implements IAdvancedStatistics {
       scrambleDef: this.scrambleDef,
       gk: this.gk,
     };
+  }
+
+  static fromJSON(data: IAdvancedStatistics): AdvancedStatistics {
+    return new AdvancedStatistics({
+      totalAtt: data.totalAtt,
+      faceoffAtt: data.faceoffAtt,
+      shoot: data.shoot,
+      focusAtt: data.focusAtt,
+      scrambleAtt: data.scrambleAtt,
+      totalDef: data.totalDef,
+      wall: data.wall,
+      faceoffDef: data.faceoffDef,
+      focusDef: data.focusDef,
+      scrambleDef: data.scrambleDef,
+      gk: data.gk,
+    });
   }
   //#endregion
 }

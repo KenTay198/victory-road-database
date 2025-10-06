@@ -1,4 +1,4 @@
-import IErrorPageTranslations from "./errorPage.translations";
+import type IErrorPageTranslations from "./errorPage.translations";
 
 const errorPageEn: IErrorPageTranslations = {
   header: "Oops ! Something went wrong",

@@ -1,6 +1,6 @@
 "use client";
 import ElementIcon from "@components/ui/ElementIcon";
-import type { Element } from "@domain/types";
+import type { Element } from "@domain/shared/types";
 import { useTranslations } from "next-intl";
 import type React from "react";
 

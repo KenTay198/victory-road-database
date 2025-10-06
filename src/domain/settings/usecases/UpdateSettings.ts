@@ -1,11 +1,11 @@
-import type Settings from "@settings/settings.entity";
+import type { ISettings } from "@settings/settings.types";
 import type ISettingsService from "@settings/settings.service";
-import DomainError from "@domain/domainError";
+import DomainError from "@domain/shared/domainError";
 
 export default class UpdateSettings {
   constructor(private settingsService: ISettingsService) {}
 
-  async execute(settings: Settings): Promise<boolean> {
+  async execute(settings: ISettings): Promise<boolean> {
     try {
       return this.settingsService.updateSettings(settings);
     } catch (error: any) {

@@ -1,17 +1,15 @@
 import React, { cache } from "react";
-import FindCharacterById from "@character/usecases/FindCharacterById";
 import CharacterView from "@components/character/CharacterView";
 import Header from "@components/ui/Layout/Header";
-import { settingsServiceInstance } from "@utils/repository-instances";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
-import GetSettings from "@settings/usecases/GetSettings";
-import { getServices } from "@/actions/services";
+import { findCharacterById } from "@/actions/character.actions";
+import { getSettingsAction } from "@/actions/settings.actions";
+import Character from "@character/entities/character.entity";
 
 const getCharacter = cache(async (id: string) => {
-  const { characterService, metaService, hissatsuService } = await getServices();
-  return await new FindCharacterById(characterService, metaService, hissatsuService).execute(id);
+  return await findCharacterById(id);
 });
 
 export const generateMetadata = async ({ params }: any): Promise<Metadata> => {
@@ -33,14 +31,17 @@ const CharacterPage = async ({ params }: any) => {
   if (!character) {
     return notFound();
   }
-  const { settingsService } = await getServices();
-  const settings = await new GetSettings(settingsService).execute();
-  character.setLocalizedName(settings.characterLocale);
+  const characterEntity = Character.fromFullJSON(character);
+  const settings = await getSettingsAction();
+  characterEntity.setLocalizedName(settings.characterLocale);
 
   return (
     <>
-      <Header title={character.fullName} path={[{ value: "characters" }, { value: id, label: character.fullName }]} />
-      <CharacterView character={character} className="ml-4" />
+      <Header
+        title={characterEntity.fullName}
+        path={[{ value: "characters" }, { value: id, label: characterEntity.fullName }]}
+      />
+      <CharacterView character={characterEntity} className="ml-4" />
     </>
   );
 };

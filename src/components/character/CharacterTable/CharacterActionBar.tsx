@@ -19,7 +19,11 @@ interface IProps extends React.HTMLAttributes<HTMLDivElement> {
 const CharacterActionBar = ({ className, options, onChangeOptions, ...props }: IProps) => {
   return (
     <div {...props} className={["flex justify-between gap-4", className].join(" ")}>
-      <ModeSwitcher mode={options.mode} onChangeMode={(newMode) => onChangeOptions({ ...options, mode: newMode })} />
+      {options.display === "table" ? (
+        <ModeSwitcher mode={options.mode} onChangeMode={(newMode) => onChangeOptions({ ...options, mode: newMode })} />
+      ) : (
+        <div />
+      )}
       <DisplaySwitcher
         display={options.display}
         onChangeDisplay={(newDisplay) => onChangeOptions({ ...options, display: newDisplay })}
@@ -59,7 +63,7 @@ const DisplaySwitcher = ({ className, display, onChangeDisplay, ...props }: IDis
   );
 };
 
-export type CharacterTableMode = "general" | "advanced";
+export type CharacterTableMode = "general" | "advanced" | "hissatsu";
 
 interface IModeProps extends React.HTMLAttributes<HTMLDivElement> {
   mode: CharacterTableMode;
@@ -75,6 +79,9 @@ const ModeSwitcher = ({ className, mode, onChangeMode, ...props }: IModeProps) =
       </Button>
       <Button size="S" template="darkBlue" onClick={() => onChangeMode("advanced")} active={mode === "advanced"}>
         {t("buttons.mode.advanced")}
+      </Button>
+      <Button size="S" template="darkBlue" onClick={() => onChangeMode("hissatsu")} active={mode === "hissatsu"}>
+        {t("buttons.mode.hissatsu")}
       </Button>
     </div>
   );

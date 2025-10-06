@@ -1,4 +1,5 @@
-import React, { useMemo, useState } from "react";
+import type React from "react";
+import { useMemo, useState } from "react";
 import type Character from "@character/entities/character.entity";
 import CharacterImage from "@components/character/CharacterImage";
 import CharacterPropertyFormatter from "@components/character/CharacterPropertyFormatter";
@@ -35,7 +36,7 @@ const CharactersCompare = ({ className, characters, ...props }: IProps) => {
             {characters.map((character) => (
               <th key={character.id}>
                 <div className="sticky flex flex-col items-center">
-                  <CharacterImage character={character} />
+                  <CharacterImage imageUrl={character.imageUrl} fullName={character.fullName} size="L" />
                   <p>{character.fullName}</p>
                 </div>
               </th>

@@ -1,6 +1,6 @@
 import type Meta from "@meta/meta.entity";
 import type IMetaService from "@meta/meta.service";
-import DomainError from "@domain/domainError";
+import DomainError from "@domain/shared/domainError";
 
 export default class GetMeta {
   constructor(private metaService: IMetaService) {}

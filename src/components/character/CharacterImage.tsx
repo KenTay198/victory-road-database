@@ -1,19 +1,19 @@
-import type Character from "@character/entities/character.entity";
-import Image, { type ImageProps } from "next/image";
 import React, { useMemo } from "react";
+import Image, { type ImageProps } from "next/image";
 
 interface IProps extends Omit<ImageProps, "src" | "alt"> {
-  character: Character;
-  size?: "small" | "medium" | "large";
+  imageUrl?: string;
+  fullName: string;
+  size?: "S" | "M" | "L";
 }
 
-const CharacterImage = ({ className, character, size = "small", ...props }: IProps) => {
+const CharacterImage = ({ className, imageUrl, fullName, size = "S", ...props }: IProps) => {
   const { width, height } = useMemo(() => {
     const getWidth = () => {
       switch (size) {
-        case "medium":
+        case "M":
           return 128;
-        case "large":
+        case "L":
           return 256;
         default:
           return 64;
@@ -26,13 +26,13 @@ const CharacterImage = ({ className, character, size = "small", ...props }: IPro
     return { width, height };
   }, [size]);
 
-  if (!character.imageUrl) return null;
+  if (!imageUrl) return null;
 
   return (
     <Image
       {...props}
-      src={character.imageUrl}
-      alt={character.fullName}
+      src={imageUrl}
+      alt={fullName}
       width={width}
       height={height}
       className={["", className].join(" ")}

@@ -6,6 +6,7 @@ interface ICharactersPageTranslations extends IDefaultPageTranslations {
     mode: {
       general: string;
       advanced: string;
+      hissatsu: string;
     };
     display: {
       table: string;

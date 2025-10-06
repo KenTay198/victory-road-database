@@ -12,6 +12,7 @@ interface CheckboxGroupProps extends BaseInputProps {
   values: string[];
   options: CheckboxGroupOption[];
   handleChange: (values: string[]) => void;
+  checkboxGap?: number;
 }
 
 export default function CheckboxGroup({
@@ -22,21 +23,19 @@ export default function CheckboxGroup({
   required = false,
   disabled = false,
   className = "",
+  divClassName = "",
   values,
   options,
+  checkboxGap,
   handleChange,
 }: CheckboxGroupProps) {
   const handleCheckboxChange = (optionValue: string, checked: boolean) => {
     let newValues: string[];
-
     if (checked) {
-      // Add the value if it's not already in the array
       newValues = values.includes(optionValue) ? values : [...values, optionValue];
     } else {
-      // Remove the value from the array
       newValues = values.filter((value) => value !== optionValue);
     }
-
     handleChange(newValues);
   };
 
@@ -48,25 +47,19 @@ export default function CheckboxGroup({
       error={error}
       required={required}
       disabled={disabled}
-      className={className}
+      className={divClassName}
     >
-      <div className="space-y-2">
+      <div className={className}>
         {options.map((option) => (
-          <div key={option.value} className="flex items-center">
-            <Checkbox
-              id={`${id}-${option.value}`}
-              checked={values.includes(option.value)}
-              disabled={disabled || option.disabled}
-              handleChange={(checked) => handleCheckboxChange(option.value, checked)}
-              className="mr-2"
-            />
-            <label
-              htmlFor={`${id}-${option.value}`}
-              className={`text-sm ${disabled || option.disabled ? "text-gray-400 cursor-not-allowed" : "text-gray-700 cursor-pointer"}`}
-            >
-              {option.label}
-            </label>
-          </div>
+          <Checkbox
+            key={option.value}
+            id={`${id}-${option.value}`}
+            checked={values.includes(option.value)}
+            disabled={disabled || option.disabled}
+            label={option.label}
+            handleChange={(checked) => handleCheckboxChange(option.value, checked)}
+            gap={checkboxGap}
+          />
         ))}
       </div>
     </InputWrapper>

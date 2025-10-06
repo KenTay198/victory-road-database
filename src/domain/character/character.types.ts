@@ -1,4 +1,11 @@
-import type { Names } from "@domain/types";
+import type { Names } from "@domain/shared/types";
+import type { IHissatsu } from "@hissatsu/hissatsu.types";
+import type { IMeta } from "@meta/meta.types";
+
+export interface IFullCharacter extends ICharacter {
+  meta?: IMeta;
+  hissatsus: IHissatsu[];
+}
 
 export interface ICharacter extends ICharacterCreateData {
   id: string;

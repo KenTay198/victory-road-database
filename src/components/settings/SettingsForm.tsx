@@ -1,5 +1,6 @@
 "use client";
-import React, { useState } from "react";
+import type React from "react";
+import { useState } from "react";
 import Button from "@components/ui/Buttons/Button";
 import SelectInput from "@components/ui/Inputs/Select";
 import { useSettings } from "@context/SettingsContext";
@@ -7,11 +8,7 @@ import type { ISettings } from "@settings/settings.types";
 import { useTranslations } from "next-intl";
 import { toast } from "sonner";
 
-interface IProps extends React.HTMLAttributes<HTMLDivElement> {
-  /* Props go here */
-}
-
-const SettingsForm = ({ className, ...props }: IProps) => {
+const SettingsForm = ({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) => {
   const t = useTranslations();
   const { settings, updateSettings } = useSettings();
   const [isDirty, setIsDirty] = useState(false);

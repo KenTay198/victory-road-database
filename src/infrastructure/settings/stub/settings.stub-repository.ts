@@ -9,13 +9,13 @@ export default class StubSettingsRepository implements ISettingsRepository {
     this.settings = Settings.default();
   }
 
-  async getSettings(): Promise<Settings> {
-    return this.settings;
+  getSettings(): Promise<Settings> {
+    return Promise.resolve(this.settings);
   }
 
   updateSettings(newSettings: ISettings): Promise<boolean> {
-    this.settings.hissatsuLocale = newSettings.hissatsuLocale;
     this.settings.characterLocale = newSettings.characterLocale;
+    this.settings.hissatsuLocale = newSettings.hissatsuLocale;
     return Promise.resolve(true);
   }
 }

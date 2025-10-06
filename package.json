@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev --turbopack -p 3160",
     "build": "next build --turbopack",
-    "start": "next start",
+    "start": "next start -p 3160",
     "lint": "biome check",
     "format": "biome format --write",
     "format:fix": "biome check --fix",

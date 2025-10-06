@@ -1,6 +1,6 @@
 "use client";
 import Character from "@character/entities/character.entity";
-import type { ICharacter } from "@character/character.types";
+import type { IFullCharacter } from "@character/character.types";
 import { advancedStatKeys, statKeys } from "@character/character.variables";
 import ItemTable, { type ItemTableProperty } from "@components/ui/ItemTable/ItemTable";
 import { useModalDialog } from "@/hooks/useModalDialog";
@@ -8,15 +8,15 @@ import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import CharacterPropertyFormatter from "@components/character/CharacterPropertyFormatter";
-import type { CharacterTableMode } from "./CharacterTableModeSwitcher";
 import CharactersCompare from "@components/character/CharactersCompare";
 import { toast } from "sonner";
 import CharacterActionBar, { type CharacterTableOptions } from "./CharacterActionBar";
 import CharacterGrid from "./CharacterGrid";
 import { useSettings } from "@context/SettingsContext";
+import CharacterFilters from "./CharacterFilters";
 
 interface IProps extends React.HTMLAttributes<HTMLTableElement> {
-  characters: ICharacter[];
+  characters: IFullCharacter[];
 }
 
 const CharacterTable = ({ className, characters, ...props }: IProps) => {
@@ -30,8 +30,12 @@ const CharacterTable = ({ className, characters, ...props }: IProps) => {
   const router = useRouter();
   const t = useTranslations("character");
   const characterEntities = characters.map((c) => {
-    const character = Character.fromJSON(c);
+    const character = Character.fromFullJSON(c);
     character.setLocalizedName(settings.characterLocale);
+    character.hissatsus = character.hissatsus.map((h) => {
+      h.setLocalizedName(settings.hissatsuLocale);
+      return h;
+    });
     return character;
   });
 
@@ -45,10 +49,13 @@ const CharacterTable = ({ className, characters, ...props }: IProps) => {
   });
 
   useEffect(() => {
+    const searchableProperties = ["fullName"];
     const keys: ItemTableProperty[] = ["fullName", "element", "defaultPosition", "archetypes"].map((slug) => ({
       slug: slug,
       label: t(`properties.${slug}`),
       sortType: "string",
+      className: "mx-auto",
+      isSearchable: searchableProperties.includes(slug),
     }));
 
     switch (options.mode) {
@@ -58,18 +65,33 @@ const CharacterTable = ({ className, characters, ...props }: IProps) => {
           label: t(`statistics.${slug}`),
           sortType: "number",
           withCalculations: true,
+          className: "mx-auto",
         }));
         setProperties([...keys, ...statisticKeys]);
         break;
       }
       case "advanced": {
-        const advancedStatisticKeys: ItemTableProperty[] = advancedStatKeys.map((slug) => ({
-          slug: `advancedStatistics.${slug}`,
-          label: t(`advancedStatistics.${slug}`),
-          sortType: "number",
-          withCalculations: true,
-        }));
+        const advancedStatisticKeys: ItemTableProperty[] = advancedStatKeys
+          .filter((slug) => !["faceoffAtt", "faceoffDef"].includes(slug))
+          .map((slug) => ({
+            slug: `advancedStatistics.${slug}`,
+            label: t(`advancedStatistics.${slug}`),
+            sortType: "number",
+            withCalculations: true,
+            className: "mx-auto",
+          }));
         setProperties([...keys, ...advancedStatisticKeys]);
+        break;
+      }
+      case "hissatsu": {
+        const hissatsuKeys: ItemTableProperty[] = ["0", "1"].map((slug) => ({
+          slug: `hissatsus.${slug}`,
+          label: t(`properties.hissatsus`, { count: Number(slug) + 1 }),
+          sortType: "string",
+          isSearchable: true,
+          nameAccessor: "name",
+        }));
+        setProperties([...keys, ...hissatsuKeys]);
         break;
       }
       default:
@@ -87,6 +109,7 @@ const CharacterTable = ({ className, characters, ...props }: IProps) => {
           items={characterEntities}
           properties={properties}
           PropertyFormatter={CharacterPropertyFormatter}
+          FilterComponent={CharacterFilters}
           defaultSortProperty="fullName"
           functions={{
             onItemClick: (character) => router.push(`/characters/${character.id}`),

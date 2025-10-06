@@ -38,7 +38,7 @@ export default async function RootLayout({
           <Providers>
             <div className="flex w-full max-w-screen max-h-screen">
               <Sidebar />
-              <main className="px-5 py-2 w-full overflow-x-auto">{children}</main>
+              <main className="px-5 py-2 w-full overflow-auto">{children}</main>
             </div>
           </Providers>
         </NextIntlClientProvider>

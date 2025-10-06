@@ -23,6 +23,7 @@ export default function SelectInput({
   required = false,
   disabled = false,
   className = "",
+  divClassName = "",
   value,
   options,
   placeholder = "Select an option...",
@@ -40,7 +41,7 @@ export default function SelectInput({
       error={error}
       required={required}
       disabled={disabled}
-      className={className}
+      className={divClassName}
     >
       <select
         id={id}

@@ -1,26 +1,27 @@
 import { advancedStatKeys, statKeys } from "@character/character.variables";
-import type { IMeta } from "./meta.types";
+import type { IMeta, IStatRange } from "./meta.types";
 import Statistics from "@character/entities/statistics.entity";
 import type { IAdvancedStatistics, IStatistics } from "@character/character.types";
 import type Character from "@character/entities/character.entity";
 import AdvancedStatistics from "@character/entities/advancedStatistics.entity";
 
 export default class Meta implements IMeta {
-  statRange: { min: Statistics; mean: Statistics; max: Statistics };
-  advancedStatRange: { min: AdvancedStatistics; mean: AdvancedStatistics; max: AdvancedStatistics };
+  statRange: IStatRange<Statistics>;
+  advancedStatRange: IStatRange<AdvancedStatistics>;
   initialized = false;
 
-  constructor() {
+  constructor(data?: Partial<IMeta>) {
     this.statRange = {
-      min: Statistics.initialize(Infinity),
-      mean: Statistics.initialize(),
-      max: Statistics.initialize(),
+      min: data?.statRange?.min ? Statistics.fromJSON(data.statRange.min) : Statistics.initialize(Infinity),
+      mean: data?.statRange?.mean ? Statistics.fromJSON(data.statRange.mean) : Statistics.initialize(),
+      max: data?.statRange?.max ? Statistics.fromJSON(data.statRange.max) : Statistics.initialize(),
     };
     this.advancedStatRange = {
       min: this.statRange.min.getAdvancedStatistics(),
       mean: this.statRange.mean.getAdvancedStatistics(),
       max: this.statRange.max.getAdvancedStatistics(),
     };
+    this.initialized = data?.initialized ?? false;
   }
 
   static calculateStats(characters: Character[]): Meta {
@@ -59,10 +60,34 @@ export default class Meta implements IMeta {
   //#region Utils
   toJSON(): IMeta {
     return {
-      statRange: { min: this.statRange.min.toJSON(), max: this.statRange.max.toJSON() },
-      advancedStatRange: { min: this.advancedStatRange.min, max: this.advancedStatRange.max },
+      statRange: {
+        min: this.statRange.min.toJSON(),
+        mean: this.statRange.mean.toJSON(),
+        max: this.statRange.max.toJSON(),
+      },
+      advancedStatRange: {
+        min: this.advancedStatRange.min.toJSON(),
+        mean: this.advancedStatRange.mean.toJSON(),
+        max: this.advancedStatRange.max.toJSON(),
+      },
       initialized: this.initialized,
     };
   }
-  //#endregion
+
+  static fromJSON(data: IMeta): Meta {
+    return new Meta({
+      statRange: {
+        min: Statistics.fromJSON(data.statRange.min),
+        mean: Statistics.fromJSON(data.statRange.mean),
+        max: Statistics.fromJSON(data.statRange.max),
+      },
+      advancedStatRange: {
+        min: AdvancedStatistics.fromJSON(data.advancedStatRange.min),
+        mean: AdvancedStatistics.fromJSON(data.advancedStatRange.mean),
+        max: AdvancedStatistics.fromJSON(data.advancedStatRange.max),
+      },
+      initialized: data.initialized,
+    });
+    //#endregion
+  }
 }

@@ -2,12 +2,12 @@ import Character from "@character/entities/character.entity";
 import type { ICharacterCreateData } from "@character/character.types";
 
 export default class FakeCharacter extends Character {
-  constructor({ firstName, lastName, statistics }: Partial<ICharacterCreateData> = {}) {
+  constructor({ firstName, lastName, statistics, names }: Partial<ICharacterCreateData> = {}) {
     super({
       id: "name",
       firstName: firstName || "First",
       lastName: lastName || "Last",
-      names: { fr: "Nom", jp: "Name" },
+      names: names || { fr: { firstName: "Nom", lastName: "Prénom" }, vo: { firstName: "First", lastName: "Last" } },
       element: "earth",
       defaultPosition: "goalkeeper",
       statistics: statistics || {

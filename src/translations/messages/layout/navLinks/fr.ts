@@ -6,6 +6,7 @@ const navLinksFr: INavLinksTranslations = {
   character: "Personnage",
   glossary: "Glossaire",
   settings: "Paramètres",
+  hissatsus: "Hissatsus",
 };
 
 export default navLinksFr;

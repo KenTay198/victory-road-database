@@ -11,6 +11,7 @@ const charactersPageFr: ICharactersPageTranslations = {
     mode: {
       general: "Général",
       advanced: "Avancé",
+      hissatsu: "Hissatsu",
     },
     display: {
       table: "Table",

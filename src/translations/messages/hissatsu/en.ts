@@ -8,6 +8,7 @@ const hissatsuEn: IHissatsuTranslations = {
     power: "Power",
     cost: "Cost",
     characteristic: "Characteristic",
+    learnLevel: "Learn level",
   },
   types: {
     kick: "Kick",

@@ -9,11 +9,19 @@ interface IProps extends React.HTMLAttributes<HTMLDivElement> {
   template: AppTemplate;
   statistics: IStatistics;
   advancedStatistics: IAdvancedStatistics;
+  withTotals?: boolean;
 }
 
-const CharacterStatisticsTable = ({ className, statistics, advancedStatistics, template, ...props }: IProps) => {
+const CharacterStatisticsTable = ({
+  className,
+  statistics,
+  advancedStatistics,
+  template,
+  withTotals,
+  ...props
+}: IProps) => {
   const t = useTranslations("character");
-
+  const totalKeys = ["faceoffAtt", "faceoffDef", "totalAtt", "totalDef"];
   const { value, accent } = ColorsHelper.getTemplateColor(template);
 
   return (
@@ -31,9 +39,9 @@ const CharacterStatisticsTable = ({ className, statistics, advancedStatistics, t
               <StatisticItem key={key} label={t(`statistics.${key}`)} value={value} />
             ))}
           </td>
-          <td>
+          <td className="align-top">
             {advancedStatKeys
-              .filter((key) => key !== "total")
+              .filter((key) => withTotals || !totalKeys.includes(key))
               .map((key) => (
                 <StatisticItem
                   key={key}

@@ -1,4 +1,4 @@
-import type { Element, Names } from "@domain/types";
+import type { Element, Names } from "@domain/shared/types";
 
 export interface IHissatsu extends IHissatsuCreateData {
   id: string;
@@ -12,6 +12,7 @@ export interface IHissatsuCreateData {
   power: number;
   cost: number;
   characteristic?: HissatsuCharacteristic;
+  learnLevel?: number;
 }
 
 export type HissatsuTypeAndCharacteristic = Partial<Record<HissatsuType | HissatsuCharacteristic, boolean>>;

@@ -1,5 +1,6 @@
 import type { IconType } from "react-icons";
 import { FaBook, FaCog, FaHome, FaUser, FaUsers } from "react-icons/fa";
+import { GiFireDash } from "react-icons/gi";
 
 export interface INavLink {
   url: string;
@@ -24,6 +25,19 @@ export const navLinks: INavLink[] = [
         url: "/characters/:id",
         labelKey: "character",
         Icon: FaUser,
+        hidden: true,
+      },
+    ],
+  },
+  {
+    url: "/hissatsus",
+    labelKey: "hissatsus",
+    Icon: GiFireDash,
+    subLinks: [
+      {
+        url: "/hissatsus/:id",
+        labelKey: "hissatsu",
+        Icon: GiFireDash,
         hidden: true,
       },
     ],

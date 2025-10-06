@@ -1,4 +1,4 @@
-import DomainError from "@domain/domainError";
+import DomainError from "@domain/shared/domainError";
 import type Hissatsu from "@hissatsu/hissatsu.entity";
 import type IHissatsuService from "@hissatsu/hissatsu.service";
 

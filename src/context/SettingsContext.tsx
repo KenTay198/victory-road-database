@@ -1,12 +1,11 @@
 "use client";
-import React, { useEffect } from "react";
+import type React from "react";
+import { useEffect } from "react";
 import { createContext, useContext, useState } from "react";
 import type { ISettings } from "@domain/settings/settings.types";
-import GetSettings from "@settings/usecases/GetSettings";
-import { settingsServiceInstance } from "@utils/repository-instances";
 import Settings from "@settings/settings.entity";
-import UpdateSettings from "@settings/usecases/UpdateSettings";
-import { getServices } from "@/actions/services";
+import { getSettingsAction } from "@/actions/settings.actions";
+import { updateSettingsAction } from "@/actions/settings.actions";
 
 interface ISettingsContext {
   settings: Settings;
@@ -22,24 +21,17 @@ export const useSettings = () => {
 };
 
 export default function SettingsProvider({ children }: { children: React.ReactNode }) {
-  const [settings, setSettings] = useState<Settings>(
-    new Settings({
-      hissatsuLocale: "jp",
-      characterLocale: "vo",
-    }),
-  );
+  const [settings, setSettings] = useState<Settings>(Settings.default());
 
   const updateSettings = async (newSettings: ISettings): Promise<boolean> => {
     const settings = new Settings(newSettings);
     setSettings(settings);
-    const { settingsService } = await getServices();
-    return await new UpdateSettings(settingsService).execute(settings);
+    return await updateSettingsAction(newSettings);
   };
 
   useEffect(() => {
     async function init() {
-      const { settingsService } = await getServices();
-      new GetSettings(settingsService).execute().then(setSettings);
+      getSettingsAction().then((settings) => setSettings(new Settings(settings)));
     }
 
     init();

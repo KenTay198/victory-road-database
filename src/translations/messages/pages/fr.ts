@@ -4,6 +4,7 @@ import errorPageFr from "./errorPage/fr";
 import glossaryPageFr from "./glossaryPage/fr";
 import homePageFr from "./homePage/fr";
 import settingsPageFr from "./settingsPage/fr";
+import hissatsusPageFr from "./hissatsusPage/fr";
 
 const pagesFr: IPagesTranslations = {
   home: homePageFr,
@@ -11,6 +12,7 @@ const pagesFr: IPagesTranslations = {
   error: errorPageFr,
   glossary: glossaryPageFr,
   settings: settingsPageFr,
+  hissatsus: hissatsusPageFr,
 };
 
 export default pagesFr;

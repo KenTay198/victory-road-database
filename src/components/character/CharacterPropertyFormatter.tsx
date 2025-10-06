@@ -1,9 +1,11 @@
 "use client";
-import type { CharacterArchetype } from "@character/character.types";
-import ElementIcon from "@components/ui/ElementIcon";
-import type { Element } from "@domain/types";
-import { useTranslations } from "next-intl";
 import type React from "react";
+import type { CharacterArchetype } from "@character/character.types";
+import HissatsuNameItem from "@components/hissatsus/HissatsuNameItem";
+import ElementIcon from "@components/ui/ElementIcon";
+import type { Element } from "@domain/shared/types";
+import type { IHissatsu } from "@hissatsu/hissatsu.types";
+import { useTranslations } from "next-intl";
 
 interface IProps extends React.HTMLAttributes<HTMLDivElement> {
   property: string;
@@ -24,6 +26,8 @@ const CharacterPropertyFormatter = ({ property, value, asValue, className }: IPr
       strValue = t(`positions.${value as string}`);
     } else if (property === "archetypes") {
       strValue = value.map((v: CharacterArchetype) => t(`archetypes.${v}`)).join(" / ");
+    } else if (property.startsWith("hissatsus")) {
+      return <HissatsuNameItem hissatsu={value as IHissatsu} />;
     }
   }
 

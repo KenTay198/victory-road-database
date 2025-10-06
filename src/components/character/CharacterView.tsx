@@ -1,5 +1,5 @@
-import type Character from "@character/entities/character.entity";
 import type React from "react";
+import type Character from "@character/entities/character.entity";
 import CharacterImage from "./CharacterImage";
 import CharacterPropertyFormatter from "./CharacterPropertyFormatter";
 import CharacterStatisticsTable from "./CharacterStatisticsTable";
@@ -28,7 +28,7 @@ const CharacterView = ({ className, character, ...props }: IProps) => {
       <section>
         <h2>{pageT("sections.general")}</h2>
         <div className="flex flex-wrap gap-8">
-          <CharacterImage character={character} size="large" className="rounded-lg" />
+          <CharacterImage imageUrl={character.imageUrl} fullName={character.fullName} size="L" className="rounded-lg" />
           <div className="space-y-2">
             {generalProperties.map((key) => (
               <div key={key} className="flex items-center gap-2">

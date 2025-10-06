@@ -1,4 +1,4 @@
-import type { Element } from "@domain/types";
+import type { Element } from "@domain/shared/types";
 import type {
   HissatsuCharacteristic,
   HissatsuLocale,
@@ -16,7 +16,7 @@ export default class Hissatsu implements IHissatsu {
   power: number;
   cost: number;
   characteristic?: HissatsuCharacteristic;
-  private currentLocale?: HissatsuLocale;
+  learnLevel?: number;
 
   constructor(data: IHissatsu) {
     this.id = data.id;
@@ -32,7 +32,6 @@ export default class Hissatsu implements IHissatsu {
   //#region
   setLocalizedName(locale: HissatsuLocale): void {
     if (this.names?.[locale]) {
-      this.currentLocale = locale;
       this.name = this.names[locale];
     }
   }
@@ -49,11 +48,12 @@ export default class Hissatsu implements IHissatsu {
       characteristic: this.characteristic,
       power: this.power,
       cost: this.cost,
+      learnLevel: this.learnLevel,
     };
   }
 
   static fromJSON(data: IHissatsu): Hissatsu {
-    return new Hissatsu({
+    const hissatsu = new Hissatsu({
       id: data.id,
       name: data.name,
       names: data.names,
@@ -63,6 +63,8 @@ export default class Hissatsu implements IHissatsu {
       power: data.power,
       cost: data.cost,
     });
+    hissatsu.learnLevel = data.learnLevel;
+    return hissatsu;
   }
   //#endregion
 }

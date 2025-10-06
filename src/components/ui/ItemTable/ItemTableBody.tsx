@@ -4,6 +4,7 @@ import type React from "react";
 import { useEffect, useMemo, useState } from "react";
 import type { ItemTableProperty, SortState } from "./ItemTable";
 import ColorsHelper from "@utils/helpers/colors.helpers";
+import { useTranslations } from "next-intl";
 
 interface IProps<T> extends React.HTMLAttributes<HTMLTableSectionElement> {
   properties: ItemTableProperty[];
@@ -11,6 +12,7 @@ interface IProps<T> extends React.HTMLAttributes<HTMLTableSectionElement> {
   PropertyFormatter: ({ property, value }: { property: string; value: any }) => React.JSX.Element | null;
   sortState: SortState | null;
   selectedItems: Set<string>;
+  areItemsSelectable: boolean;
   functions?: {
     onItemClick?: (item: T) => void;
     onSelect?: (id: string) => void;
@@ -25,8 +27,10 @@ function ItemTableBody<T extends { id: any }>({
   sortState,
   functions,
   selectedItems,
+  areItemsSelectable,
   ...props
 }: IProps<T>) {
+  const t = useTranslations("components.ui.itemTable");
   const [statisticDescriptions, setStatisticDescriptions] = useState<Record<string, IStatisticDescriptions>>({});
   const getPropertyValue = (item: T, property: string): any => {
     if (property.includes(".")) {
@@ -76,48 +80,59 @@ function ItemTableBody<T extends { id: any }>({
 
   return (
     <tbody {...props} className={["", className].join(" ")}>
-      {sortedItems.map((item) => (
-        <tr
-          key={`item-row-${item.id}`}
-          onClick={() => {
-            if (functions?.onItemClick) functions.onItemClick(item);
-          }}
-          className={functions?.onItemClick ? "duration-200 hover:bg-gray-200 cursor-pointer" : ""}
-        >
-          <td
-            onClick={(e) => {
-              e.stopPropagation();
-              handleSelect(item.id);
+      {sortedItems.length > 0 ? (
+        sortedItems.map((item) => (
+          <tr
+            key={`item-row-${item.id}`}
+            onClick={() => {
+              if (functions?.onItemClick) functions.onItemClick(item);
             }}
-            onKeyUp={(e) => {
-              e.stopPropagation();
-              handleSelect(item.id);
-            }}
+            className={functions?.onItemClick ? "duration-200 hover:bg-gray-200 cursor-pointer" : ""}
           >
-            <input
-              type="checkbox"
-              name={`item-${item.id}`}
-              id={`item-${item.id}`}
-              checked={selectedItems.has(item.id)}
-              onClick={(e) => e.stopPropagation()}
-              onKeyUp={(e) => e.stopPropagation()}
-              onChange={() => handleSelect(item.id)}
-            />
-          </td>
-          {properties.map(({ slug }) => {
-            const value = getPropertyValue(item, slug);
-            const statDescription = statisticDescriptions[slug];
-            const color = ColorsHelper.getColorByTier(value, statDescription);
-            return (
-              <td key={slug}>
-                <div style={{ color }} className={`w-fit text-center mx-auto ${color ? `font-bold` : ""}`}>
-                  <PropertyFormatter property={slug} value={getPropertyValue(item, slug)} />
-                </div>
+            {areItemsSelectable && (
+              <td
+                className="text-center"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleSelect(item.id);
+                }}
+                onKeyUp={(e) => {
+                  e.stopPropagation();
+                  handleSelect(item.id);
+                }}
+              >
+                <input
+                  type="checkbox"
+                  name={`item-${item.id}`}
+                  id={`item-${item.id}`}
+                  checked={selectedItems.has(item.id)}
+                  onClick={(e) => e.stopPropagation()}
+                  onKeyUp={(e) => e.stopPropagation()}
+                  onChange={() => handleSelect(item.id)}
+                />
               </td>
-            );
-          })}
+            )}
+            {properties.map(({ slug, className }) => {
+              const value = getPropertyValue(item, slug);
+              const statDescription = statisticDescriptions[slug];
+              const color = ColorsHelper.getColorByTier(value, statDescription);
+              return (
+                <td key={slug}>
+                  <div style={{ color }} className={`w-fit text-center ${color ? `font-bold` : ""} ${className || ""}`}>
+                    <PropertyFormatter property={slug} value={getPropertyValue(item, slug)} />
+                  </div>
+                </td>
+              );
+            })}
+          </tr>
+        ))
+      ) : (
+        <tr>
+          <td colSpan={properties.length + (areItemsSelectable ? 1 : 0)} className="text-center p-4">
+            {t("noItems")}
+          </td>
         </tr>
-      ))}
+      )}
     </tbody>
   );
 }

@@ -1,5 +1,6 @@
 import type ICharacterTranslations from "./character/character.translations";
 import type ICommonTranslations from "./common/common.translations";
+import type IComponentsTranslations from "./components/components.translations";
 import type IElementsTranslations from "./elements/elements.translations";
 import type IErrorsTranslations from "./errors/errors.translations";
 import type IHissatsuTranslations from "./hissatsu/hissatsu.translations";
@@ -14,6 +15,7 @@ interface IMessagesTranslations {
   errors: IErrorsTranslations;
   common: ICommonTranslations;
   hissatsu: IHissatsuTranslations;
+  components: IComponentsTranslations;
 }
 
 export default IMessagesTranslations;

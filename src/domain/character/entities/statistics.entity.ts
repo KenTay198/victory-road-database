@@ -113,5 +113,9 @@ export default class Statistics implements IStatistics {
       total: this.total,
     };
   }
+
+  static fromJSON(data: IStatistics): Statistics {
+    return new Statistics(data);
+  }
   //#endregion
 }

@@ -5,15 +5,16 @@ import type {
   CharacterNames,
   IAdvancedStatistics,
   ICharacter,
+  IFullCharacter,
   ILearnedHissatsu,
   IStatistics,
   Position,
 } from "@character/character.types";
-import type Meta from "@meta/meta.entity";
+import Meta from "@meta/meta.entity";
 import Statistics from "@character/entities/statistics.entity";
 import type AdvancedStatistics from "./advancedStatistics.entity";
 import { advancedStatKeys } from "@character/character.variables";
-import type Hissatsu from "@hissatsu/hissatsu.entity";
+import Hissatsu from "@hissatsu/hissatsu.entity";
 import type { HissatsuCharacteristic, HissatsuType, HissatsuTypeAndCharacteristic } from "@hissatsu/hissatsu.types";
 
 export default class Character implements ICharacter {
@@ -82,52 +83,57 @@ export default class Character implements ICharacter {
   //#endregion
 
   //#region Archetypes
-  getArchetypes(): CharacterArchetype[] {
-    const archetypes: CharacterArchetype[] = [];
+  calculateAboveAverageStats(): string[] {
     if (!this.meta || !this.meta.initialized) return [];
 
-    const ratio = this.meta.statRange.mean.total / this.statistics.total;
-
     // Normalize character stats
+    const ratio = this.meta.statRange.mean.total / this.statistics.total;
     const normalizedStats: Statistics = this.statistics.multiply(ratio);
     const normalizedAdvancedStats: AdvancedStatistics = normalizedStats.getAdvancedStatistics();
 
     // Retrieve all stats above average
-    const aboveAverageStats: { property: string; value: number }[] = [];
+    const aboveAverageStats: string[] = [];
     for (const stat of advancedStatKeys) {
       const key = stat as keyof IAdvancedStatistics;
 
       if (normalizedAdvancedStats[key] > this.meta.advancedStatRange.mean[key]) {
-        aboveAverageStats.push({
-          property: key,
-          value: normalizedAdvancedStats[key],
-        });
+        aboveAverageStats.push(key);
       }
     }
 
+    return aboveAverageStats;
+  }
+
+  getArchetypes(): CharacterArchetype[] {
+    const archetypes: CharacterArchetype[] = [];
+    const aboveAverageStats = this.calculateAboveAverageStats();
+
     // Analyse above average stats to determine archetypes
-    const isAbove = (key: string) => aboveAverageStats.find((stat) => stat.property === key);
     const hasHissatsus = this.findAllHissatsuTypesAndCharacteristics();
-
-    if (isAbove("shoot") && hasHissatsus.kick) {
-      archetypes.push("striker");
-      if (isAbove("focusAtt") || isAbove("scrambleAtt")) archetypes.push("forward");
-    }
-
     if (hasHissatsus.long) archetypes.push("long-shooter");
 
-    if (isAbove("faceoffAtt") && hasHissatsus.kick) archetypes.push("attacking-midfielder");
+    if (aboveAverageStats.length > 0) {
+      const isAbove = (key: string) => aboveAverageStats.find((stat) => stat === key);
 
-    if (isAbove("faceoffAtt") && isAbove("faceoffDef")) archetypes.push("central-midfielder");
+      if (isAbove("shoot") && hasHissatsus.kick) {
+        archetypes.push("striker");
+        if (isAbove("focusAtt") || isAbove("scrambleAtt")) archetypes.push("forward");
+      }
 
-    if (isAbove("focusAtt") && isAbove("faceoffDef") && hasHissatsus.defense) archetypes.push("defensive-midfielder");
+      if (isAbove("faceoffAtt") && hasHissatsus.kick) archetypes.push("attacking-midfielder");
 
-    if (isAbove("faceoffDef") && hasHissatsus.dribble) {
-      archetypes.push("defender");
-      if (isAbove("wall") && hasHissatsus.block) archetypes.push("wall-defender");
+      if (isAbove("faceoffAtt") && isAbove("faceoffDef") && hasHissatsus.dribble) archetypes.push("central-midfielder");
+
+      if (isAbove("faceoffAtt") && (isAbove("focusDef") || isAbove("scrambleDef")) && hasHissatsus.defense)
+        archetypes.push("defensive-midfielder");
+
+      if (isAbove("faceoffDef") && hasHissatsus.defense) {
+        archetypes.push("defender");
+        if (isAbove("wall") && hasHissatsus.block) archetypes.push("wall-defender");
+      }
+
+      if (isAbove("gk") && hasHissatsus.keep) archetypes.push("goalkeeper");
     }
-
-    if (isAbove("gk") && hasHissatsus.keep) archetypes.push("goalkeeper");
 
     if (archetypes.length === 0) archetypes.push("none");
 
@@ -190,6 +196,14 @@ export default class Character implements ICharacter {
     };
   }
 
+  toFullJSON(): IFullCharacter {
+    return {
+      ...this.toJSON(),
+      meta: this.meta?.toJSON(),
+      hissatsus: this.hissatsus.map((h) => h.toJSON()),
+    };
+  }
+
   static fromJSON(data: ICharacter): Character {
     const character = new Character({
       id: data.id,
@@ -203,6 +217,25 @@ export default class Character implements ICharacter {
       learnedHissatsus: data.learnedHissatsus,
     });
     character.archetypes = data.archetypes;
+    return character;
+  }
+
+  static fromFullJSON(data: IFullCharacter): Character {
+    const character = new Character({
+      id: data.id,
+      firstName: data.firstName,
+      lastName: data.lastName,
+      names: data.names,
+      element: data.element,
+      defaultPosition: data.defaultPosition,
+      statistics: data.statistics,
+      imageUrl: data.imageUrl,
+      learnedHissatsus: data.learnedHissatsus,
+    });
+
+    character.archetypes = data.archetypes;
+    character.hissatsus = data.hissatsus.map((h) => Hissatsu.fromJSON(h));
+    character.meta = data.meta ? Meta.fromJSON(data.meta) : undefined;
     return character;
   }
   //#endregion

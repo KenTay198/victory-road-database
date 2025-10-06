@@ -1,5 +1,5 @@
 "use client";
-import type { Element } from "@domain/types";
+import type { Element } from "@domain/shared/types";
 import EarthIcon from "@images/icons/elements/earth.png";
 import FireIcon from "@images/icons/elements/fire.png";
 import ForestIcon from "@images/icons/elements/forest.png";
@@ -11,9 +11,10 @@ import type React from "react";
 
 interface IProps extends React.HTMLAttributes<HTMLDivElement> {
   element: Element;
+  size?: "S" | "M" | "L";
 }
 
-const ElementIcon = ({ element }: IProps) => {
+const ElementIcon = ({ element, size = "M" }: IProps) => {
   const t = useTranslations("elements");
   let src: StaticImageData;
 
@@ -39,7 +40,20 @@ const ElementIcon = ({ element }: IProps) => {
 
   if (!src) return null;
 
-  return <Image title={t(element)} src={src} alt={`Element icon for ${element}`} />;
+  const getWidth = () => {
+    switch (size) {
+      case "M":
+        return 32;
+      case "L":
+        return 64;
+      default:
+        return 16;
+    }
+  };
+
+  return (
+    <Image title={t(element)} src={src} alt={`Element icon for ${element}`} width={getWidth()} height={getWidth()} />
+  );
 };
 
 export default ElementIcon;

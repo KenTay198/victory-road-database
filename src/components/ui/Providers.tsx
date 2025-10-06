@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import type React from "react";
 import LocaleProvider from "@context/LocaleContext";
 import SettingsProvider from "@context/SettingsContext";
 import ModalRoot from "./ModalRoot";

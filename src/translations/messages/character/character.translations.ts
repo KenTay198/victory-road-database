@@ -14,6 +14,7 @@ interface ICharacterTranslations {
     statistics: string;
     advancedStatistics: string;
     archetypes: string;
+    hissatsus: string;
   };
   statistics: {
     kick: string;

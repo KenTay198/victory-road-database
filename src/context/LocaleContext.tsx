@@ -17,11 +17,7 @@ export const useLocale = () => {
   return context;
 };
 
-export default function LocaleProvider({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function LocaleProvider({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const router = useRouter();
   const [locale, setLocale] = useState<Locale>(defaultLocale);
@@ -42,9 +38,5 @@ export default function LocaleProvider({
     }
   };
 
-  return (
-    <LocaleContext.Provider value={{ locale, updateLocale }}>
-      {children}
-    </LocaleContext.Provider>
-  );
+  return <LocaleContext.Provider value={{ locale, updateLocale }}>{children}</LocaleContext.Provider>;
 }

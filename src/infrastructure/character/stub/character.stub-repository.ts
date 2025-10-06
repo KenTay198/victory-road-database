@@ -1,6 +1,5 @@
 import Character from "@character/entities/character.entity";
 import type ICharacterRepository from "@character/character.repository";
-import type { ICharacterCreateData } from "@character/character.types";
 
 export default class StubCharacterRepository implements ICharacterRepository {
   private idCounter = 1;
@@ -43,6 +42,10 @@ export default class StubCharacterRepository implements ICharacterRepository {
         },
         element: "forest",
         defaultPosition: "midfielder",
+        learnedHissatsus: [
+          { id: "7", learnLevel: 1 },
+          { id: "8", learnLevel: 11 },
+        ],
         statistics: {
           kick: 116,
           control: 126,
@@ -64,6 +67,10 @@ export default class StubCharacterRepository implements ICharacterRepository {
         },
         element: "fire",
         defaultPosition: "forward",
+        learnedHissatsus: [
+          { id: "5", learnLevel: 1 },
+          { id: "6", learnLevel: 21 },
+        ],
         statistics: {
           kick: 180,
           control: 130,
@@ -85,6 +92,10 @@ export default class StubCharacterRepository implements ICharacterRepository {
         },
         element: "fire",
         defaultPosition: "defender",
+        learnedHissatsus: [
+          { id: "11", learnLevel: 1 },
+          { id: "12", learnLevel: 17 },
+        ],
         statistics: {
           kick: 124,
           control: 114,
@@ -106,6 +117,10 @@ export default class StubCharacterRepository implements ICharacterRepository {
         },
         element: "wind",
         defaultPosition: "forward",
+        learnedHissatsus: [
+          { id: "9", learnLevel: 1 },
+          { id: "10", learnLevel: 20 },
+        ],
         statistics: {
           kick: 184,
           control: 148,
@@ -142,6 +157,31 @@ export default class StubCharacterRepository implements ICharacterRepository {
         },
         imageUrl: "/images/characters/arion_sherwind.jpg",
       }),
+      new Character({
+        id: String(this.idCounter++),
+        firstName: "Nathan",
+        lastName: "Swift",
+        names: {
+          fr: { firstName: "Nathan", lastName: "Swift" },
+          vo: { firstName: "Ichirouta", lastName: "Kazemaru" },
+        },
+        element: "wind",
+        defaultPosition: "defender",
+        learnedHissatsus: [
+          { id: "13", learnLevel: 1 },
+          { id: "14", learnLevel: 13 },
+        ],
+        statistics: {
+          kick: 82,
+          control: 98,
+          pressure: 150,
+          physical: 110,
+          agility: 90,
+          intelligence: 114,
+          technique: 118,
+        },
+        imageUrl: "/images/characters/nathan_swift.jpg",
+      }),
     ];
   }
 
@@ -152,12 +192,5 @@ export default class StubCharacterRepository implements ICharacterRepository {
   async findById(id: string): Promise<Character | null> {
     const character = this.characters.find((c) => c.id === id);
     return character || null;
-  }
-
-  async create(character: ICharacterCreateData): Promise<string> {
-    const id = String(this.idCounter++);
-    const newCharacter = new Character({ id, ...character });
-    this.characters.push(newCharacter);
-    return id;
   }
 }

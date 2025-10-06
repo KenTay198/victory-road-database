@@ -5,6 +5,9 @@ export default defineConfig({
   resolve: {
     alias: {
       "@character": path.resolve(__dirname, "./src/domain/character"),
+      "@hissatsu": path.resolve(__dirname, "./src/domain/hissatsu"),
+      "@meta": path.resolve(__dirname, "./src/domain/meta"),
+      "@settings": path.resolve(__dirname, "./src/domain/settings"),
       "@infrastructure": path.resolve(__dirname, "./src/infrastructure"),
       "@domain": path.resolve(__dirname, "./src/domain"),
       "@utils": path.resolve(__dirname, "./src/utils"),

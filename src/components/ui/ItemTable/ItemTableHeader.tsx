@@ -2,6 +2,8 @@
 import type React from "react";
 import { TiArrowSortedDown, TiArrowSortedUp, TiArrowUnsorted } from "react-icons/ti";
 import type { ItemTableProperty, SortState } from "./ItemTable";
+import { FaSearch } from "react-icons/fa";
+import { useTranslations } from "next-intl";
 
 interface IProps extends React.HTMLAttributes<HTMLTableSectionElement> {
   properties: ItemTableProperty[];
@@ -9,9 +11,20 @@ interface IProps extends React.HTMLAttributes<HTMLTableSectionElement> {
   onSort: (property: string) => void;
   allSelected: boolean;
   onSelectAll: (value: boolean) => void;
+  areItemsSelectable: boolean;
 }
 
-const ItemTableHeader = ({ className, properties, sortState, onSort, onSelectAll, allSelected, ...props }: IProps) => {
+const ItemTableHeader = ({
+  className,
+  properties,
+  sortState,
+  onSort,
+  onSelectAll,
+  allSelected,
+  areItemsSelectable,
+  ...props
+}: IProps) => {
+  const t = useTranslations("components.ui.itemTable");
   const getSortIcon = (property: ItemTableProperty) => {
     if (sortState && sortState.property === property.slug) {
       return sortState.order === "asc" ? <TiArrowSortedUp size={12} /> : <TiArrowSortedDown size={12} />;
@@ -23,14 +36,16 @@ const ItemTableHeader = ({ className, properties, sortState, onSort, onSelectAll
   return (
     <thead {...props} className={["bg-raimon-yellow w-full", className].join(" ")}>
       <tr>
-        <th onClick={() => onSelectAll(!allSelected)} className="">
-          <input
-            type="checkbox"
-            checked={allSelected}
-            onChange={() => onSelectAll(!allSelected)}
-            className="cursor-pointer"
-          />
-        </th>
+        {areItemsSelectable && (
+          <th onClick={() => onSelectAll(!allSelected)} className="">
+            <input
+              type="checkbox"
+              checked={allSelected}
+              onChange={() => onSelectAll(!allSelected)}
+              className="cursor-pointer"
+            />
+          </th>
+        )}
         {properties.map((property) => (
           <th key={String(property.slug)} className="text-center">
             {property.sortType ? (
@@ -39,8 +54,18 @@ const ItemTableHeader = ({ className, properties, sortState, onSort, onSelectAll
                 onClick={() => onSort(property.slug)}
                 className="cursor-pointer flex justify-center items-center gap-2 hover:bg-raimon-yellow/80 px-2 py-1 rounded transition-colors w-full "
               >
-                <span>{property.label}</span>
+                <span
+                  className="whitespace-nowrap
+                "
+                >
+                  {property.label}
+                </span>
                 <span>{getSortIcon(property)}</span>
+                {property.isSearchable && (
+                  <span title={t("icons.searchable")}>
+                    <FaSearch size={12} className="opacity-50" />
+                  </span>
+                )}
               </button>
             ) : (
               <span className="px-2 py-1 w-full">{property.label}</span>

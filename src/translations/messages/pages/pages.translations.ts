@@ -1,6 +1,7 @@
 import type ICharactersPageTranslations from "./charactersPage/charactersPage.translations";
 import type IErrorPageTranslations from "./errorPage/errorPage.translations";
 import type IGlossaryPageTranslations from "./glossaryPage/glossaryPage.translations";
+import type IHissatsusPageTranslations from "./hissatsusPage/hissatsusPage.translations";
 import type IHomePageTranslations from "./homePage/homePage.translations";
 import type ISettingsPageTranslations from "./settingsPage/settingsPage.translations";
 
@@ -10,6 +11,7 @@ interface IPagesTranslations {
   error: IErrorPageTranslations;
   glossary: IGlossaryPageTranslations;
   settings: ISettingsPageTranslations;
+  hissatsus: IHissatsusPageTranslations;
 }
 
 export default IPagesTranslations;

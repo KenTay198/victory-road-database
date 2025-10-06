@@ -5,9 +5,8 @@ import type { ILearnedHissatsu } from "@character/character.types";
 import type Hissatsu from "@hissatsu/hissatsu.entity";
 import type { IHissatsu } from "@hissatsu/hissatsu.types";
 import HissatsuPropertyFormatter from "@components/hissatsus/HissatsuPropertyFormatter";
-import GetSettings from "@settings/usecases/GetSettings";
-import { settingsServiceInstance } from "@utils/repository-instances";
 import { getTranslations } from "next-intl/server";
+import { getSettingsAction } from "@/actions/settings.actions";
 
 interface IProps extends React.HTMLAttributes<HTMLDivElement> {
   template: AppTemplate;
@@ -16,7 +15,7 @@ interface IProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 const CharacterHissatsusTable = async ({ className, learnedHissatsus, hissatsus, template, ...props }: IProps) => {
-  const settings = await new GetSettings(settingsServiceInstance).execute();
+  const settings = await getSettingsAction();
   const t = await getTranslations("hissatsu");
   const { value, accent } = ColorsHelper.getTemplateColor(template);
   const keys = ["element", "name", "type", "characteristic", "power", "cost"];
@@ -28,7 +27,7 @@ const CharacterHissatsusTable = async ({ className, learnedHissatsus, hissatsus,
           {keys.map((key) => (
             <th key={key}>{t(`properties.${key}`)}</th>
           ))}
-          <th>Learn Level</th>
+          <th>{t("properties.learnLevel")}</th>
         </tr>
       </thead>
       <tbody>
@@ -45,7 +44,7 @@ const CharacterHissatsusTable = async ({ className, learnedHissatsus, hissatsus,
                   </div>
                 </td>
               ))}
-              <td>{learnLevel}</td>
+              <td className="text-center">{learnLevel}</td>
             </tr>
           );
         })}

@@ -1,3 +1,5 @@
+import type { Position } from "./character.types";
+
 export const statKeys = ["kick", "control", "pressure", "physical", "agility", "intelligence", "technique", "total"];
 
 export const advancedStatKeys = [
@@ -13,3 +15,5 @@ export const advancedStatKeys = [
   "totalDef",
   "gk",
 ];
+
+export const positions: Position[] = ["goalkeeper", "defender", "midfielder", "forward"];

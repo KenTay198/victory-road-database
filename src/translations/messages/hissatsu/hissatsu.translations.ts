@@ -6,6 +6,7 @@ interface IHissatsuTranslations {
     power: string;
     cost: string;
     characteristic: string;
+    learnLevel: string;
   };
   types: {
     kick: string;

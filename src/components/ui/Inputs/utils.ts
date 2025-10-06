@@ -19,11 +19,9 @@ export function getInputClasses(
 
   const errorClasses = hasError
     ? ["border-red-500", "bg-red-50"]
-    : ["border-gray-300", "bg-white", "hover:border-gray-400"];
+    : ["border-gray-400", "bg-gray-50", "hover:border-gray-500"];
 
-  const disabledClasses = isDisabled
-    ? ["bg-gray-100", "text-gray-400", "cursor-not-allowed"]
-    : ["text-gray-900"];
+  const disabledClasses = isDisabled ? ["bg-gray-100", "text-gray-400", "cursor-not-allowed"] : ["text-gray-900"];
 
   const allClasses = [...baseClasses, ...errorClasses, ...disabledClasses];
 
@@ -40,11 +38,7 @@ export function getSelectClasses(
   isDisabled: boolean = false,
 ): string {
   const selectSpecificClasses = "appearance-none cursor-pointer";
-  return getInputClasses(
-    `${selectSpecificClasses} ${additionalClasses}`.trim(),
-    hasError,
-    isDisabled,
-  );
+  return getInputClasses(`${selectSpecificClasses} ${additionalClasses}`.trim(), hasError, isDisabled);
 }
 
 export function getTextInputClasses(

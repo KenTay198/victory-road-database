@@ -7,7 +7,6 @@ services:
       - "27025:27017"
     volumes:
       - mongo-data:/data/db
-  restart: "no"
 
 volumes:
   mongo-data:
