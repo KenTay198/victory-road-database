@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import "@styles/globals.css";
-import Sidebar from "@components/ui/Layout/Sidebar";
 import { notFound } from "next/navigation";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages, getTranslations } from "next-intl/server";
@@ -35,12 +34,7 @@ export default async function RootLayout({
     <html lang={locale}>
       <body>
         <NextIntlClientProvider locale={locale} messages={messages}>
-          <Providers>
-            <div className="flex w-full max-w-screen max-h-screen">
-              <Sidebar />
-              <main className="px-5 py-2 w-full overflow-auto">{children}</main>
-            </div>
-          </Providers>
+          <Providers>{children}</Providers>
         </NextIntlClientProvider>
       </body>
     </html>

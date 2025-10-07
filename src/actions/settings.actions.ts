@@ -10,7 +10,9 @@ declare global {
   var settingsService: ISettingsService | undefined;
 }
 
-export async function getSettingsServiceInstance(type = process.env.NODE_ENV === "development" ? "stub" : "mongo") {
+const defaultType = process.env.NODE_ENV === "development" ? "stub" : "mongo";
+
+export async function getSettingsServiceInstance(type = defaultType): Promise<ISettingsService> {
   if (globalThis.settingsService) return globalThis.settingsService;
 
   switch (type) {

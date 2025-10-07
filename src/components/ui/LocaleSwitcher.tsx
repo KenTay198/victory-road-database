@@ -2,9 +2,13 @@
 import type React from "react";
 import { useLocale } from "@/context/LocaleContext";
 import { locales } from "@/translations/intl";
-import SelectInput from "./Inputs/Select";
+import SelectInput from "./Inputs/SelectInput";
 
-const LocaleSwitcher = ({ className, ...props }: React.InputHTMLAttributes<HTMLSelectElement>) => {
+interface IProps extends React.HTMLAttributes<HTMLDivElement> {
+  divClassName?: string;
+}
+
+const LocaleSwitcher = ({ className, ...props }: IProps) => {
   const { locale, updateLocale } = useLocale();
 
   return (

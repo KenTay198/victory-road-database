@@ -5,6 +5,7 @@ import glossaryPageFr from "./glossaryPage/fr";
 import homePageFr from "./homePage/fr";
 import settingsPageFr from "./settingsPage/fr";
 import hissatsusPageFr from "./hissatsusPage/fr";
+import registerPageFr from "./registerPage/fr";
 
 const pagesFr: IPagesTranslations = {
   home: homePageFr,
@@ -13,6 +14,7 @@ const pagesFr: IPagesTranslations = {
   glossary: glossaryPageFr,
   settings: settingsPageFr,
   hissatsus: hissatsusPageFr,
+  register: registerPageFr,
 };
 
 export default pagesFr;

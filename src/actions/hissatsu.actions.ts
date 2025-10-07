@@ -8,7 +8,9 @@ declare global {
   var hissatsuService: IHissatsuService | undefined;
 }
 
-export async function getHissatsuServiceInstance(type = process.env.NODE_ENV === "development" ? "stub" : "mongo") {
+const defaultType = process.env.NODE_ENV === "development" ? "stub" : "mongo";
+
+export async function getHissatsuServiceInstance(type = defaultType): Promise<IHissatsuService> {
   if (globalThis.hissatsuService) return globalThis.hissatsuService;
   switch (type) {
     case "stub":
@@ -21,7 +23,7 @@ export async function getHissatsuServiceInstance(type = process.env.NODE_ENV ===
   return globalThis.hissatsuService;
 }
 
-export async function findAllHissatsus(): Promise<IHissatsu[]> {
+export async function findAllHissatsusAction(): Promise<IHissatsu[]> {
   const hissatsuService = await getHissatsuServiceInstance();
   const hissatsus = await hissatsuService.findAll();
   if (hissatsus && hissatsus.length > 0) {

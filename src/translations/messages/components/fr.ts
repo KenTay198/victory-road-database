@@ -1,10 +1,10 @@
 import type IComponentsTranslations from "./components.translations";
-import itemTableFr from "./itemTable/fr";
+import authFr from "./auth/fr";
+import uiFr from "./ui/fr";
 
 const componentsFr: IComponentsTranslations = {
-  ui: {
-    itemTable: itemTableFr,
-  },
+  ui: uiFr,
+  auth: authFr,
 };
 
 export default componentsFr;

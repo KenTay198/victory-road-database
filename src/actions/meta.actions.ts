@@ -7,7 +7,9 @@ declare global {
   var metaService: IMetaService | undefined;
 }
 
-export async function getMetaServiceInstance(type = process.env.NODE_ENV === "development" ? "stub" : "mongo") {
+const defaultType = process.env.NODE_ENV === "development" ? "stub" : "mongo";
+
+export async function getMetaServiceInstance(type = defaultType): Promise<IMetaService> {
   switch (type) {
     case "stub":
       return new StubMetaService();

@@ -5,6 +5,7 @@ import glossaryPageEn from "./glossaryPage/en";
 import homePageEn from "./homePage/en";
 import settingsPageEn from "./settingsPage/en";
 import hissatsusPageEn from "./hissatsusPage/en";
+import registerPageEn from "./registerPage/en";
 
 const pagesEn: IPagesTranslations = {
   home: homePageEn,
@@ -13,6 +14,7 @@ const pagesEn: IPagesTranslations = {
   glossary: glossaryPageEn,
   settings: settingsPageEn,
   hissatsus: hissatsusPageEn,
+  register: registerPageEn,
 };
 
 export default pagesEn;

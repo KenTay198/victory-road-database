@@ -3,7 +3,7 @@ import Header from "@components/ui/Layout/Header";
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import HissatsuTable from "@components/hissatsus/HissatsuTable/HissatsuTable";
-import { findAllHissatsus } from "@/actions/hissatsu.actions";
+import { findAllHissatsusAction } from "@/actions/hissatsu.actions";
 
 export const generateMetadata = async (): Promise<Metadata> => {
   const t = await getTranslations("pages.hissatsus.metadata");
@@ -16,7 +16,7 @@ export const generateMetadata = async (): Promise<Metadata> => {
 
 const HissatsusListPage = async () => {
   const t = await getTranslations("pages.hissatsus");
-  const hissatsus = await findAllHissatsus();
+  const hissatsus = await findAllHissatsusAction();
 
   return (
     <>

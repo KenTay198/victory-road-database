@@ -1,6 +1,6 @@
 import type React from "react";
 import InputWrapper, { type BaseInputProps } from "./InputWrapper";
-import Checkbox from "./Checkbox";
+import CheckboxInput from "./CheckboxInput";
 
 export interface CheckboxGroupOption {
   value: string;
@@ -51,7 +51,7 @@ export default function CheckboxGroup({
     >
       <div className={className}>
         {options.map((option) => (
-          <Checkbox
+          <CheckboxInput
             key={option.value}
             id={`${id}-${option.value}`}
             checked={values.includes(option.value)}

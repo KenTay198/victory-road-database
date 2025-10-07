@@ -23,6 +23,7 @@
       "@settings/*": ["./src/domain/settings/*"],
       "@character/*": ["./src/domain/character/*"],
       "@hissatsu/*": ["./src/domain/hissatsu/*"],
+      "@user/*": ["./src/domain/user/*"],
       "@domain/*": ["./src/domain/*"],
       "@infrastructure/*": ["./src/infrastructure/*"],
       "@utils/*": ["./src/utils/*"],

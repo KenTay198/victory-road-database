@@ -2,7 +2,7 @@
 import type React from "react";
 import { useState } from "react";
 import Button from "@components/ui/Buttons/Button";
-import SelectInput from "@components/ui/Inputs/Select";
+import SelectInput from "@components/ui/Inputs/SelectInput";
 import { useSettings } from "@context/SettingsContext";
 import type { ISettings } from "@settings/settings.types";
 import { useTranslations } from "next-intl";

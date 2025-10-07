@@ -7,6 +7,7 @@ interface TextInputProps extends BaseInputProps {
   placeholder?: string;
   type?: "text" | "email" | "password" | "tel" | "url";
   handleChange: (value: string) => void;
+  autoComplete?: React.InputHTMLAttributes<HTMLInputElement>["autoComplete"];
 }
 
 export default function TextInput({
@@ -21,6 +22,7 @@ export default function TextInput({
   placeholder,
   type = "text",
   handleChange,
+  autoComplete,
 }: TextInputProps) {
   const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     handleChange(event.target.value);
@@ -45,6 +47,7 @@ export default function TextInput({
         required={required}
         placeholder={placeholder}
         className={getInputClasses(className, !!error, disabled)}
+        autoComplete={autoComplete}
       />
     </InputWrapper>
   );

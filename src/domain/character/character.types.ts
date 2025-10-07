@@ -7,14 +7,14 @@ export interface IFullCharacter extends ICharacter {
   hissatsus: IHissatsu[];
 }
 
-export interface ICharacter extends ICharacterCreateData {
+export interface ICharacter extends ICreateCharacterData {
   id: string;
   fullName: string;
   statistics: IStatistics;
   archetypes: CharacterArchetype[];
 }
 
-export interface ICharacterCreateData {
+export interface ICreateCharacterData {
   firstName: string;
   lastName?: string;
   names?: CharacterNames;

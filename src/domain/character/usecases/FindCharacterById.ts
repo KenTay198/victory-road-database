@@ -1,4 +1,4 @@
-import DomainError from "@domain/shared/domainError";
+import DomainError from "@domain/shared/domainError/domainError";
 import type Character from "@character/entities/character.entity";
 import type ICharacterService from "@character/character.service";
 import type IMetaService from "@meta/meta.service";

@@ -7,6 +7,7 @@ import errorsFr from "./errors/fr";
 import commonFr from "./common/fr";
 import hissatsuFr from "./hissatsu/fr";
 import componentsFr from "./components/fr";
+import userFr from "./user/fr";
 
 const messagesFr: IMessagesTranslations = {
   pages: pagesFr,
@@ -17,6 +18,7 @@ const messagesFr: IMessagesTranslations = {
   common: commonFr,
   hissatsu: hissatsuFr,
   components: componentsFr,
+  user: userFr,
 };
 
 export default messagesFr;

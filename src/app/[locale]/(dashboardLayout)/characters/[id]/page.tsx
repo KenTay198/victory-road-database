@@ -4,12 +4,12 @@ import Header from "@components/ui/Layout/Header";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
-import { findCharacterById } from "@/actions/character.actions";
+import { findCharacterByIdAction } from "@/actions/character.actions";
 import { getSettingsAction } from "@/actions/settings.actions";
 import Character from "@character/entities/character.entity";
 
 const getCharacter = cache(async (id: string) => {
-  return await findCharacterById(id);
+  return await findCharacterByIdAction(id);
 });
 
 export const generateMetadata = async ({ params }: any): Promise<Metadata> => {

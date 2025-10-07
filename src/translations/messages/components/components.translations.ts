@@ -1,9 +1,9 @@
-import type IItemTableTranslations from "./itemTable/itemTable.translations";
+import type IAuthTranslations from "./auth/auth.translations";
+import type IUiTranslations from "./ui/ui.translations";
 
 interface IComponentsTranslations {
-  ui: {
-    itemTable: IItemTableTranslations;
-  };
+  ui: IUiTranslations;
+  auth: IAuthTranslations;
 }
 
 export default IComponentsTranslations;

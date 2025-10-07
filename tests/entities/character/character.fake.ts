@@ -1,8 +1,8 @@
 import Character from "@character/entities/character.entity";
-import type { ICharacterCreateData } from "@character/character.types";
+import type { ICreateCharacterData } from "@character/character.types";
 
 export default class FakeCharacter extends Character {
-  constructor({ firstName, lastName, statistics, names }: Partial<ICharacterCreateData> = {}) {
+  constructor({ firstName, lastName, statistics, names }: Partial<ICreateCharacterData> = {}) {
     super({
       id: "name",
       firstName: firstName || "First",

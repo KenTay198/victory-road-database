@@ -1,7 +1,7 @@
 "use client";
 import type React from "react";
 import { useState } from "react";
-import TextInput from "../Inputs/Text";
+import TextInput from "../Inputs/TextInput";
 import { useTranslations } from "next-intl";
 import Button from "../Buttons/Button";
 import { FaSliders } from "react-icons/fa6";

@@ -1,5 +1,5 @@
 import React from "react";
-import { findAllCharacters } from "@/actions/character.actions";
+import { findAllCharactersAction } from "@/actions/character.actions";
 import CharacterTable from "@components/character/CharacterTable/CharacterTable";
 import Header from "@components/ui/Layout/Header";
 import type { Metadata } from "next";
@@ -16,7 +16,7 @@ export const generateMetadata = async (): Promise<Metadata> => {
 
 const CharactersListPage = async () => {
   const t = await getTranslations("pages.characters");
-  const characters = await findAllCharacters();
+  const characters = await findAllCharactersAction();
 
   return (
     <>

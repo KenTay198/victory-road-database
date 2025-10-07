@@ -12,7 +12,9 @@ declare global {
   var characterService: ICharacterService | undefined;
 }
 
-export async function getCharacterServiceInstance(type = process.env.NODE_ENV === "development" ? "stub" : "mongo") {
+const defaultType = process.env.NODE_ENV === "development" ? "stub" : "mongo";
+
+export async function getCharacterServiceInstance(type = defaultType): Promise<ICharacterService> {
   if (globalThis.characterService) return globalThis.characterService;
 
   switch (type) {
@@ -26,7 +28,7 @@ export async function getCharacterServiceInstance(type = process.env.NODE_ENV ==
   return globalThis.characterService;
 }
 
-export async function findCharacterById(id: string): Promise<IFullCharacter | null> {
+export async function findCharacterByIdAction(id: string): Promise<IFullCharacter | null> {
   const characterService = await getCharacterServiceInstance();
   const metaService = await getMetaServiceInstance();
   const hissatsuService = await getHissatsuServiceInstance();
@@ -37,7 +39,7 @@ export async function findCharacterById(id: string): Promise<IFullCharacter | nu
   return null;
 }
 
-export async function findAllCharacters(): Promise<IFullCharacter[]> {
+export async function findAllCharactersAction(): Promise<IFullCharacter[]> {
   const characterService = await getCharacterServiceInstance();
   const metaService = await getMetaServiceInstance();
   const hissatsuService = await getHissatsuServiceInstance();

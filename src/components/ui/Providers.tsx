@@ -4,16 +4,28 @@ import LocaleProvider from "@context/LocaleContext";
 import SettingsProvider from "@context/SettingsContext";
 import ModalRoot from "./ModalRoot";
 import { Toaster } from "sonner";
+import AuthProvider from "@context/AuthContext";
 
 const Providers = ({ children }: { children: React.ReactNode }) => {
   return (
     <>
       <ModalRoot>
         <LocaleProvider>
-          <SettingsProvider>{children}</SettingsProvider>
+          <AuthProvider>
+            <SettingsProvider>{children}</SettingsProvider>
+          </AuthProvider>
         </LocaleProvider>
       </ModalRoot>
-      <Toaster position="top-center" />
+      <Toaster
+        position="top-center"
+        toastOptions={{
+          classNames: {
+            success: "bg-green-500 text-white",
+            error: "bg-red-500 text-white",
+            info: "bg-blue-500 text-white",
+          },
+        }}
+      />
     </>
   );
 };

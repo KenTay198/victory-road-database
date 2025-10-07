@@ -7,7 +7,7 @@ interface CheckboxProps extends BaseInputProps {
   gap?: number;
 }
 
-export default function Checkbox({
+export default function CheckboxInput({
   id,
   label,
   error,
