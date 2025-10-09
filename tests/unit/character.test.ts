@@ -67,7 +67,12 @@ describe("Character Entity", () => {
         expected: ["attacking-midfielder"],
       },
       {
-        aboveAverageStats: ["faceoffAtt", "faceoffDef"],
+        aboveAverageStats: ["faceoffAtt", "scrambleDef"],
+        hissatsuTypesAndCharacteristics: { dribble: true },
+        expected: ["central-midfielder"],
+      },
+      {
+        aboveAverageStats: ["faceoffAtt", "focusDef"],
         hissatsuTypesAndCharacteristics: { dribble: true },
         expected: ["central-midfielder"],
       },
@@ -87,9 +92,9 @@ describe("Character Entity", () => {
         expected: ["defender"],
       },
       {
-        aboveAverageStats: ["faceoffDef", "wall"],
+        aboveAverageStats: ["wall"],
         hissatsuTypesAndCharacteristics: { defense: true, block: true },
-        expected: ["defender", "wall-defender"],
+        expected: ["wall-defender"],
       },
       {
         aboveAverageStats: ["gk"],
