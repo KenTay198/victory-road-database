@@ -1,3 +1,4 @@
+import Header from "@components/ui/Layout/Header";
 import Sidebar from "@components/ui/Layout/Sidebar";
 
 export default async function DashboardLayout({
@@ -8,7 +9,10 @@ export default async function DashboardLayout({
   return (
     <div className="flex w-full max-w-screen max-h-screen">
       <Sidebar />
-      <main className="px-5 py-2 w-full overflow-auto">{children}</main>
+      <div className="px-5 py-2 w-full overflow-auto">
+        <Header />
+        <main>{children}</main>
+      </div>
     </div>
   );
 }

@@ -13,6 +13,16 @@ const settingsPageEn: ISettingsPageTranslations = {
       loading: "Updating settings...",
     },
   },
+  inputs: {
+    characterLocale: {
+      label: "Character Language",
+      description: "Choose the default language for character names.",
+    },
+    hissatsuLocale: {
+      label: "Hissatsu Language",
+      description: "Choose the default language for Hissatsu names.",
+    },
+  },
 };
 
 export default settingsPageEn;

@@ -13,13 +13,13 @@ export const generateMetadata = async (): Promise<Metadata> => {
 };
 
 export default function Home() {
-  const t = useTranslations("pages.home");
+  const t = useTranslations("");
 
   return (
     <>
-      <h1>{t("header")}</h1>
+      <h1>{t("pages.home.header")}</h1>
       <Button template="blue" link="/characters">
-        {t("buttons.seeCharacters")}
+        {t("pages.home.buttons.seeCharacters")}
       </Button>
     </>
   );

@@ -2,6 +2,7 @@ export interface IUser {
   id: string;
   email: string;
   username: string;
+  role: UserRole;
 }
 
 export interface IUserSensitive extends IUser {
@@ -15,7 +16,8 @@ export interface ICreateUserData {
 }
 
 export interface ILoginData {
-  email: string;
-  username: string;
+  identifier: string;
   password: string;
 }
+
+export type UserRole = "user" | "admin";

@@ -1,6 +1,6 @@
 import React, { cache } from "react";
 import CharacterView from "@components/character/CharacterView";
-import Header from "@components/ui/Layout/Header";
+import Banner from "@components/ui/Layout/Banner";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
@@ -37,7 +37,7 @@ const CharacterPage = async ({ params }: any) => {
 
   return (
     <>
-      <Header
+      <Banner
         title={characterEntity.fullName}
         path={[{ value: "characters" }, { value: id, label: characterEntity.fullName }]}
       />

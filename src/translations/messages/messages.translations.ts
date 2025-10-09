@@ -6,7 +6,6 @@ import type IErrorsTranslations from "./errors/errors.translations";
 import type IHissatsuTranslations from "./hissatsu/hissatsu.translations";
 import type ILayoutTranslations from "./layout/layout.translations";
 import type IPagesTranslations from "./pages/pages.translations";
-import type IUserTranslations from "./user/user.translations";
 
 interface IMessagesTranslations {
   pages: IPagesTranslations;
@@ -17,7 +16,6 @@ interface IMessagesTranslations {
   common: ICommonTranslations;
   hissatsu: IHissatsuTranslations;
   components: IComponentsTranslations;
-  user: IUserTranslations;
 }
 
 export default IMessagesTranslations;

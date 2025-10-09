@@ -118,7 +118,10 @@ function ItemTableBody<T extends { id: any }>({
               const color = ColorsHelper.getColorByTier(value, statDescription);
               return (
                 <td key={slug}>
-                  <div style={{ color }} className={`w-fit text-center ${color ? `font-bold` : ""} ${className || ""}`}>
+                  <div
+                    style={{ color }}
+                    className={`w-fit text-center whitespace-nowrap ${color ? `font-bold` : ""} ${className || ""}`}
+                  >
                     <PropertyFormatter property={slug} value={getPropertyValue(item, slug)} />
                   </div>
                 </td>

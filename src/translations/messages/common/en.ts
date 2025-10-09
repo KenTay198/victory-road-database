@@ -12,6 +12,9 @@ const commonEn: ICommonTranslations = {
     vo: "Original",
     west: "Western",
   },
+  images: {
+    logoAlt: "Logo of the Inazuma Eleven: Victory Road",
+  },
   none: "None",
 };
 

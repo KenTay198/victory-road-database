@@ -8,4 +8,12 @@ export default class UserSensitive extends User {
     super(data);
     this.password = data.password;
   }
+
+  removeSensitiveInfo(): User {
+    return new User({
+      id: this.id,
+      email: this.email,
+      username: this.username,
+    });
+  }
 }

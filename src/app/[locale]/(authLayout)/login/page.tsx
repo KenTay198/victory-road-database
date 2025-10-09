@@ -1,12 +1,12 @@
 import React from "react";
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
-import RegisterForm from "@components/auth/RegisterForm";
+import LoginForm from "@components/auth/LoginForm";
 import { getAuthUserAction } from "@/actions/auth.actions";
 import { redirect } from "next/navigation";
 
 export const generateMetadata = async (): Promise<Metadata> => {
-  const t = await getTranslations("pages.register.metadata");
+  const t = await getTranslations("pages.login.metadata");
 
   return {
     title: t("title"),
@@ -14,8 +14,8 @@ export const generateMetadata = async (): Promise<Metadata> => {
   };
 };
 
-const RegisterPage = async () => {
-  const t = await getTranslations("pages.register");
+const LoginPage = async () => {
+  const t = await getTranslations("pages.login");
 
   const user = await getAuthUserAction();
   if (user) {
@@ -25,9 +25,9 @@ const RegisterPage = async () => {
   return (
     <>
       <h1>{t("header")}</h1>
-      <RegisterForm />
+      <LoginForm />
     </>
   );
 };
 
-export default RegisterPage;
+export default LoginPage;

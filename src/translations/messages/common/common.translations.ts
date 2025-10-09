@@ -10,6 +10,9 @@ interface ICommonTranslations {
     vo: string;
     west: string;
   };
+  images: {
+    logoAlt: string;
+  };
   none: string;
 }
 

@@ -1,7 +1,9 @@
-import type { ILoginData } from "./user.types";
+import type User from "./entities/user.entity";
+import type { ICreateUserData, ILoginData } from "./user.types";
 
 interface IUserRepository {
-  create({ email, username, password }: ILoginData): Promise<string>;
+  create(data: ICreateUserData): Promise<string>;
+  login(data: ILoginData): Promise<User | null>;
 }
 
 export default IUserRepository;

@@ -35,8 +35,8 @@ const SettingsForm = ({ className, ...props }: React.HTMLAttributes<HTMLDivEleme
     <div {...props} className={["space-y-4", className].join(" ")}>
       <SelectInput
         id="characterLocale"
-        label="Character Language"
-        description="Select the default language displayed for Characters"
+        label={t("pages.settings.inputs.characterLocale.label")}
+        description={t("pages.settings.inputs.characterLocale.description")}
         value={settingsToUpdate.characterLocale}
         options={[
           { value: "fr", label: t("common.locales.fr") },
@@ -46,8 +46,8 @@ const SettingsForm = ({ className, ...props }: React.HTMLAttributes<HTMLDivEleme
       />
       <SelectInput
         id="hissatsuLocale"
-        label="Hissatsu Language"
-        description="Select the default language displayed for Hissatsus"
+        label={t("pages.settings.inputs.hissatsuLocale.label")}
+        description={t("pages.settings.inputs.hissatsuLocale.description")}
         value={settingsToUpdate.hissatsuLocale}
         options={[
           { value: "en", label: t("common.locales.en") },

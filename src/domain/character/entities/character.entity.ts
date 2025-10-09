@@ -107,7 +107,6 @@ export default class Character implements ICharacter {
   getArchetypes(): CharacterArchetype[] {
     const archetypes: CharacterArchetype[] = [];
     const aboveAverageStats = this.calculateAboveAverageStats();
-
     // Analyse above average stats to determine archetypes
     const hasHissatsus = this.findAllHissatsuTypesAndCharacteristics();
     if (hasHissatsus.long) archetypes.push("long-shooter");
@@ -122,15 +121,17 @@ export default class Character implements ICharacter {
 
       if (isAbove("faceoffAtt") && hasHissatsus.kick) archetypes.push("attacking-midfielder");
 
-      if (isAbove("faceoffAtt") && isAbove("faceoffDef") && hasHissatsus.dribble) archetypes.push("central-midfielder");
+      if (isAbove("faceoffAtt") && (isAbove("focusDef") || isAbove("scrambleDef")) && hasHissatsus.dribble)
+        archetypes.push("central-midfielder");
 
       if (isAbove("faceoffAtt") && (isAbove("focusDef") || isAbove("scrambleDef")) && hasHissatsus.defense)
         archetypes.push("defensive-midfielder");
 
       if (isAbove("faceoffDef") && hasHissatsus.defense) {
         archetypes.push("defender");
-        if (isAbove("wall") && hasHissatsus.block) archetypes.push("wall-defender");
       }
+
+      if (isAbove("wall") && hasHissatsus.block) archetypes.push("wall-defender");
 
       if (isAbove("gk") && hasHissatsus.keep) archetypes.push("goalkeeper");
     }
@@ -138,6 +139,31 @@ export default class Character implements ICharacter {
     if (archetypes.length === 0) archetypes.push("none");
 
     return archetypes;
+  }
+
+  static getShortArchetype(archetype: CharacterArchetype): string {
+    switch (archetype) {
+      case "striker":
+        return "ST";
+      case "forward":
+        return "FW";
+      case "long-shooter":
+        return "LS";
+      case "attacking-midfielder":
+        return "AM";
+      case "central-midfielder":
+        return "CM";
+      case "defensive-midfielder":
+        return "DM";
+      case "defender":
+        return "DF";
+      case "wall-defender":
+        return "WD";
+      case "goalkeeper":
+        return "GK";
+      default:
+        return "N/A";
+    }
   }
   //#endregion
 

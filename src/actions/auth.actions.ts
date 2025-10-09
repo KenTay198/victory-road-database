@@ -4,6 +4,8 @@ import type IUserService from "@user/user.service";
 import StubUserService from "@infrastructure/user/stub/user.stub-service";
 import CreateUser from "@user/usecases/CreateUser";
 import type { ICreateUserData, ILoginData, IUser } from "@user/user.types";
+import Login from "@user/usecases/Login";
+import TokenService from "@infrastructure/auth/token.service";
 
 declare global {
   var userService: IUserService | undefined;
@@ -32,5 +34,19 @@ export async function createUserAction(userData: ICreateUserData): Promise<strin
 
 export async function loginAction(loginData: ILoginData): Promise<IUser | null> {
   const userService = await getUserServiceInstance();
-  throw new Error("Not implemented");
+  const user = await new Login(userService).execute(loginData);
+  if (user) {
+    const userObject = user.toJSON();
+    await TokenService.saveUser(userObject);
+    return userObject;
+  }
+  return user;
+}
+
+export async function getAuthUserAction(): Promise<IUser | null> {
+  return await TokenService.getUser();
+}
+
+export async function logoutAction(): Promise<boolean> {
+  return await TokenService.deleteToken();
 }

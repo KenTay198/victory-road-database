@@ -1,4 +1,4 @@
-import Header from "@components/ui/Layout/Header";
+import Banner from "@components/ui/Layout/Banner";
 import type { Metadata } from "next";
 import { useTranslations } from "next-intl";
 import { getTranslations } from "next-intl/server";
@@ -17,7 +17,7 @@ const GlossaryPage = () => {
   const t = useTranslations("pages.glossary");
   return (
     <>
-      <Header title={t("header")} path={[{ value: "glossary" }]} />
+      <Banner title={t("header")} path={[{ value: "glossary" }]} />
       <h2>Advanced statistics</h2>
       <ul>
         <li>

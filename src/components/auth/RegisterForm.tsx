@@ -7,34 +7,27 @@ import Button from "@components/ui/Buttons/Button";
 import type { FormError } from "@utils/types";
 import { useAuth } from "@context/AuthContext";
 import { toast } from "sonner";
-import ObjectHelpers from "@utils/helpers/object.helpers";
 import ErrorHelpers from "@utils/helpers/error.helpers";
 import PasswordInput from "@components/ui/Inputs/PasswordInput";
-
-interface IProps extends React.HTMLAttributes<HTMLDivElement> {
-  /* Props go here */
-}
+import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 interface IFormData extends Partial<ICreateUserData> {
   confirmPassword?: string;
 }
 
-const RegisterForm = ({ className, ...props }: IProps) => {
+const RegisterForm = ({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) => {
   const t = useTranslations();
   const { register } = useAuth();
-  const [data, setData] = useState<IFormData>({
-    username: "john",
-    email: "john@example.com",
-    password: "password",
-    confirmPassword: "password",
-  });
+  const router = useRouter();
+  const [data, setData] = useState<IFormData>({});
   const [errors, setErrors] = useState<FormError[]>([]);
 
   const handleChange = (field: keyof IFormData, value: string) => {
     setData((prev) => ({ ...prev, [field]: value }));
   };
 
-  const checkErrors = (data: IFormData) => {
+  const checkErrors = (data: IFormData): data is Required<ICreateUserData> => {
     const errors: FormError[] = [];
     if (!data.username) {
       errors.push({ field: "username", message: t("errors.common.required") });
@@ -46,35 +39,34 @@ const RegisterForm = ({ className, ...props }: IProps) => {
       errors.push({ field: "password", message: t("errors.common.required") });
     }
     if (data.password !== data.confirmPassword) {
-      errors.push({ field: "password", message: t("errors.components.forms.register.passwordsMismatch") });
-      errors.push({ field: "confirmPassword", message: t("errors.components.forms.register.passwordsMismatch") });
+      errors.push({ field: "password", message: t("components.authregisterForm.errors.passwordsMismatch") });
+      errors.push({ field: "confirmPassword", message: t("components.authregisterForm.errors.passwordsMismatch") });
     }
 
     setErrors(errors);
-    return errors.length > 0;
+    return errors.length === 0;
   };
 
   const handleSubmit = () => {
-    if (checkErrors(data)) {
-      return;
+    const sendData = { ...data };
+    if (checkErrors(sendData)) {
+      if ("confirmPassword" in sendData) delete sendData.confirmPassword;
+      toast.promise(register(sendData), {
+        success: () => {
+          router.push("/login");
+          return t("components.auth.registerForm.toasts.success");
+        },
+        error: (e) => {
+          const error = ErrorHelpers.parse(e);
+          const explanation = error.messageKey || "components.auth.registerForm.toasts.error";
+          if (error.hasFields()) {
+            setErrors(error.data.fields.map(({ field, message }) => ({ field, message: t(message) })));
+          }
+          return t(explanation);
+        },
+        loading: t("components.auth.registerForm.toasts.loading"),
+      });
     }
-
-    const dataToSubmit = ObjectHelpers.removeProperty<Required<IFormData>>(data, "confirmPassword");
-    toast.promise(register(dataToSubmit), {
-      success: () => {
-        return t("user.forms.register.toasts.success");
-      },
-      error: (e) => {
-        const error = ErrorHelpers.parse(e);
-        if (error.isValidationError()) {
-          setErrors(error.data.fields.map(({ field, message }) => ({ field, message: t(message) })));
-        } else if (error.isBusinessError()) {
-          return t(error.data.explanation);
-        }
-        return t(error.messageKey || "user.forms.register.toasts.error");
-      },
-      loading: t("user.forms.register.toasts.loading"),
-    });
   };
 
   return (
@@ -114,6 +106,9 @@ const RegisterForm = ({ className, ...props }: IProps) => {
       <Button className="mx-auto flex" template="blue" onClick={handleSubmit}>
         {t("common.buttons.submit")}
       </Button>
+      <Link href="/login" className="block text-center italic underline">
+        {t("components.auth.registerForm.alreadyRegistered")}
+      </Link>
     </div>
   );
 };

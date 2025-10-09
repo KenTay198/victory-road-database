@@ -1,14 +1,16 @@
 "use client";
 import type React from "react";
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import User from "@user/entities/user.entity";
 import type { ICreateUserData, ILoginData } from "@user/user.types";
-import { createUserAction, loginAction } from "@/actions/auth.actions";
+import { createUserAction, getAuthUserAction, loginAction, logoutAction } from "@/actions/auth.actions";
 
 interface IAuthContext {
   user: User | null;
   register: (settings: ICreateUserData) => Promise<string>;
   login: (settings: ILoginData) => Promise<User | null>;
+  logout: () => Promise<boolean>;
+  getAuthUser: () => Promise<User | null>;
 }
 
 //@ts-expect-error
@@ -36,5 +38,27 @@ export default function AuthProvider({ children }: { children: React.ReactNode }
     return user;
   };
 
-  return <AuthContext.Provider value={{ user, register, login }}>{children}</AuthContext.Provider>;
+  const logout = async (): Promise<boolean> => {
+    const result = await logoutAction();
+    if (result) {
+      setUser(null);
+    }
+    return result;
+  };
+
+  const getAuthUser = async (): Promise<User | null> => {
+    let user: User | null = null;
+    const result = await getAuthUserAction();
+    if (result) {
+      user = new User(result);
+      setUser(user);
+    }
+    return user;
+  };
+
+  useEffect(() => {
+    getAuthUser().then(setUser);
+  }, []);
+
+  return <AuthContext.Provider value={{ user, register, login, logout, getAuthUser }}>{children}</AuthContext.Provider>;
 }

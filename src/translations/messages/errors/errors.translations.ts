@@ -8,18 +8,6 @@ interface IErrorsTranslations {
     requiredField: string;
     invalidEmail: string;
   };
-  components: {
-    forms: {
-      register: {
-        passwordsMismatch: string;
-        usernameMinLength: string;
-        usernameMaxLength: string;
-        passwordMinLength: string;
-        passwordMaxLength: string;
-        userAlreadyExists: string;
-      };
-    };
-  };
 }
 
 export default IErrorsTranslations;

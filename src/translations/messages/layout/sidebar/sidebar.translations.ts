@@ -1,7 +1,3 @@
-interface ISidebarTranslations {
-  images: {
-    logoAlt: string;
-  };
-}
+interface ISidebarTranslations {}
 
 export default ISidebarTranslations;

@@ -1,5 +1,5 @@
 import React from "react";
-import Header from "@components/ui/Layout/Header";
+import Banner from "@components/ui/Layout/Banner";
 import type { Metadata } from "next";
 import { useTranslations } from "next-intl";
 import { getTranslations } from "next-intl/server";
@@ -18,7 +18,7 @@ const SettingsPage = () => {
   const t = useTranslations("pages.settings");
   return (
     <>
-      <Header title={t("header")} path={[{ value: "settings" }]} />
+      <Banner title={t("header")} path={[{ value: "settings" }]} />
       <SettingsForm />
     </>
   );

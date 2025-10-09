@@ -7,7 +7,6 @@ import pagesEn from "./pages/en";
 import commonEn from "./common/en";
 import hissatsuEn from "./hissatsu/en";
 import componentsEn from "./components/en";
-import userEn from "./user/en";
 
 const messagesEn: IMessagesTranslations = {
   pages: pagesEn,
@@ -18,7 +17,6 @@ const messagesEn: IMessagesTranslations = {
   common: commonEn,
   hissatsu: hissatsuEn,
   components: componentsEn,
-  user: userEn,
 };
 
 export default messagesEn;

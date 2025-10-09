@@ -13,7 +13,6 @@ export default class ErrorHelper {
     const error = new ErrorHelper("UNEXPECTED", `errors.common.categories.UNEXPECTED`);
     try {
       const errorObject = JSON.parse(errorString.message);
-
       if (errorObject.category) {
         error.type = errorObject.category;
         error.messageKey = `errors.common.categories.${errorObject.category}`;
@@ -30,14 +29,11 @@ export default class ErrorHelper {
       data = JSON.parse(data);
     } catch {}
 
-    console.log("data", data);
-
     switch (category) {
       case "VALIDATION":
         return this.formatValidationErrorData(data);
       case "BUSINESS":
-        if (typeof data === "string") return { explanation: data };
-        break;
+        return this.formatBusinessErrorData(data);
       default:
         break;
     }
@@ -46,7 +42,7 @@ export default class ErrorHelper {
     return data;
   }
 
-  private formatValidationErrorData(data: any): ValidationErrorData {
+  private formatValidationErrorData(data: any): FieldsErrorData {
     const fields: { field: string; message: string }[] = [];
 
     if (Array.isArray(data)) {
@@ -57,25 +53,39 @@ export default class ErrorHelper {
     return { fields };
   }
 
-  isValidationError(): this is ErrorHelper & { data: ValidationErrorData } {
+  private formatBusinessErrorData(data: any): DefaultErrorData | FieldsErrorData {
+    if (typeof data === "string") {
+      this.messageKey = data;
+      data = { error: data };
+    } else if (data.explanation && typeof data.explanation === "string") {
+      this.messageKey = data.explanation;
+    }
+    return data;
+  }
+
+  hasFields(): this is ErrorHelper & { data: FieldsErrorData } {
+    return (
+      this.data !== undefined && "fields" in this.data && Array.isArray(this.data.fields) && this.data.fields.length > 0
+    );
+  }
+
+  isValidationError(): this is ErrorHelper & { data: FieldsErrorData } {
     return this.type === "VALIDATION" && this.data !== undefined;
   }
 
-  isBusinessError(): this is ErrorHelper & { data: BusinessErrorData } {
+  isBusinessError(): this is ErrorHelper & { data: FieldsErrorData } {
     return this.type === "BUSINESS" && this.data !== undefined;
   }
 }
 
-type ErrorData = DefaultErrorData | ValidationErrorData | BusinessErrorData;
+type ErrorData = DefaultErrorData | FieldsErrorData;
 
 type DefaultErrorData = {
   error: string;
 };
 
-type ValidationErrorData = {
-  fields: { field: string; message: string }[];
+type FieldsErrorData = {
+  fields: FieldMessage[];
 };
 
-type BusinessErrorData = {
-  explanation: string;
-};
+type FieldMessage = { field: string; message: string };
