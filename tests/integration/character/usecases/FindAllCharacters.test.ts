@@ -35,25 +35,45 @@ describe("FindAllCharacters", () => {
     it("should return all characters with meta and archetypes", async () => {
       // arrange
       const meta = new Meta({ initialized: true });
-      vi.spyOn(metaService, "get").mockResolvedValue(meta);
+      const getMetaSpy = vi.spyOn(metaService, "get").mockResolvedValue(meta);
       // act
       const characters = await new FindAllCharacters({ characterService, metaService }).execute();
       // assert
       expect(Array.isArray(characters)).toBe(true);
       expect(characters.length).toBeGreaterThan(0);
+      expect(getMetaSpy).toHaveBeenCalledOnce();
       expect(characters[0].archetypes).toBeDefined();
       expect(Array.isArray(characters[0].archetypes)).toBe(true);
     });
 
     it("should return all characters with hissatsus", async () => {
+      // arrange
+      const findAllHissatsusSpy = vi.spyOn(hissatsuService, "findAll");
       // act
       const characters = await new FindAllCharacters({ characterService, hissatsuService }).execute();
       // assert
       expect(Array.isArray(characters)).toBe(true);
       expect(characters.length).toBeGreaterThan(0);
+      expect(findAllHissatsusSpy).toHaveBeenCalledOnce();
       expect(characters[0].hissatsus).toBeDefined();
-      expect(characters[0].hissatsus[0]).toBeInstanceOf(Hissatsu);
       expect(Array.isArray(characters[0].hissatsus)).toBe(true);
+      expect(characters[0].hissatsus[0]).toBeInstanceOf(Hissatsu);
+    });
+
+    it("should return all characters with meta and hissatsus", async () => {
+      // arrange
+      const findAllHissatsusSpy = vi.spyOn(hissatsuService, "findAll");
+      const getMetaSpy = vi.spyOn(metaService, "get").mockResolvedValue(new Meta({ initialized: true }));
+      // act
+      const characters = await new FindAllCharacters({ characterService, metaService, hissatsuService }).execute();
+      // assert
+      expect(Array.isArray(characters)).toBe(true);
+      expect(characters.length).toBeGreaterThan(0);
+      expect(getMetaSpy).toHaveBeenCalledOnce();
+      expect(findAllHissatsusSpy).toHaveBeenCalledOnce();
+      expect(characters[0].hissatsus).toBeDefined();
+      expect(Array.isArray(characters[0].hissatsus)).toBe(true);
+      expect(characters[0].hissatsus[0]).toBeInstanceOf(Hissatsu);
     });
   });
 

@@ -23,47 +23,54 @@ describe("FindCharacterById", () => {
 
   describe("Successful execution", () => {
     it("should return a character when ID exists", async () => {
+      // act
       const character = await new FindCharacterById({ characterService }).execute("1");
-
+      // assert
       expect(character).toBeTruthy();
       expect(character).toBeInstanceOf(Character);
       expect(character?.id).toBe("1");
     });
 
     it("should return character with archetypes when meta service is provided", async () => {
+      // arrange
       const meta = new Meta({ initialized: true });
-      vi.spyOn(metaService, "get").mockResolvedValue(meta);
-
+      const getMetaSpy = vi.spyOn(metaService, "get").mockResolvedValue(meta);
+      // act
       const character = await new FindCharacterById({ characterService, metaService }).execute("1");
-
+      // assert
       expect(character).toBeTruthy();
       expect(character?.id).toBe("1");
       expect(character?.archetypes).toBeDefined();
+      expect(getMetaSpy).toHaveBeenCalledOnce();
       expect(Array.isArray(character?.archetypes)).toBe(true);
       expect(character?.archetypes?.length).toBeGreaterThan(0);
     });
 
     it("should return character with hissatsus when hissatsu service is provided", async () => {
+      // arrange
+      const findLearnedHissatsusSpy = vi.spyOn(hissatsuService, "findLearnedHissatsus");
+      // act
       const character = await new FindCharacterById({ characterService, hissatsuService }).execute("1");
-
+      // assert
       expect(character).toBeTruthy();
       expect(character?.id).toBe("1");
       expect(character?.hissatsus).toBeDefined();
+      expect(findLearnedHissatsusSpy).toHaveBeenCalledOnce();
       expect(Array.isArray(character?.hissatsus)).toBe(true);
       expect(character?.hissatsus?.length).toBe(character?.learnedHissatsus.length);
     });
 
     it("should return character with both meta and hissatsus when both services provided", async () => {
+      // arrange
       const meta = new Meta({ initialized: true });
-      vi.spyOn(metaService, "get").mockResolvedValue(meta);
-
-      const character = await new FindCharacterById({
-        characterService,
-        metaService,
-        hissatsuService,
-      }).execute("1");
-
+      const getMetaSpy = vi.spyOn(metaService, "get").mockResolvedValue(meta);
+      const findLearnedHissatsusSpy = vi.spyOn(hissatsuService, "findLearnedHissatsus");
+      // act
+      const character = await new FindCharacterById({ characterService, metaService, hissatsuService }).execute("1");
+      // assert
       expect(character).toBeTruthy();
+      expect(getMetaSpy).toHaveBeenCalledOnce();
+      expect(findLearnedHissatsusSpy).toHaveBeenCalledOnce();
       expect(character?.archetypes).toBeDefined();
       expect(character?.hissatsus).toBeDefined();
     });
