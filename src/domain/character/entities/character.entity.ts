@@ -22,7 +22,7 @@ export default class Character implements ICharacter {
   firstName: string;
   lastName: string = "";
   fullName: string = "";
-  names?: CharacterNames;
+  names: CharacterNames;
   element: CharacterElement;
   defaultPosition: Position;
   statistics: Statistics;
@@ -42,7 +42,7 @@ export default class Character implements ICharacter {
     this.element = data.element;
     this.defaultPosition = data.defaultPosition;
     this.statistics = new Statistics(data.statistics);
-    this.imageUrl = data.imageUrl;
+    this.imageUrl = data.imageUrl || "";
     this.learnedHissatsus = data.learnedHissatsus ?? [];
 
     this.hissatsus = [];
@@ -194,7 +194,7 @@ export default class Character implements ICharacter {
   }
   //#endregion
 
-  //#region Utils
+  //#region Parsing
   toJSON(): ICharacter {
     return {
       id: this.id,

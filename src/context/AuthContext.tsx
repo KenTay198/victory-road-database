@@ -2,12 +2,12 @@
 import type React from "react";
 import { createContext, useContext, useEffect, useState } from "react";
 import User from "@user/entities/user.entity";
-import type { ICreateUserData, ILoginData } from "@user/user.types";
+import type { IUserData, ILoginData } from "@user/user.types";
 import { createUserAction, getCurrentUserAction, loginAction, logoutAction } from "@/actions/auth.actions";
 
 interface IAuthContext {
   user: User | null;
-  register: (settings: ICreateUserData) => Promise<string>;
+  register: (settings: IUserData) => Promise<string>;
   login: (settings: ILoginData) => Promise<User | null>;
   logout: () => Promise<boolean>;
   getAuthUser: () => Promise<User | null>;
@@ -24,7 +24,7 @@ export const useAuth = () => {
 export default function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
 
-  const register = (userData: ICreateUserData): Promise<string> => {
+  const register = (userData: IUserData): Promise<string> => {
     return createUserAction(userData);
   };
 

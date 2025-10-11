@@ -17,7 +17,7 @@ export interface ICharacter extends ICharacterData {
 export interface ICharacterData {
   firstName: string;
   lastName?: string;
-  names?: CharacterNames;
+  names: CharacterNames;
   element: CharacterElement;
   defaultPosition: Position;
   learnedHissatsus: ILearnedHissatsu[];

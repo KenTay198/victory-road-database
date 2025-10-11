@@ -1,5 +1,5 @@
-import { useTranslations } from "next-intl";
 import React from "react";
+import { useTranslations } from "next-intl";
 import { type INavLink, navLinks } from "./navLinks";
 
 type PathSegment = { value: string; label?: string };

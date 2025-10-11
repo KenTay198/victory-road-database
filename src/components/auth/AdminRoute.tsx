@@ -1,4 +1,3 @@
-import React from "react";
 import { getCurrentUserAction } from "@/actions/auth.actions";
 import { notFound } from "next/navigation";
 

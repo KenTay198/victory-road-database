@@ -1,4 +1,3 @@
-import type React from "react";
 import InputWrapper, { type BaseInputProps } from "./InputWrapper";
 import CheckboxInput from "./CheckboxInput";
 

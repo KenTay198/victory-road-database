@@ -1,12 +1,12 @@
 import DomainError from "@domain/shared/domainError/domainError";
 import type IUserService from "../user.service";
-import type { ICreateUserData } from "../user.types";
+import type { IUserData } from "../user.types";
 import { z } from "zod";
 
 export default class CreateUser {
   constructor(private userService: IUserService) {}
 
-  async execute(userData: ICreateUserData): Promise<string> {
+  async execute(userData: IUserData): Promise<string> {
     try {
       const data = CreateUserData.parse(userData);
       return await this.userService.create(data);
@@ -28,4 +28,4 @@ const CreateUserData = z.object({
     .trim()
     .min(8, "components.auth.registerForm.errors.passwordMinLength")
     .max(100, "components.auth.registerForm.errors.passwordMaxLength"),
-}) satisfies z.ZodType<ICreateUserData>;
+}) satisfies z.ZodType<IUserData>;

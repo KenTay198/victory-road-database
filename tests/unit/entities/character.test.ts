@@ -1,12 +1,56 @@
 import { describe, it, expect, vi } from "vitest";
-import FakeCharacter from "../entities/character/character.fake";
+import FakeCharacter from "../../entities/character/character.fake";
 import AdvancedStatistics from "@character/entities/advancedStatistics.entity";
 import Meta from "@meta/meta.entity";
 import Statistics from "@character/entities/statistics.entity";
-import FakeHissatsu from "../entities/character/hissatsu.fake";
+import FakeHissatsu from "../../entities/hissatsus/hissatsu.fake";
 import type { HissatsuCharacteristic, HissatsuType } from "@hissatsu/hissatsu.types";
+import Character from "@character/entities/character.entity";
 
 describe("Character Entity", () => {
+  //#region Constructor
+  describe("constructor", () => {
+    it("should create a valid Character instance with only required properties", () => {
+      // act
+      const character = new FakeCharacter();
+      // assert
+      expect(character.id).toBeDefined();
+      expect(character.firstName).toBeDefined();
+      expect(character.lastName).toBeDefined();
+      expect(character.fullName).toBeDefined();
+      expect(character.element).toBeDefined();
+      expect(character.defaultPosition).toBeDefined();
+      expect(character.learnedHissatsus).toBeDefined();
+      expect(character.statistics).toBeInstanceOf(Statistics);
+      expect(character.advancedStatistics).toBeInstanceOf(AdvancedStatistics);
+      expect(character.archetypes).toBeInstanceOf(Array);
+      expect(character.learnedHissatsus).toBeInstanceOf(Array);
+      expect(character.hissatsus).toBeInstanceOf(Array);
+    });
+
+    it("should create a valid Character instance with optional properties", () => {
+      // act
+      const character = new FakeCharacter();
+      character.imageUrl = "http://example.com/image.png";
+      // assert
+      expect(character.id).toBeDefined();
+      expect(character.firstName).toBeDefined();
+      expect(character.lastName).toBeDefined();
+      expect(character.fullName).toBeDefined();
+      expect(character.element).toBeDefined();
+      expect(character.defaultPosition).toBeDefined();
+      expect(character.learnedHissatsus).toBeDefined();
+      expect(character.statistics).toBeInstanceOf(Statistics);
+      expect(character.advancedStatistics).toBeInstanceOf(AdvancedStatistics);
+      expect(character.archetypes).toBeInstanceOf(Array);
+      expect(character.learnedHissatsus).toBeInstanceOf(Array);
+      expect(character.hissatsus).toBeInstanceOf(Array);
+      expect(character.imageUrl).toBeDefined();
+    });
+  });
+  //#endregion
+
+  //#region Name
   describe("getFullName", () => {
     const character = new FakeCharacter({ firstName: "First", lastName: "Last" });
     it("should return the correct full name", () => {
@@ -39,6 +83,64 @@ describe("Character Entity", () => {
       } else {
         expect(character.fullName).toBe(`${expected.firstName} ${expected.lastName}`);
       }
+    });
+  });
+  //#endregion
+
+  //#region Archetypes
+  describe("calculateAboveAverageStats", () => {
+    it("should return empty array when meta is not initialized", () => {
+      // arrange
+      const character = new FakeCharacter();
+      // act
+      const result = character.calculateAboveAverageStats();
+      // assert
+      expect(result).toEqual([]);
+    });
+
+    it("should return empty array when no meta is set", () => {
+      // arrange
+      const character = new FakeCharacter();
+      character.setMeta(new Meta({ initialized: false }));
+
+      // act
+      const result = character.calculateAboveAverageStats();
+
+      // assert
+      expect(result).toEqual([]);
+    });
+
+    it("should return stats above average when meta is initialized", () => {
+      // arrange
+      const character = new FakeCharacter({
+        statistics: Statistics.initialize(10),
+      });
+      character.statistics.kick = 15;
+
+      const metaStats = Statistics.initialize(10);
+      const metaAdvancedStats = metaStats.getAdvancedStatistics();
+      const meta = new Meta({
+        statRange: {
+          max: metaStats,
+          mean: metaStats,
+          min: metaStats,
+        },
+        advancedStatRange: {
+          max: metaAdvancedStats,
+          mean: metaAdvancedStats,
+          min: metaAdvancedStats,
+        },
+        initialized: true,
+      });
+
+      character.setMeta(meta);
+
+      // act
+      const result = character.calculateAboveAverageStats();
+
+      // assert
+      expect(result).toBeTruthy();
+      expect(result.length).toBeGreaterThan(0);
     });
   });
 
@@ -119,63 +221,9 @@ describe("Character Entity", () => {
       },
     );
   });
+  //#endregion
 
-  describe("calculateAboveAverageStats", () => {
-    it("should return empty array when meta is not initialized", () => {
-      // arrange
-      const character = new FakeCharacter();
-      // act
-      const result = character.calculateAboveAverageStats();
-      // assert
-      expect(result).toEqual([]);
-    });
-
-    it("should return empty array when no meta is set", () => {
-      // arrange
-      const character = new FakeCharacter();
-      character.setMeta(new Meta({ initialized: false }));
-
-      // act
-      const result = character.calculateAboveAverageStats();
-
-      // assert
-      expect(result).toEqual([]);
-    });
-
-    it("should return stats above average when meta is initialized", () => {
-      // arrange
-      const character = new FakeCharacter({
-        statistics: Statistics.initialize(10),
-      });
-      character.statistics.kick = 15;
-
-      const metaStats = Statistics.initialize(10);
-      const metaAdvancedStats = metaStats.getAdvancedStatistics();
-      const meta = new Meta({
-        statRange: {
-          max: metaStats,
-          mean: metaStats,
-          min: metaStats,
-        },
-        advancedStatRange: {
-          max: metaAdvancedStats,
-          mean: metaAdvancedStats,
-          min: metaAdvancedStats,
-        },
-        initialized: true,
-      });
-
-      character.setMeta(meta);
-
-      // act
-      const result = character.calculateAboveAverageStats();
-
-      // assert
-      expect(result).toBeTruthy();
-      expect(result.length).toBeGreaterThan(0);
-    });
-  });
-
+  //#region Hissatsus
   describe("findAllHissatsuTypesAndCharacteristics", () => {
     it.each([
       {
@@ -441,23 +489,113 @@ describe("Character Entity", () => {
       expect(result).toBe(expected);
     });
   });
+  //#endregion
 
-  describe("advancedStatistics", () => {
-    it("should be set as a property", () => {
-      const character = new FakeCharacter({
-        statistics: {
-          kick: 5,
-          control: 10,
-          pressure: 8,
-          physical: 7,
-          agility: 9,
-          intelligence: 3,
-          technique: 5,
-        },
-      });
-
-      expect(character.advancedStatistics).toBeTruthy();
-      expect(character.advancedStatistics).toBeInstanceOf(AdvancedStatistics);
+  //#region Parsing
+  describe("toJSON", () => {
+    it("should return correct ICharacter object", () => {
+      // arrange
+      const character = new FakeCharacter();
+      // act
+      const json = character.toJSON();
+      // assert
+      const expectedKeys = [
+        "id",
+        "firstName",
+        "lastName",
+        "fullName",
+        "names",
+        "element",
+        "defaultPosition",
+        "statistics",
+        "imageUrl",
+        "archetypes",
+        "learnedHissatsus",
+      ];
+      expect(Object.keys(json).sort()).toEqual(expectedKeys.sort());
     });
   });
+
+  describe("toFullJSON", () => {
+    it("should return correct IFullCharacter object", () => {
+      // arrange
+      const character = new FakeCharacter();
+      const meta = new Meta({ initialized: false });
+      character.setMeta(meta);
+      character.hissatsus = [new FakeHissatsu({}), new FakeHissatsu({})];
+      // act
+      const json = character.toFullJSON();
+      // assert
+      const expectedKeys = [
+        "id",
+        "firstName",
+        "lastName",
+        "fullName",
+        "names",
+        "element",
+        "defaultPosition",
+        "statistics",
+        "imageUrl",
+        "archetypes",
+        "learnedHissatsus",
+        "meta",
+        "hissatsus",
+      ];
+      expect(Object.keys(json).sort()).toEqual(expectedKeys.sort());
+    });
+  });
+
+  describe("fromJSON", () => {
+    it("should return correct ICharacter object", () => {
+      // arrange
+      const character = new FakeCharacter();
+      const characterData = character.toJSON();
+      // act
+      const newCharacter = Character.fromJSON(characterData);
+      // assert
+      expect(newCharacter).toBeInstanceOf(Character);
+      expect(newCharacter.id).toBe(character.id);
+      expect(newCharacter.firstName).toBe(character.firstName);
+      expect(newCharacter.lastName).toBe(character.lastName);
+      expect(newCharacter.fullName).toBe(character.fullName);
+      expect(newCharacter.names).toEqual(character.names);
+      expect(newCharacter.element).toBe(character.element);
+      expect(newCharacter.defaultPosition).toBe(character.defaultPosition);
+      expect(newCharacter.statistics).toBeInstanceOf(Statistics);
+      expect(newCharacter.statistics.toJSON()).toEqual(character.statistics.toJSON());
+      expect(newCharacter.imageUrl).toBe(character.imageUrl);
+      expect(newCharacter.archetypes).toEqual(character.archetypes);
+      expect(newCharacter.learnedHissatsus).toEqual(character.learnedHissatsus);
+    });
+  });
+
+  describe("fromFullJSON", () => {
+    it("should return correct ICharacter object", () => {
+      // arrange
+      const character = new FakeCharacter();
+      const meta = new Meta({ initialized: false });
+      character.setMeta(meta);
+      character.hissatsus = [new FakeHissatsu({}), new FakeHissatsu({})];
+      const characterData = character.toFullJSON();
+      // act
+      const newCharacter = Character.fromFullJSON(characterData);
+      // assert
+      expect(newCharacter).toBeInstanceOf(Character);
+      expect(newCharacter.id).toBe(characterData.id);
+      expect(newCharacter.firstName).toBe(characterData.firstName);
+      expect(newCharacter.lastName).toBe(characterData.lastName);
+      expect(newCharacter.fullName).toBe(characterData.fullName);
+      expect(newCharacter.names).toEqual(characterData.names);
+      expect(newCharacter.element).toBe(characterData.element);
+      expect(newCharacter.defaultPosition).toBe(characterData.defaultPosition);
+      expect(newCharacter.statistics).toBeInstanceOf(Statistics);
+      expect(newCharacter.statistics.toJSON()).toEqual(characterData.statistics);
+      expect(newCharacter.imageUrl).toBe(characterData.imageUrl);
+      expect(newCharacter.archetypes).toEqual(characterData.archetypes);
+      expect(newCharacter.learnedHissatsus).toEqual(characterData.learnedHissatsus);
+      expect(meta).toEqual(characterData.meta);
+      expect(newCharacter.hissatsus).toEqual(characterData.hissatsus);
+    });
+  });
+  //#endregion
 });

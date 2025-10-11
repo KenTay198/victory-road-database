@@ -1,7 +1,7 @@
 "use client";
-import React, { useState } from "react";
+import { useState } from "react";
 import TextInput from "@components/ui/Inputs/TextInput";
-import type { ICreateUserData } from "@user/user.types";
+import type { IUserData } from "@user/user.types";
 import { useTranslations } from "use-intl";
 import Button from "@components/ui/Buttons/Button";
 import type { FormError } from "@utils/types";
@@ -12,7 +12,7 @@ import PasswordInput from "@components/ui/Inputs/PasswordInput";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 
-interface IFormData extends Partial<ICreateUserData> {
+interface IFormData extends Partial<IUserData> {
   confirmPassword?: string;
 }
 
@@ -27,7 +27,7 @@ const RegisterForm = ({ className, ...props }: React.HTMLAttributes<HTMLFormElem
     setData((prev) => ({ ...prev, [field]: value }));
   };
 
-  const checkErrors = (data: IFormData): data is Required<ICreateUserData> => {
+  const checkErrors = (data: IFormData): data is Required<IUserData> => {
     const errors: FormError[] = [];
     if (!data.username) {
       errors.push({ field: "username", message: t("errors.common.required") });

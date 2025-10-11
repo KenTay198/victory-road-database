@@ -2,7 +2,6 @@ import Banner from "@components/ui/Layout/Banner";
 import type { Metadata } from "next";
 import { useTranslations } from "next-intl";
 import { getTranslations } from "next-intl/server";
-import React from "react";
 
 export const generateMetadata = async (): Promise<Metadata> => {
   const t = await getTranslations("pages.glossary.metadata");

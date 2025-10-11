@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import { useState } from "react";
 import IconButton from "@components/ui/Buttons/IconButton";
 import { FaBars, FaTimes } from "react-icons/fa";
 import Navbar from "./Navbar";

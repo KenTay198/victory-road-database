@@ -1,5 +1,5 @@
 "use client";
-import React, { useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import TextInput from "@components/ui/Inputs/TextInput";
 import { useTranslations } from "use-intl";
 import Button from "@components/ui/Buttons/Button";

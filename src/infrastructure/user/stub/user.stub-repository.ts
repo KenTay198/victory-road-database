@@ -1,5 +1,5 @@
 import type IUserRepository from "@user/user.repository";
-import type { ICreateUserData } from "@user/user.types";
+import type { IUserData } from "@user/user.types";
 import UserErrors from "../../../domain/user/user.errors";
 import UserSensitive from "@user/entities/userSensitive.entity";
 
@@ -15,7 +15,7 @@ export default class StubUserRepository implements IUserRepository {
     return Promise.resolve(this.findUserByIdentifier(identifier));
   }
 
-  create(user: ICreateUserData): Promise<string> {
+  create(user: IUserData): Promise<string> {
     const newUser = new UserSensitive({ id: String(this.idCounter++), role: "admin", ...user });
     const duplicateFields = this.checkUserExists(newUser.email, newUser.username);
     if (Object.keys(duplicateFields).length > 0) {

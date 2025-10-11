@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import ItemTableFilter, { type ItemTableFilterProperty } from "@components/ui/ItemTable/ItemTableFilter";
 import { elements } from "@domain/shared/variables";
 import { useTranslations } from "next-intl";

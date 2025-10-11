@@ -5,6 +5,7 @@ import type IHissatsuService from "@hissatsu/hissatsu.service";
 import type { IDefaultHissatsuFindParams, IHissatsu } from "@hissatsu/hissatsu.types";
 import FindAllHissatsus from "@hissatsu/usecases/FindAllHissatsus";
 import CreateHissatsus from "@hissatsu/usecases/CreateHissatsus";
+import MongoHissatsuService from "@infrastructure/hissatsu/mongo/hissatsu.mongo-service";
 
 declare global {
   var hissatsuService: IHissatsuService | undefined;
@@ -15,11 +16,14 @@ const defaultType = process.env.NODE_ENV === "development" ? "stub" : "mongo";
 export async function getHissatsuServiceInstance(type = defaultType): Promise<IHissatsuService> {
   if (globalThis.hissatsuService) return globalThis.hissatsuService;
   switch (type) {
+    case "mongo":
+      globalThis.hissatsuService = new MongoHissatsuService();
+      break;
     case "stub":
       globalThis.hissatsuService = new StubHissatsuService();
       break;
     default:
-      throw new Error(`Unknown character service type: ${type}`);
+      throw new Error(`Unknown hissatsu service type: ${type}`);
   }
 
   return globalThis.hissatsuService;

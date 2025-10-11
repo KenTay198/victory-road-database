@@ -2,7 +2,7 @@ import StubUserRepository from "@infrastructure/user/stub/user.stub-repository";
 import type User from "@user/entities/user.entity";
 import type IUserRepository from "@user/user.repository";
 import type IUserService from "@user/user.service";
-import type { ICreateUserData, ILoginData } from "@user/user.types";
+import type { IUserData, ILoginData } from "@user/user.types";
 
 export default class StubUserService implements IUserService {
   private userRepository: IUserRepository;
@@ -10,7 +10,7 @@ export default class StubUserService implements IUserService {
     this.userRepository = new StubUserRepository();
   }
 
-  create(data: ICreateUserData): Promise<string> {
+  create(data: IUserData): Promise<string> {
     return this.userRepository.create(data);
   }
 

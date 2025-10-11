@@ -37,7 +37,7 @@ export default class Hissatsu implements IHissatsu {
   }
   //#endregion
 
-  //#region Utils
+  //#region Parsing
   toJSON(): IHissatsu {
     return {
       id: this.id,

@@ -19,7 +19,10 @@ export default class FakeCharacter extends Character {
         intelligence: 100,
         technique: 100,
       },
-      learnedHissatsus: [],
+      learnedHissatsus: [
+        { id: "hissatsu1", learnLevel: 1 },
+        { id: "hissatsu2", learnLevel: 5 },
+      ],
     });
   }
 }

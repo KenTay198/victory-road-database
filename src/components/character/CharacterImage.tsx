@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import { useMemo } from "react";
 import Image, { type ImageProps } from "next/image";
 
 interface IProps extends Omit<ImageProps, "src" | "alt"> {

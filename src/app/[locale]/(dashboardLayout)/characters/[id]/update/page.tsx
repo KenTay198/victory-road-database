@@ -1,4 +1,4 @@
-import React, { cache } from "react";
+import { cache } from "react";
 import Banner from "@components/ui/Layout/Banner";
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";

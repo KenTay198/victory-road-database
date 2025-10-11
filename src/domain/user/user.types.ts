@@ -9,7 +9,7 @@ export interface IUserSensitive extends IUser {
   password: string;
 }
 
-export interface ICreateUserData {
+export interface IUserData {
   email: string;
   username: string;
   password: string;

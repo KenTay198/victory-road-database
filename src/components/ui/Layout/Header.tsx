@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import { useState } from "react";
 import LocaleSwitcher from "../LocaleSwitcher";
 import { useAuth } from "@context/AuthContext";
 import { IoChevronDown, IoChevronUp } from "react-icons/io5";

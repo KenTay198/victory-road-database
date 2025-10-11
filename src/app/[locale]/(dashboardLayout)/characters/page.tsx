@@ -1,4 +1,3 @@
-import React from "react";
 import { findAllCharactersAction } from "@/actions/character.actions";
 import CharacterTable from "@components/character/CharacterTable/CharacterTable";
 import Banner from "@components/ui/Layout/Banner";

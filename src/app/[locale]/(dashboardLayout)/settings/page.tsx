@@ -1,4 +1,3 @@
-import React from "react";
 import Banner from "@components/ui/Layout/Banner";
 import type { Metadata } from "next";
 import { useTranslations } from "next-intl";

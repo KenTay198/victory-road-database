@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import type { ICreateLearnedHissatsu } from "@hissatsu/hissatsu.types";
 import Button from "@components/ui/Buttons/Button";
 import NumberInput from "@components/ui/Inputs/NumberInput";
