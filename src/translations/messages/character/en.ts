@@ -16,7 +16,9 @@ const characterEn: ICharacterTranslations = {
     statistics: "Statistics",
     advancedStatistics: "Advanced statistics",
     archetypes: "Archetypes",
-    hissatsus: "Hissatsu {count}",
+    hissatsus: "Hissatsus",
+    hissatsuNb: "Hissatsu {count}",
+    imageUrl: "Image URL",
   },
   statistics: {
     kick: "Kick",

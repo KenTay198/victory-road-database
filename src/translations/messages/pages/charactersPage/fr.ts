@@ -1,5 +1,6 @@
 import characterPageFr from "./characterPage/fr";
 import type ICharactersPageTranslations from "./charactersPage.translations";
+import newCharacterPageFr from "./newCharacterPage/fr";
 
 const charactersPageFr: ICharactersPageTranslations = {
   metadata: {
@@ -18,9 +19,11 @@ const charactersPageFr: ICharactersPageTranslations = {
       grid: "Grille",
     },
   },
-  pages: {
-    character: characterPageFr,
+  actions: {
+    add: "Ajouter un personnage",
   },
+  character: characterPageFr,
+  new: newCharacterPageFr,
 };
 
 export default charactersPageFr;

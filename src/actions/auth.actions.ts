@@ -43,7 +43,7 @@ export async function loginAction(loginData: ILoginData): Promise<IUser | null> 
   return user;
 }
 
-export async function getAuthUserAction(): Promise<IUser | null> {
+export async function getCurrentUserAction(): Promise<IUser | null> {
   return await TokenService.getUser();
 }
 

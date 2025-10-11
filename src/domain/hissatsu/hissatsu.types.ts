@@ -1,10 +1,11 @@
+import type { ILearnedHissatsu } from "@character/character.types";
 import type { Element, Names } from "@domain/shared/types";
 
-export interface IHissatsu extends IHissatsuCreateData {
+export interface IHissatsu extends IHissatsuData {
   id: string;
 }
 
-export interface IHissatsuCreateData {
+export interface IHissatsuData {
   name: string;
   names: HissatsuNames;
   element: Element;
@@ -25,3 +26,12 @@ export interface HissatsuNames extends Names {
 }
 export type HissatsuType = "kick" | "dribble" | "defense" | "keep";
 export type HissatsuCharacteristic = "long" | "block";
+
+export type IDefaultHissatsuFindParams = {
+  locale?: HissatsuLocale;
+};
+
+export interface ICreateLearnedHissatsu extends Partial<ILearnedHissatsu>, Partial<IHissatsuData> {
+  learnLevel: number;
+  create?: boolean;
+}

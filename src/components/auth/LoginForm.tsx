@@ -12,7 +12,7 @@ import PasswordInput from "@components/ui/Inputs/PasswordInput";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 
-const RegisterForm = ({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) => {
+const RegisterForm = ({ className, ...props }: React.HTMLAttributes<HTMLFormElement>) => {
   const t = useTranslations();
   const { login } = useAuth();
   const router = useRouter();
@@ -57,7 +57,7 @@ const RegisterForm = ({ className, ...props }: React.HTMLAttributes<HTMLDivEleme
   };
 
   return (
-    <div {...props} className={["space-y-4", className].join(" ")}>
+    <form {...props} className={["space-y-4", className].join(" ")}>
       <TextInput
         id="identifier"
         label={t("components.auth.loginForm.fields.identifier.label")}
@@ -82,7 +82,7 @@ const RegisterForm = ({ className, ...props }: React.HTMLAttributes<HTMLDivEleme
       <Link href="/register" className="block text-center italic underline">
         {t("components.auth.loginForm.notRegisteredYet")}
       </Link>
-    </div>
+    </form>
   );
 };
 

@@ -5,11 +5,13 @@ interface IProps extends Omit<ImageProps, "src" | "alt"> {
   imageUrl?: string;
   fullName: string;
   size?: "S" | "M" | "L";
+  preferredWidth?: number;
 }
 
-const CharacterImage = ({ className, imageUrl, fullName, size = "S", ...props }: IProps) => {
+const CharacterImage = ({ className, imageUrl, fullName, preferredWidth, size = "S", ...props }: IProps) => {
   const { width, height } = useMemo(() => {
     const getWidth = () => {
+      if (preferredWidth) return preferredWidth;
       switch (size) {
         case "M":
           return 128;
@@ -24,7 +26,7 @@ const CharacterImage = ({ className, imageUrl, fullName, size = "S", ...props }:
     const width = getWidth();
     const height = width * ratio;
     return { width, height };
-  }, [size]);
+  }, [preferredWidth, size]);
 
   if (!imageUrl) return null;
 

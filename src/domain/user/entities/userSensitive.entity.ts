@@ -14,6 +14,7 @@ export default class UserSensitive extends User {
       id: this.id,
       email: this.email,
       username: this.username,
+      role: this.role,
     });
   }
 }

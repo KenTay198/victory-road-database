@@ -14,7 +14,7 @@ export default class Settings implements ISettings {
   static default(): Settings {
     return new Settings({
       hissatsuLocale: "jp",
-      characterLocale: "fr",
+      characterLocale: "west",
     });
   }
 

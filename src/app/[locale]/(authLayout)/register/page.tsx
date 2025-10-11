@@ -2,7 +2,7 @@ import React from "react";
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import RegisterForm from "@components/auth/RegisterForm";
-import { getAuthUserAction } from "@/actions/auth.actions";
+import { getCurrentUserAction } from "@/actions/auth.actions";
 import { redirect } from "next/navigation";
 
 export const generateMetadata = async (): Promise<Metadata> => {
@@ -17,7 +17,7 @@ export const generateMetadata = async (): Promise<Metadata> => {
 const RegisterPage = async () => {
   const t = await getTranslations("pages.register");
 
-  const user = await getAuthUserAction();
+  const user = await getCurrentUserAction();
   if (user) {
     return redirect("/");
   }

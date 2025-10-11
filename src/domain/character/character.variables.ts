@@ -1,8 +1,23 @@
-import type { CharacterArchetype, Position } from "./character.types";
+import type {
+  CharacterArchetype,
+  CharacterElement,
+  IAdvancedStatistics,
+  IStatistics,
+  Position,
+} from "./character.types";
 
-export const statKeys = ["kick", "control", "pressure", "physical", "agility", "intelligence", "technique", "total"];
+export const statKeys: (keyof IStatistics)[] = [
+  "kick",
+  "control",
+  "pressure",
+  "physical",
+  "agility",
+  "intelligence",
+  "technique",
+  "total",
+];
 
-export const advancedStatKeys = [
+export const advancedStatKeys: (keyof IAdvancedStatistics)[] = [
   "shoot",
   "focusAtt",
   "scrambleAtt",
@@ -30,3 +45,5 @@ export const archetypes: CharacterArchetype[] = [
   "goalkeeper",
   "none",
 ];
+
+export const characterElements: CharacterElement[] = ["fire", "wind", "earth", "forest"];

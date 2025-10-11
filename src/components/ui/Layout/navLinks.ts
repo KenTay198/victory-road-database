@@ -1,6 +1,7 @@
 import type { IconType } from "react-icons";
 import { FaBook, FaCog, FaHome, FaUser, FaUsers } from "react-icons/fa";
 import { GiFireDash } from "react-icons/gi";
+import { IoMdPersonAdd } from "react-icons/io";
 
 export interface INavLink {
   url: string;
@@ -8,6 +9,7 @@ export interface INavLink {
   labelKey: string;
   subLinks?: INavLink[];
   hidden?: boolean;
+  isAdmin?: boolean;
 }
 
 export const navLinks: INavLink[] = [
@@ -22,10 +24,25 @@ export const navLinks: INavLink[] = [
     Icon: FaUsers,
     subLinks: [
       {
+        url: "/characters/new",
+        labelKey: "newCharacter",
+        Icon: IoMdPersonAdd,
+        isAdmin: true,
+      },
+      {
         url: "/characters/:id",
         labelKey: "character",
         Icon: FaUser,
         hidden: true,
+        subLinks: [
+          {
+            url: "/characters/:id/update",
+            labelKey: "updateCharacter",
+            Icon: IoMdPersonAdd,
+            hidden: true,
+            isAdmin: true,
+          },
+        ],
       },
     ],
   },

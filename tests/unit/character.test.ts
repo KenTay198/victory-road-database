@@ -22,15 +22,15 @@ describe("Character Entity", () => {
 
   describe("setLocalizedName", () => {
     const character = new FakeCharacter({
-      names: { fr: { firstName: "Nom", lastName: "Prénom" }, vo: { firstName: "First", lastName: "Last" } },
+      names: { west: { firstName: "Nom", lastName: "Prénom" }, vo: { firstName: "First", lastName: "Last" } },
     });
 
     it.each([
-      { locale: "fr", expected: { firstName: "Nom", lastName: "Prénom" } },
+      { locale: "west", expected: { firstName: "Nom", lastName: "Prénom" } },
       { locale: "vo", expected: { firstName: "First", lastName: "Last" } },
     ])("should set the localized name correctly (locale:$locale)", ({ locale, expected }) => {
       // act
-      character.setLocalizedName(locale as "fr" | "vo");
+      character.setLocalizedName(locale as "west" | "vo");
       // assert
       expect(character.firstName).toBe(expected.firstName);
       expect(character.lastName).toBe(expected.lastName);

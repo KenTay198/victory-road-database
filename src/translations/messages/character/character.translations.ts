@@ -10,11 +10,13 @@ interface ICharacterTranslations {
     firstName: string;
     lastName: string;
     element: string;
+    imageUrl: string;
     defaultPosition: string;
     statistics: string;
     advancedStatistics: string;
     archetypes: string;
     hissatsus: string;
+    hissatsuNb: string;
   };
   statistics: {
     kick: string;

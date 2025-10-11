@@ -1,13 +1,13 @@
 import Character from "@character/entities/character.entity";
-import type { ICreateCharacterData } from "@character/character.types";
+import type { ICharacterData } from "@character/character.types";
 
 export default class FakeCharacter extends Character {
-  constructor({ firstName, lastName, statistics, names }: Partial<ICreateCharacterData> = {}) {
+  constructor({ firstName, lastName, statistics, names }: Partial<ICharacterData> = {}) {
     super({
       id: "name",
       firstName: firstName || "First",
       lastName: lastName || "Last",
-      names: names || { fr: { firstName: "Nom", lastName: "Prénom" }, vo: { firstName: "First", lastName: "Last" } },
+      names: names || { west: { firstName: "Nom", lastName: "Prénom" }, vo: { firstName: "First", lastName: "Last" } },
       element: "earth",
       defaultPosition: "goalkeeper",
       statistics: statistics || {
@@ -19,6 +19,7 @@ export default class FakeCharacter extends Character {
         intelligence: 100,
         technique: 100,
       },
+      learnedHissatsus: [],
     });
   }
 }

@@ -9,10 +9,16 @@ export default class StubUserService implements IUserService {
   constructor() {
     this.userRepository = new StubUserRepository();
   }
+
   create(data: ICreateUserData): Promise<string> {
     return this.userRepository.create(data);
   }
-  login(data: ILoginData): Promise<User | null> {
-    return this.userRepository.login(data);
+
+  async login(data: ILoginData): Promise<User | null> {
+    const user = await this.userRepository.findByIdentifier(data.identifier);
+    if (user && user.password === data.password) {
+      return Promise.resolve(user.removeSensitiveInfo());
+    }
+    return null;
   }
 }

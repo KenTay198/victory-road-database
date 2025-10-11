@@ -2,6 +2,8 @@ interface ICommonTranslations {
   buttons: {
     compare: string;
     submit: string;
+    add: string;
+    delete: string;
   };
   locales: {
     fr: string;

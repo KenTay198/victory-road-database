@@ -1,4 +1,5 @@
 import type ICharacterPageTranslations from "./characterPage.translations";
+import updateCharacterPageEn from "./updateCharacterPage/en";
 
 const characterPageEn: ICharacterPageTranslations = {
   metadata: {
@@ -10,6 +11,10 @@ const characterPageEn: ICharacterPageTranslations = {
     statistics: "Statistics",
     hissatsus: "Hissatsus",
   },
+  actions: {
+    update: "Update character",
+  },
+  update: updateCharacterPageEn,
 };
 
 export default characterPageEn;

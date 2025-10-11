@@ -1,5 +1,5 @@
 import type { Names } from "@domain/shared/types";
-import type { IHissatsu } from "@hissatsu/hissatsu.types";
+import type { ICreateLearnedHissatsu, IHissatsu } from "@hissatsu/hissatsu.types";
 import type { IMeta } from "@meta/meta.types";
 
 export interface IFullCharacter extends ICharacter {
@@ -7,14 +7,14 @@ export interface IFullCharacter extends ICharacter {
   hissatsus: IHissatsu[];
 }
 
-export interface ICharacter extends ICreateCharacterData {
+export interface ICharacter extends ICharacterData {
   id: string;
   fullName: string;
   statistics: IStatistics;
   archetypes: CharacterArchetype[];
 }
 
-export interface ICreateCharacterData {
+export interface ICharacterData {
   firstName: string;
   lastName?: string;
   names?: CharacterNames;
@@ -23,6 +23,12 @@ export interface ICreateCharacterData {
   learnedHissatsus: ILearnedHissatsu[];
   statistics: Omit<IStatistics, "total">;
   imageUrl?: string;
+}
+
+export interface ICharacterFormData extends Omit<Partial<ICharacterData>, "names" | "learnedHissatsus" | "statistics"> {
+  learnedHissatsus: Partial<ICreateLearnedHissatsu>[];
+  names: Partial<CharacterNames>;
+  statistics: Partial<IStatistics>;
 }
 
 export type Position = "goalkeeper" | "forward" | "defender" | "midfielder";
@@ -57,9 +63,9 @@ export interface ILearnedHissatsu {
   learnLevel: number;
 }
 
-export type CharacterLocale = "fr" | "vo";
+export type CharacterLocale = "west" | "vo";
 export interface CharacterNames extends Names<{ firstName: string; lastName?: string }> {
-  fr: { firstName: string; lastName?: string };
+  west: { firstName: string; lastName?: string };
   vo: { firstName: string; lastName?: string };
 }
 export type CharacterElement = "forest" | "earth" | "fire" | "wind";
@@ -74,3 +80,7 @@ export type CharacterArchetype =
   | "wall-defender"
   | "goalkeeper"
   | "none";
+
+export type IDefaultFindCharacterParams = {
+  locale?: CharacterLocale;
+};

@@ -2,6 +2,7 @@ import type Character from "@character/entities/character.entity";
 import type ICharacterRepository from "@character/character.repository";
 import type ICharacterService from "@character/character.service";
 import StubCharacterRepository from "./character.stub-repository";
+import type { ICharacterData } from "@character/character.types";
 
 export default class StubCharacterService implements ICharacterService {
   private characterRepository: ICharacterRepository;
@@ -10,11 +11,19 @@ export default class StubCharacterService implements ICharacterService {
     this.characterRepository = new StubCharacterRepository();
   }
 
-  async findAll(): Promise<Character[]> {
-    return await this.characterRepository.findAll();
+  findAll(): Promise<Character[]> {
+    return this.characterRepository.findAll();
   }
 
-  async findById(id: string): Promise<Character | null> {
-    return await this.characterRepository.findById(id);
+  findById(id: string): Promise<Character | null> {
+    return this.characterRepository.findById(id);
+  }
+
+  create(character: ICharacterData): Promise<string> {
+    return this.characterRepository.create(character);
+  }
+
+  updateById(id: string, character: Partial<ICharacterData>): Promise<boolean> {
+    return this.characterRepository.updateById(id, character);
   }
 }

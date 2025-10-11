@@ -47,7 +47,7 @@ export default class ErrorHelper {
 
     if (Array.isArray(data)) {
       for (const { path, message } of data) {
-        fields.push({ field: path[0], message });
+        fields.push({ field: path.join("."), message });
       }
     }
     return { fields };

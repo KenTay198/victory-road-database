@@ -1,5 +1,6 @@
 import characterPageEn from "./characterPage/en";
 import type ICharactersPageTranslations from "./charactersPage.translations";
+import newCharacterPageEn from "./newCharacterPage/en";
 
 const charactersPageEn: ICharactersPageTranslations = {
   metadata: {
@@ -18,8 +19,10 @@ const charactersPageEn: ICharactersPageTranslations = {
       grid: "Grid",
     },
   },
-  pages: {
-    character: characterPageEn,
+  character: characterPageEn,
+  new: newCharacterPageEn,
+  actions: {
+    add: "Add a character",
   },
 };
 

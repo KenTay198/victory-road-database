@@ -8,7 +8,7 @@ import type { ISettings } from "@settings/settings.types";
 import { useTranslations } from "next-intl";
 import { toast } from "sonner";
 
-const SettingsForm = ({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) => {
+const SettingsForm = ({ className, ...props }: React.HTMLAttributes<HTMLFormElement>) => {
   const t = useTranslations();
   const { settings, updateSettings } = useSettings();
   const [isDirty, setIsDirty] = useState(false);
@@ -32,14 +32,14 @@ const SettingsForm = ({ className, ...props }: React.HTMLAttributes<HTMLDivEleme
   };
 
   return (
-    <div {...props} className={["space-y-4", className].join(" ")}>
+    <form {...props} className={["space-y-4", className].join(" ")}>
       <SelectInput
         id="characterLocale"
         label={t("pages.settings.inputs.characterLocale.label")}
         description={t("pages.settings.inputs.characterLocale.description")}
         value={settingsToUpdate.characterLocale}
         options={[
-          { value: "fr", label: t("common.locales.fr") },
+          { value: "west", label: t("common.locales.west") },
           { value: "vo", label: t("common.locales.vo") },
         ]}
         handleChange={(value) => handleChange("characterLocale", value)}
@@ -59,7 +59,7 @@ const SettingsForm = ({ className, ...props }: React.HTMLAttributes<HTMLDivEleme
       <Button template="darkBlue" size="M" onClick={() => handleSubmit()} disabled={!isDirty}>
         {t("common.buttons.submit")}
       </Button>
-    </div>
+    </form>
   );
 };
 

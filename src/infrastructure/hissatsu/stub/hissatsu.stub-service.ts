@@ -3,6 +3,7 @@ import type IHissatsuRepository from "@hissatsu/hissatsu.repository";
 import type IHissatsuService from "@hissatsu/hissatsu.service";
 import StubHissatsuRepository from "./hissatsu.stub-repository";
 import type { ILearnedHissatsu } from "@character/character.types";
+import type { IHissatsuData } from "@hissatsu/hissatsu.types";
 
 export default class StubHissatsuService implements IHissatsuService {
   private hissatsuRepository: IHissatsuRepository;
@@ -17,5 +18,9 @@ export default class StubHissatsuService implements IHissatsuService {
 
   findLearnedHissatsus(learnedHissatsus: ILearnedHissatsu[]): Promise<Hissatsu[]> {
     return this.hissatsuRepository.findLearnedHissatsus(learnedHissatsus);
+  }
+
+  createMultiple(hissatsu: IHissatsuData[]): Promise<string[]> {
+    return this.hissatsuRepository.createMultiple(hissatsu);
   }
 }

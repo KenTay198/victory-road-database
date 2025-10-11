@@ -5,9 +5,9 @@ import type {
   CharacterNames,
   IAdvancedStatistics,
   ICharacter,
+  ICharacterData,
   IFullCharacter,
   ILearnedHissatsu,
-  IStatistics,
   Position,
 } from "@character/character.types";
 import Meta from "@meta/meta.entity";
@@ -34,18 +34,7 @@ export default class Character implements ICharacter {
   private meta?: Meta;
   private currentLocale?: CharacterLocale;
 
-  constructor(data: {
-    id: string;
-    firstName: string;
-    lastName?: string;
-    names?: CharacterNames;
-    element: CharacterElement;
-    defaultPosition: Position;
-    statistics: Omit<IStatistics, "total">;
-    imageUrl?: string;
-    learnedHissatsus?: ILearnedHissatsu[];
-    hissatsus?: Hissatsu[];
-  }) {
+  constructor(data: ICharacterData & { id: string }) {
     this.id = data.id;
     this.firstName = data.firstName;
     this.lastName = data.lastName ?? "";

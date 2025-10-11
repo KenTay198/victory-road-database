@@ -4,6 +4,8 @@ const commonFr: ICommonTranslations = {
   buttons: {
     compare: "Comparer",
     submit: "Soumettre",
+    add: "Ajouter",
+    delete: "Supprimer",
   },
   locales: {
     fr: "Français",

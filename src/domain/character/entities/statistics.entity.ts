@@ -11,14 +11,14 @@ export default class Statistics implements IStatistics {
   public technique: number;
   public total: number;
 
-  constructor(data: Omit<IStatistics, "total">) {
-    this.kick = data.kick;
-    this.control = data.control;
-    this.pressure = data.pressure;
-    this.physical = data.physical;
-    this.agility = data.agility;
-    this.intelligence = data.intelligence;
-    this.technique = data.technique;
+  constructor(data: Omit<Partial<IStatistics>, "total">) {
+    this.kick = data.kick || 0;
+    this.control = data.control || 0;
+    this.pressure = data.pressure || 0;
+    this.physical = data.physical || 0;
+    this.agility = data.agility || 0;
+    this.intelligence = data.intelligence || 0;
+    this.technique = data.technique || 0;
     this.total = this.getTotalStats();
   }
 

@@ -12,7 +12,7 @@ interface IProps extends React.HTMLAttributes<HTMLDivElement> {
 
 const CharacterView = ({ className, character, ...props }: IProps) => {
   const t = useTranslations();
-  const pageT = useTranslations("pages.characters.pages.character");
+  const pageT = useTranslations("pages.characters.character");
   const generalProperties: (keyof Character)[] = ["firstName", "lastName", "element", "defaultPosition", "archetypes"];
 
   const getDisplayedValue = (key: keyof Character) => {

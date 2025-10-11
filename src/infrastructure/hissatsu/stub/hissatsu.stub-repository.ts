@@ -1,6 +1,7 @@
 import Hissatsu from "@hissatsu/hissatsu.entity";
 import type IHissatsuRepository from "@hissatsu/hissatsu.repository";
 import type { ILearnedHissatsu } from "@character/character.types";
+import type { IHissatsuData } from "@hissatsu/hissatsu.types";
 
 export default class StubHissatsuRepository implements IHissatsuRepository {
   private idCounter = 1;
@@ -151,5 +152,15 @@ export default class StubHissatsuRepository implements IHissatsuRepository {
       }
     }
     return hissatsus;
+  }
+
+  async createMultiple(hissatsu: IHissatsuData[]): Promise<string[]> {
+    const createdIds: string[] = [];
+    for (const data of hissatsu) {
+      const id = String(this.idCounter++);
+      this.hissatsus.push(new Hissatsu({ id, ...data }));
+      createdIds.push(id);
+    }
+    return createdIds;
   }
 }

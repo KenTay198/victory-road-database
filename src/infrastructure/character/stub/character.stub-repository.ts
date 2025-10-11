@@ -1,5 +1,6 @@
 import Character from "@character/entities/character.entity";
 import type ICharacterRepository from "@character/character.repository";
+import type { ICharacterData } from "@character/character.types";
 
 export default class StubCharacterRepository implements ICharacterRepository {
   private idCounter = 1;
@@ -12,7 +13,7 @@ export default class StubCharacterRepository implements ICharacterRepository {
         firstName: "Mark",
         lastName: "Evans",
         names: {
-          fr: { firstName: "Mark", lastName: "Evans" },
+          west: { firstName: "Mark", lastName: "Evans" },
           vo: { firstName: "Mamoru", lastName: "Endou" },
         },
         element: "earth",
@@ -37,7 +38,7 @@ export default class StubCharacterRepository implements ICharacterRepository {
         firstName: "Riccardo",
         lastName: "Di Rigo",
         names: {
-          fr: { firstName: "Riccardo", lastName: "Di Rigo" },
+          west: { firstName: "Riccardo", lastName: "Di Rigo" },
           vo: { firstName: "Takuto", lastName: "Shindou" },
         },
         element: "forest",
@@ -62,7 +63,7 @@ export default class StubCharacterRepository implements ICharacterRepository {
         firstName: "Victor",
         lastName: "Blade",
         names: {
-          fr: { firstName: "Victor", lastName: "Blade" },
+          west: { firstName: "Victor", lastName: "Blade" },
           vo: { firstName: "Kyousuke", lastName: "Tsurugi" },
         },
         element: "fire",
@@ -87,7 +88,7 @@ export default class StubCharacterRepository implements ICharacterRepository {
         firstName: "Goldie",
         lastName: "Lemmon",
         names: {
-          fr: { firstName: "Goldie", lastName: "Lemmon" },
+          west: { firstName: "Goldie", lastName: "Lemmon" },
           vo: { firstName: "Kinako", lastName: "Nanobana" },
         },
         element: "fire",
@@ -112,7 +113,7 @@ export default class StubCharacterRepository implements ICharacterRepository {
         firstName: "Bailong",
         lastName: "",
         names: {
-          fr: { firstName: "Bailong", lastName: "" },
+          west: { firstName: "Bailong", lastName: "" },
           vo: { firstName: "Hakuryuu", lastName: "" },
         },
         element: "wind",
@@ -137,7 +138,7 @@ export default class StubCharacterRepository implements ICharacterRepository {
         firstName: "Arion",
         lastName: "Sherwind",
         names: {
-          fr: { firstName: "Arion", lastName: "Sherwind" },
+          west: { firstName: "Arion", lastName: "Sherwind" },
           vo: { firstName: "Tenma", lastName: "Matsukaze" },
         },
         element: "wind",
@@ -162,7 +163,7 @@ export default class StubCharacterRepository implements ICharacterRepository {
         firstName: "Nathan",
         lastName: "Swift",
         names: {
-          fr: { firstName: "Nathan", lastName: "Swift" },
+          west: { firstName: "Nathan", lastName: "Swift" },
           vo: { firstName: "Ichirouta", lastName: "Kazemaru" },
         },
         element: "wind",
@@ -192,5 +193,20 @@ export default class StubCharacterRepository implements ICharacterRepository {
   async findById(id: string): Promise<Character | null> {
     const character = this.characters.find((c) => c.id === id);
     return character || null;
+  }
+
+  async create(data: ICharacterData): Promise<string> {
+    const newCharacter = new Character({ id: String(this.idCounter++), ...data });
+    this.characters.push(newCharacter);
+    return newCharacter.id;
+  }
+
+  async updateById(id: string, character: Partial<ICharacterData>): Promise<boolean> {
+    const exists = this.characters.some((c) => c.id === id);
+    if (!exists) {
+      return false;
+    }
+    this.characters = this.characters.map((c) => (c.id === id ? new Character({ ...c, ...character, id: c.id }) : c));
+    return true;
   }
 }

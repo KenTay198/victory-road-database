@@ -10,8 +10,16 @@ type ButtonClassNameParams = {
   className?: string;
   active?: boolean;
   disabled?: boolean;
+  isButton?: boolean;
 };
-export const getButtonsClassName = ({ template, size, className, active, disabled }: ButtonClassNameParams) => {
+export const getButtonsClassName = ({
+  template,
+  size,
+  className,
+  active,
+  disabled,
+  isButton,
+}: ButtonClassNameParams) => {
   const classNames = ["font-semibold rounded border-2 cursor-pointer duration-200 hover:bg-white"];
   switch (template) {
     case "blue":
@@ -34,19 +42,27 @@ export const getButtonsClassName = ({ template, size, className, active, disable
       else if (disabled) classNames.push("opacity-50 cursor-not-allowed");
       else classNames.push("bg-raimon-yellow-dark text-black border-raimon-yellow-dark hover:text-raimon-yellow-dark");
       break;
+    case "fire":
+      if (active) classNames.push("bg-white text-fire");
+      else if (disabled) classNames.push("opacity-50 cursor-not-allowed");
+      else classNames.push("bg-fire text-white border-fire hover:text-fire");
+      break;
     default:
       break;
   }
 
   switch (size) {
     case "S":
-      classNames.push("text-sm py-1 px-2");
+      if (isButton) classNames.push("text-sm py-2 px-2");
+      else classNames.push("text-sm py-1 px-2");
       break;
     case "M":
+      if (isButton) classNames.push("text-base py-3 px-3");
       classNames.push("text-base py-2 px-4");
       break;
     case "L":
-      classNames.push("text-lg py-3 px-6");
+      if (isButton) classNames.push("text-lg py-4 px-4");
+      else classNames.push("text-lg py-3 px-6");
       break;
     default:
       break;

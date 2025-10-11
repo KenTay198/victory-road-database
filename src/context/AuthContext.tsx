@@ -3,7 +3,7 @@ import type React from "react";
 import { createContext, useContext, useEffect, useState } from "react";
 import User from "@user/entities/user.entity";
 import type { ICreateUserData, ILoginData } from "@user/user.types";
-import { createUserAction, getAuthUserAction, loginAction, logoutAction } from "@/actions/auth.actions";
+import { createUserAction, getCurrentUserAction, loginAction, logoutAction } from "@/actions/auth.actions";
 
 interface IAuthContext {
   user: User | null;
@@ -48,7 +48,7 @@ export default function AuthProvider({ children }: { children: React.ReactNode }
 
   const getAuthUser = async (): Promise<User | null> => {
     let user: User | null = null;
-    const result = await getAuthUserAction();
+    const result = await getCurrentUserAction();
     if (result) {
       user = new User(result);
       setUser(user);

@@ -38,7 +38,7 @@ const IconButton = ({ className, onClick, link, children, size = "M", template, 
       type="button"
       onClick={handleClick}
       onKeyUp={handleKeyUp}
-      className={getButtonsClassName({ template, size, className, active })}
+      className={getButtonsClassName({ template, size, className, active, isButton: true })}
     >
       <Icon />
     </button>

@@ -38,6 +38,7 @@ const Button = ({
   return (
     <button
       {...props}
+      type="button"
       onClick={handleClick}
       className={`${getButtonsClassName({ template, size, className, active, disabled })} ${Icon ? "flex gap-1 items-center" : ""}`}
       disabled={disabled}

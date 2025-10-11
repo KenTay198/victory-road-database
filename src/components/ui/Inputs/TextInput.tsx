@@ -18,6 +18,7 @@ export default function TextInput({
   required = false,
   disabled = false,
   className = "",
+  divClassName = "",
   value,
   placeholder,
   type = "text",
@@ -36,7 +37,7 @@ export default function TextInput({
       error={error}
       required={required}
       disabled={disabled}
-      className={className}
+      className={divClassName}
     >
       <input
         id={id}

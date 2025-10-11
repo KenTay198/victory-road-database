@@ -1,6 +1,5 @@
-import type User from "@user/entities/user.entity";
 import type IUserRepository from "@user/user.repository";
-import type { ICreateUserData, ILoginData } from "@user/user.types";
+import type { ICreateUserData } from "@user/user.types";
 import UserErrors from "../../../domain/user/user.errors";
 import UserSensitive from "@user/entities/userSensitive.entity";
 
@@ -12,12 +11,8 @@ export default class StubUserRepository implements IUserRepository {
     this.users = [];
   }
 
-  login(data: ILoginData): Promise<User | null> {
-    const user = this.findUserByIdentifier(data.identifier);
-    if (user && user.password === data.password) {
-      return Promise.resolve(user.removeSensitiveInfo());
-    }
-    return Promise.resolve(null);
+  findByIdentifier(identifier: string): Promise<UserSensitive | null> {
+    return Promise.resolve(this.findUserByIdentifier(identifier));
   }
 
   create(user: ICreateUserData): Promise<string> {

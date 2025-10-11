@@ -16,7 +16,7 @@ interface IFormData extends Partial<ICreateUserData> {
   confirmPassword?: string;
 }
 
-const RegisterForm = ({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) => {
+const RegisterForm = ({ className, ...props }: React.HTMLAttributes<HTMLFormElement>) => {
   const t = useTranslations();
   const { register } = useAuth();
   const router = useRouter();
@@ -70,7 +70,7 @@ const RegisterForm = ({ className, ...props }: React.HTMLAttributes<HTMLDivEleme
   };
 
   return (
-    <div {...props} className={["space-y-4", className].join(" ")}>
+    <form {...props} className={["space-y-4", className].join(" ")}>
       <TextInput
         id="username"
         label={t("components.auth.registerForm.fields.username.label")}
@@ -78,6 +78,7 @@ const RegisterForm = ({ className, ...props }: React.HTMLAttributes<HTMLDivEleme
         handleChange={(value) => handleChange("username", value)}
         error={errors.find((e) => e.field === "username")?.message}
         autoComplete="username"
+        required
       />
       <TextInput
         id="email"
@@ -86,6 +87,7 @@ const RegisterForm = ({ className, ...props }: React.HTMLAttributes<HTMLDivEleme
         handleChange={(value) => handleChange("email", value)}
         error={errors.find((e) => e.field === "email")?.message}
         autoComplete="email"
+        required
       />
       <PasswordInput
         id="password"
@@ -94,6 +96,7 @@ const RegisterForm = ({ className, ...props }: React.HTMLAttributes<HTMLDivEleme
         handleChange={(value) => handleChange("password", value)}
         error={errors.find((e) => e.field === "password")?.message}
         autoComplete="new-password"
+        required
       />
       <PasswordInput
         id="confirmPassword"
@@ -102,6 +105,7 @@ const RegisterForm = ({ className, ...props }: React.HTMLAttributes<HTMLDivEleme
         handleChange={(value) => handleChange("confirmPassword", value)}
         error={errors.find((e) => e.field === "confirmPassword")?.message}
         autoComplete="new-password"
+        required
       />
       <Button className="mx-auto flex" template="blue" onClick={handleSubmit}>
         {t("common.buttons.submit")}
@@ -109,7 +113,7 @@ const RegisterForm = ({ className, ...props }: React.HTMLAttributes<HTMLDivEleme
       <Link href="/login" className="block text-center italic underline">
         {t("components.auth.registerForm.alreadyRegistered")}
       </Link>
-    </div>
+    </form>
   );
 };
 

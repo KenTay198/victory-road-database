@@ -31,6 +31,7 @@ const CharacterTable = ({ className, characters, ...props }: IProps) => {
   const t = useTranslations("character");
   const characterEntities = characters.map((c) => {
     const character = Character.fromFullJSON(c);
+    character.archetypes = character.getArchetypes();
     character.setLocalizedName(settings.characterLocale);
     character.hissatsus = character.hissatsus.map((h) => {
       h.setLocalizedName(settings.hissatsuLocale);
@@ -86,7 +87,7 @@ const CharacterTable = ({ className, characters, ...props }: IProps) => {
       case "hissatsu": {
         const hissatsuKeys: ItemTableProperty[] = ["0", "1"].map((slug) => ({
           slug: `hissatsus.${slug}`,
-          label: t(`properties.hissatsus`, { count: Number(slug) + 1 }),
+          label: t(`properties.hissatsuNb`, { count: Number(slug) + 1 }),
           sortType: "string",
           isSearchable: true,
           nameAccessor: "name",

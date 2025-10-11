@@ -1,6 +1,7 @@
 import type React from "react";
 import InputWrapper, { type BaseInputProps } from "./InputWrapper";
 import { getSelectClasses } from "./utils";
+import { useTranslations } from "next-intl";
 
 export interface SelectOption {
   value: string;
@@ -26,9 +27,11 @@ export default function SelectInput({
   divClassName = "",
   value,
   options,
-  placeholder = "Select an option...",
   handleChange,
+  ...props
 }: SelectInputProps) {
+  const t = useTranslations("components.ui.inputs.select");
+  const placeholder = props.placeholder || t("defaultPlaceholder");
   const onChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     handleChange(event.target.value);
   };
