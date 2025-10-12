@@ -27,7 +27,7 @@ export default class MongoCharacterRepository implements ICharacterRepository {
 
   async create(data: ICharacterData): Promise<string> {
     await this.ensureConnection();
-    const newCharacter = new CharacterModel(data);
+    const newCharacter = new CharacterModel(this.adapter.createToDatabase(data));
     const savedCharacter = await newCharacter.save();
     return savedCharacter._id.toString();
   }

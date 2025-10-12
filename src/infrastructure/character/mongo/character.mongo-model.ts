@@ -2,8 +2,9 @@ import type { ICharacterData } from "@character/character.types";
 import { positions } from "@character/character.variables";
 import mongoose, { type ObjectId } from "mongoose";
 
-export interface ICharacterDocument extends Omit<ICharacterData, "learnedHissatsus">, mongoose.Document<ObjectId> {
-  learnedHissatsus: { _id: ObjectId; hissatsuId: ObjectId; learnLevel: number }[];
+export interface ICharacterDocument extends Omit<ICharacterData, "learnedHissatsus"> {
+  _id: ObjectId | string;
+  learnedHissatsus: { hissatsuId: ObjectId | string; learnLevel: number }[];
 }
 
 const LearnedHissatsuSchema = new mongoose.Schema(

@@ -1,6 +1,7 @@
 import type {
   CharacterArchetype,
   CharacterElement,
+  CharacterLocale,
   IAdvancedStatistics,
   IStatistics,
   Position,
@@ -47,3 +48,5 @@ export const archetypes: CharacterArchetype[] = [
 ];
 
 export const characterElements: CharacterElement[] = ["fire", "wind", "earth", "forest"];
+
+export const characterLocales: CharacterLocale[] = ["west", "vo"];

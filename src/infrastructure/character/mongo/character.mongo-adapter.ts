@@ -1,7 +1,7 @@
 import type ICharacterAdapter from "@character/character.adapter";
 import type { ICharacterDocument } from "./character.mongo-model";
 import Character from "@character/entities/character.entity";
-import type { ICharacterData } from "@character/character.types";
+import type { ICharacter, ICharacterData } from "@character/character.types";
 
 export default class MongoCharacterAdapter implements ICharacterAdapter {
   toEntity(data: ICharacterDocument): Character {
@@ -12,27 +12,48 @@ export default class MongoCharacterAdapter implements ICharacterAdapter {
       names: data.names,
       element: data.element,
       defaultPosition: data.defaultPosition,
-      learnedHissatsus: data.learnedHissatsus.map(({ hissatsuId, learnLevel }) => ({
-        id: hissatsuId ? hissatsuId.toString() : "",
-        learnLevel,
-      })),
+      learnedHissatsus: this.learnedHissatsusToEntity(data.learnedHissatsus),
       statistics: data.statistics,
       imageUrl: data.imageUrl,
     });
   }
 
-  toDatabase(character: Character): Partial<ICharacterData> & { _id: string } {
-    const json = character.toJSON();
+  createToDatabase(character: ICharacterData): Omit<ICharacterDocument, "_id"> {
     return {
-      _id: json.id,
+      firstName: character.firstName,
+      lastName: character.lastName,
+      names: character.names,
+      element: character.element,
+      defaultPosition: character.defaultPosition,
+      learnedHissatsus: this.learnedHissatsusToDatabase(character.learnedHissatsus),
+      statistics: character.statistics,
+      imageUrl: character.imageUrl,
+    };
+  }
+
+  updateToDatabase(character: Partial<ICharacter>): Partial<ICharacterDocument> {
+    const json = character instanceof Character ? character.toJSON() : character;
+    return {
       firstName: json.firstName,
       lastName: json.lastName,
       names: json.names,
       element: json.element,
       defaultPosition: json.defaultPosition,
-      learnedHissatsus: json.learnedHissatsus,
+      learnedHissatsus: json.learnedHissatsus ? this.learnedHissatsusToDatabase(json.learnedHissatsus) : [],
       statistics: json.statistics,
       imageUrl: json.imageUrl,
     };
+  }
+
+  private learnedHissatsusToEntity(
+    learnedHissatsus: ICharacterDocument["learnedHissatsus"],
+  ): ICharacter["learnedHissatsus"] {
+    return learnedHissatsus.map(({ hissatsuId, ...e }) => ({ ...e, id: hissatsuId ? hissatsuId.toString() : "" }));
+  }
+
+  private learnedHissatsusToDatabase(
+    learnedHissatsus: ICharacter["learnedHissatsus"],
+  ): ICharacterDocument["learnedHissatsus"] {
+    return learnedHissatsus.map(({ id, ...e }) => ({ ...e, hissatsuId: id }));
   }
 }
