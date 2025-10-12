@@ -12,22 +12,18 @@ export default class StubUserRepository implements IUserRepository {
   }
 
   findByIdentifier(identifier: string): Promise<UserSensitive | null> {
-    return Promise.resolve(this.findUserByIdentifier(identifier));
+    const user = this.users.find((u) => u.email === identifier || u.username === identifier);
+    return Promise.resolve(user || null);
   }
 
   create(user: IUserData): Promise<string> {
-    const newUser = new UserSensitive({ id: String(this.idCounter++), role: "admin", ...user });
+    const newUser = new UserSensitive({ id: String(this.idCounter++), ...user, role: "admin" });
     const duplicateFields = this.checkUserExists(newUser.email, newUser.username);
     if (Object.keys(duplicateFields).length > 0) {
       throw UserErrors.getError("USER_ALREADY_EXISTS", { fields: duplicateFields });
     }
     this.users.push(newUser);
     return Promise.resolve(newUser.id);
-  }
-
-  private findUserByIdentifier(identifier: string): UserSensitive | null {
-    const user = this.users.find((u) => u.email === identifier || u.username === identifier);
-    return user || null;
   }
 
   private checkUserExists(email: string, username: string): Record<string, string>[] {

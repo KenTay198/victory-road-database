@@ -51,7 +51,7 @@ const RegisterForm = ({ className, ...props }: React.HTMLAttributes<HTMLFormElem
     const sendData = { ...data };
     if (checkErrors(sendData)) {
       if ("confirmPassword" in sendData) delete sendData.confirmPassword;
-      toast.promise(register(sendData), {
+      toast.promise(register({ ...sendData, role: "user" }), {
         success: () => {
           router.push("/login");
           return t("components.auth.registerForm.toasts.success");

@@ -2,6 +2,7 @@
 
 import type IUserService from "@user/user.service";
 import StubUserService from "@infrastructure/user/stub/user.stub-service";
+import MongoUserService from "@infrastructure/user/mongo/user.mongo-service";
 import CreateUser from "@user/usecases/CreateUser";
 import type { IUserData, ILoginData, IUser } from "@user/user.types";
 import Login from "@user/usecases/Login";
@@ -11,7 +12,7 @@ declare global {
   var userService: IUserService | undefined;
 }
 
-const defaultType = "stub";
+const defaultType = process.env.NODE_ENV === "development" ? "stub" : "mongo";
 
 export async function getUserServiceInstance(type = defaultType): Promise<IUserService> {
   if (globalThis.userService) return globalThis.userService;
@@ -19,6 +20,9 @@ export async function getUserServiceInstance(type = defaultType): Promise<IUserS
   switch (type) {
     case "stub":
       globalThis.userService = new StubUserService();
+      break;
+    case "mongo":
+      globalThis.userService = new MongoUserService();
       break;
     default:
       throw new Error(`Unknown user service type: ${type}`);

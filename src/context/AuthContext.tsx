@@ -7,8 +7,8 @@ import { createUserAction, getCurrentUserAction, loginAction, logoutAction } fro
 
 interface IAuthContext {
   user: User | null;
-  register: (settings: IUserData) => Promise<string>;
-  login: (settings: ILoginData) => Promise<User | null>;
+  register: (userData: IUserData) => Promise<string>;
+  login: (loginData: ILoginData) => Promise<User | null>;
   logout: () => Promise<boolean>;
   getAuthUser: () => Promise<User | null>;
 }
