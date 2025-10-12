@@ -41,15 +41,6 @@ describe("GetMeta", () => {
   });
 
   describe("Edge cases", () => {
-    it("should handle meta not found", async () => {
-      // arrange
-      vi.spyOn(metaService, "get").mockResolvedValue(null);
-      // act
-      const meta = await new GetMeta(metaService).execute();
-      // assert
-      expect(meta).toBe(null);
-    });
-
     it("should handle uninitialized meta", async () => {
       // arrange
       const uninitializedMeta = new Meta({ initialized: false });

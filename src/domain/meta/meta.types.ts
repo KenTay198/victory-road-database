@@ -4,6 +4,7 @@ export interface IMeta {
   statRange: IStatRange<IStatistics>;
   advancedStatRange: IStatRange<IAdvancedStatistics>;
   initialized: boolean;
+  lastUpdatedAt: Date;
 }
 
 export interface IStatRange<T = IStatistics> {

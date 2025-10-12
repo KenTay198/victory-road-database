@@ -9,6 +9,7 @@ export default class Meta implements IMeta {
   statRange: IStatRange<Statistics>;
   advancedStatRange: IStatRange<AdvancedStatistics>;
   initialized = false;
+  lastUpdatedAt: Date;
 
   constructor(data?: Partial<IMeta>) {
     this.statRange = {
@@ -22,6 +23,7 @@ export default class Meta implements IMeta {
       max: this.statRange.max.getAdvancedStatistics(),
     };
     this.initialized = data?.initialized ?? false;
+    this.lastUpdatedAt = data?.lastUpdatedAt || new Date();
   }
 
   static calculateStats(characters: Character[]): Meta {
@@ -71,6 +73,7 @@ export default class Meta implements IMeta {
         max: this.advancedStatRange.max.toJSON(),
       },
       initialized: this.initialized,
+      lastUpdatedAt: this.lastUpdatedAt,
     };
   }
 
@@ -87,6 +90,7 @@ export default class Meta implements IMeta {
         max: AdvancedStatistics.fromJSON(data.advancedStatRange.max),
       },
       initialized: data.initialized,
+      lastUpdatedAt: data.lastUpdatedAt,
     });
     //#endregion
   }

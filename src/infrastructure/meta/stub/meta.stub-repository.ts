@@ -16,13 +16,13 @@ export default class StubMetaRepository implements IMetaRepository {
     return meta;
   }
 
-  async get(): Promise<Meta | null> {
+  async get(): Promise<Meta> {
     if (!this.meta || !this.meta.initialized) {
       this.meta = await this.initializeMeta();
     }
     return Promise.resolve(this.meta);
   }
-  async calculate(characters: Character[]): Promise<Meta | null> {
+  async calculate(characters: Character[]): Promise<Meta> {
     this.meta = Meta.calculateStats(characters);
     return Promise.resolve(this.meta);
   }
