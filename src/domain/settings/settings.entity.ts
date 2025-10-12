@@ -3,18 +3,21 @@ import type { CharacterLocale } from "@character/character.types";
 import type { HissatsuLocale } from "@hissatsu/hissatsu.types";
 
 export default class Settings implements ISettings {
+  userId: string;
   hissatsuLocale: HissatsuLocale;
   characterLocale: CharacterLocale;
 
   constructor(data: ISettings) {
     this.hissatsuLocale = data.hissatsuLocale;
     this.characterLocale = data.characterLocale;
+    this.userId = data.userId;
   }
 
-  static default(): Settings {
+  static default(userId: string): Settings {
     return new Settings({
       hissatsuLocale: "jp",
       characterLocale: "west",
+      userId,
     });
   }
 
@@ -27,6 +30,7 @@ export default class Settings implements ISettings {
     return {
       hissatsuLocale: this.hissatsuLocale,
       characterLocale: this.characterLocale,
+      userId: this.userId,
     };
   }
   //#endregion

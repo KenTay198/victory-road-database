@@ -21,6 +21,7 @@ describe("CreateUser", () => {
         email: "test@example.com",
         username: "testuser",
         password: "password123",
+        role: "user",
       };
       const createSpy = vi.spyOn(userService, "create").mockResolvedValue("user-id-123");
       // act
@@ -37,11 +38,13 @@ describe("CreateUser", () => {
         email: "  test@example.com  ",
         username: "  testuser  ",
         password: "  password123  ",
+        role: "user",
       };
       const expectedData = {
         email: "test@example.com",
         username: "testuser",
         password: "password123",
+        role: "user",
       };
       const createSpy = vi.spyOn(userService, "create").mockResolvedValue("user-id-123");
       // act
@@ -56,6 +59,7 @@ describe("CreateUser", () => {
         email: "test@example.com",
         username: "a".repeat(30), // Max length
         password: "password123",
+        role: "user",
       };
       const createSpy = vi.spyOn(userService, "create").mockResolvedValue("user-id-123");
       // act
@@ -71,6 +75,7 @@ describe("CreateUser", () => {
         email: "test@example.com",
         username: "testuser",
         password: "a".repeat(100), // Max length
+        role: "user",
       };
       const createSpy = vi.spyOn(userService, "create").mockResolvedValue("user-id-123");
       // act
@@ -88,6 +93,7 @@ describe("CreateUser", () => {
         email: "invalid-email",
         username: "testuser",
         password: "password123",
+        role: "user",
       };
       const useCase = new CreateUser(userService);
       // act & assert
@@ -100,6 +106,7 @@ describe("CreateUser", () => {
         email: "test@example.com",
         username: "abc", // Less than 4 characters
         password: "password123",
+        role: "user",
       };
       const useCase = new CreateUser(userService);
       // act & assert
@@ -112,6 +119,7 @@ describe("CreateUser", () => {
         email: "test@example.com",
         username: "a".repeat(31), // More than 30 characters
         password: "password123",
+        role: "user",
       };
       const useCase = new CreateUser(userService);
       // act & assert
@@ -124,6 +132,7 @@ describe("CreateUser", () => {
         email: "test@example.com",
         username: "testuser",
         password: "1234567", // Less than 8 characters
+        role: "user",
       };
       const useCase = new CreateUser(userService);
       // act & assert
@@ -136,6 +145,7 @@ describe("CreateUser", () => {
         email: "test@example.com",
         username: "testuser",
         password: "a".repeat(101), // More than 100 characters
+        role: "user",
       };
       const useCase = new CreateUser(userService);
       // act & assert
@@ -148,6 +158,7 @@ describe("CreateUser", () => {
         email: "",
         username: "testuser",
         password: "password123",
+        role: "user",
       };
       const useCase = new CreateUser(userService);
       // act & assert
@@ -160,6 +171,7 @@ describe("CreateUser", () => {
         email: "test@example.com",
         username: "",
         password: "password123",
+        role: "user",
       };
       const useCase = new CreateUser(userService);
       // act & assert
@@ -172,6 +184,7 @@ describe("CreateUser", () => {
         email: "test@example.com",
         username: "testuser",
         password: "",
+        role: "user",
       };
       const useCase = new CreateUser(userService);
       // act & assert
@@ -186,6 +199,7 @@ describe("CreateUser", () => {
         email: "test@example.com",
         username: "testuser",
         password: "password123",
+        role: "user",
       };
       vi.spyOn(userService, "create").mockRejectedValue(new Error("Database connection failed"));
       const useCase = new CreateUser(userService);
@@ -201,6 +215,7 @@ describe("CreateUser", () => {
         email: "existing@example.com",
         username: "testuser",
         password: "password123",
+        role: "user",
       };
       vi.spyOn(userService, "create").mockRejectedValue(new Error("Email already exists"));
       const useCase = new CreateUser(userService);
@@ -216,6 +231,7 @@ describe("CreateUser", () => {
         email: "test@example.com",
         username: "existinguser",
         password: "password123",
+        role: "user",
       };
       vi.spyOn(userService, "create").mockRejectedValue(new Error("Username already exists"));
       const useCase = new CreateUser(userService);

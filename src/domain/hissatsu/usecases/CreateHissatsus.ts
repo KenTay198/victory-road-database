@@ -25,9 +25,9 @@ export const CreateHissatsuData = z.object({
     en: z.string().trim().min(1),
     jp: z.string().trim().min(1),
   }),
-  type: z.union(hissatsuTypes.map((t) => z.literal(t))),
-  element: z.union(elements.map((e) => z.literal(e))),
-  characteristic: z.union(hissatsuCharacteristics.map((c) => z.literal(c))).optional(),
+  type: z.enum(hissatsuTypes),
+  element: z.enum(elements),
+  characteristic: z.enum(hissatsuCharacteristics).optional(),
   power: z.number().min(0).max(9999),
   cost: z.number().min(0).max(9999),
 }) satisfies z.ZodType<IHissatsuData>;

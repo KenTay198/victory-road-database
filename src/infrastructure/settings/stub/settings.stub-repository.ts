@@ -3,19 +3,32 @@ import type ISettingsRepository from "@settings/settings.repository";
 import type { ISettings } from "@settings/settings.types";
 
 export default class StubSettingsRepository implements ISettingsRepository {
-  settings: Settings;
+  private userSettings: Map<string, Settings>;
 
   constructor() {
-    this.settings = Settings.default();
+    this.userSettings = new Map();
   }
 
-  getSettings(): Promise<Settings> {
-    return Promise.resolve(this.settings);
+  getSettings(userId: string): Promise<Settings> {
+    if (!this.userSettings.has(userId)) {
+      const defaultSettings = Settings.default(userId);
+      this.userSettings.set(userId, defaultSettings);
+    }
+    const userSettings = this.userSettings.get(userId);
+    return Promise.resolve(userSettings as Settings);
   }
 
-  updateSettings(newSettings: ISettings): Promise<boolean> {
-    this.settings.characterLocale = newSettings.characterLocale;
-    this.settings.hissatsuLocale = newSettings.hissatsuLocale;
+  updateSettings(userId: string, newSettings: Partial<ISettings>): Promise<boolean> {
+    if (!this.userSettings.has(userId)) {
+      this.userSettings.set(userId, Settings.default(userId));
+    }
+
+    const userSettings = this.userSettings.get(userId);
+    if (userSettings) {
+      userSettings.characterLocale = newSettings.characterLocale ?? userSettings.characterLocale;
+      userSettings.hissatsuLocale = newSettings.hissatsuLocale ?? userSettings.hissatsuLocale;
+    }
+
     return Promise.resolve(true);
   }
 }

@@ -2,6 +2,7 @@ import DomainError from "@domain/shared/domainError/domainError";
 import type IUserService from "../user.service";
 import type { IUserData } from "../user.types";
 import { z } from "zod";
+import { userRoles } from "@user/user.variables";
 
 export default class CreateUser {
   constructor(private userService: IUserService) {}
@@ -28,4 +29,5 @@ const CreateUserData = z.object({
     .trim()
     .min(8, "components.auth.registerForm.errors.passwordMinLength")
     .max(100, "components.auth.registerForm.errors.passwordMaxLength"),
+  role: z.enum(userRoles, "errors.common.invalidRole"),
 }) satisfies z.ZodType<IUserData>;
