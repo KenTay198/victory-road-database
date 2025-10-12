@@ -4,7 +4,7 @@ import { getTranslations } from "next-intl/server";
 import CharacterForm from "@components/character/CharacterForm/CharacterForm";
 import AdminRoute from "@components/auth/AdminRoute";
 import { findAllHissatsusAction } from "@/actions/hissatsu.actions";
-import { getSettingsAction } from "@/actions/settings.actions";
+import { getPageContext } from "@/actions/page.actions";
 
 export const generateMetadata = async (): Promise<Metadata> => {
   const t = await getTranslations("pages.characters.new.metadata");
@@ -17,7 +17,7 @@ export const generateMetadata = async (): Promise<Metadata> => {
 
 const NewCharacterPage = async () => {
   const t = await getTranslations("pages.characters.new");
-  const settings = await getSettingsAction();
+  const { settings } = await getPageContext();
   const hissatsus = await findAllHissatsusAction({ locale: settings.hissatsuLocale });
 
   return (

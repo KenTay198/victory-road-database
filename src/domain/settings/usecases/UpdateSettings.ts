@@ -5,9 +5,9 @@ import DomainError from "@domain/shared/domainError/domainError";
 export default class UpdateSettings {
   constructor(private settingsService: ISettingsService) {}
 
-  async execute(userId: string, settings: Partial<ISettings>): Promise<boolean> {
+  async execute(settings: Partial<ISettings>, userId?: string): Promise<boolean> {
     try {
-      return await this.settingsService.updateSettings(userId, settings);
+      return await this.settingsService.updateSettings(settings, userId);
     } catch (error: any) {
       throw DomainError.handleError(error);
     }

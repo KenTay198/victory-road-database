@@ -64,6 +64,10 @@ const MetaSchema = new mongoose.Schema(
   { timestamps: true },
 );
 
+if (process.env.NODE_ENV === "development" && mongoose.models.Meta) {
+  mongoose.deleteModel("Meta");
+}
+
 const MetaModel = mongoose.model<IMetaDocument>("Meta", MetaSchema);
 
 export default MetaModel;

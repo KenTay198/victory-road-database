@@ -6,9 +6,9 @@ import CharacterForm from "@components/character/CharacterForm/CharacterForm";
 import AdminRoute from "@components/auth/AdminRoute";
 import { findCharacterByIdAction } from "@/actions/character.actions";
 import { notFound } from "next/navigation";
-import { getSettingsAction } from "@/actions/settings.actions";
 import { findAllHissatsusAction } from "@/actions/hissatsu.actions";
 import type { IDefaultFindCharacterParams } from "@character/character.types";
+import { getPageContext } from "@/actions/page.actions";
 
 const getCharacter = cache(async (id: string, params?: IDefaultFindCharacterParams) => {
   return await findCharacterByIdAction(id, params);
@@ -30,7 +30,7 @@ export const generateMetadata = async ({ params }: any): Promise<Metadata> => {
 
 const UpdateCharacterPage = async ({ params }: any) => {
   const { id } = await params;
-  const settings = await getSettingsAction();
+  const { settings } = await getPageContext();
   const character = await getCharacter(id, { locale: settings.characterLocale });
   if (!character) {
     return notFound();

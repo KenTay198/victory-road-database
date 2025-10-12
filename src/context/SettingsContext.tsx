@@ -6,6 +6,7 @@ import type { ISettings } from "@domain/settings/settings.types";
 import Settings from "@settings/settings.entity";
 import { getSettingsAction } from "@/actions/settings.actions";
 import { updateSettingsAction } from "@/actions/settings.actions";
+import { useAuth } from "./AuthContext";
 
 interface ISettingsContext {
   settings: Settings;
@@ -21,6 +22,7 @@ export const useSettings = () => {
 };
 
 export default function SettingsProvider({ children }: { children: React.ReactNode }) {
+  const { user } = useAuth();
   const [settings, setSettings] = useState<Settings>(Settings.default());
 
   const updateSettings = async (newSettings: ISettings): Promise<boolean> => {
@@ -31,11 +33,11 @@ export default function SettingsProvider({ children }: { children: React.ReactNo
 
   useEffect(() => {
     async function init() {
-      getSettingsAction().then((settings) => setSettings(new Settings(settings)));
+      getSettingsAction(user?.id).then((settings) => setSettings(new Settings(settings)));
     }
 
     init();
-  }, []);
+  }, [user]);
 
   return <SettingsContext.Provider value={{ settings: settings, updateSettings }}>{children}</SettingsContext.Provider>;
 }

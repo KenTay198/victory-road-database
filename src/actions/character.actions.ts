@@ -38,35 +38,45 @@ export async function findCharacterByIdAction(
   id: string,
   params?: IDefaultFindCharacterParams,
 ): Promise<IFullCharacter | null> {
-  console.log("[Action] Character : findCharacterById");
-  const characterService = await getCharacterServiceInstance();
-  const metaService = await getMetaServiceInstance();
-  const hissatsuService = await getHissatsuServiceInstance();
-  const character = await new FindCharacterById({ characterService, metaService, hissatsuService }).execute(id);
-  if (character) {
-    if (params?.locale) {
-      character.setLocalizedName(params?.locale);
+  console.log("[Action - findCharacterById]");
+  try {
+    const characterService = await getCharacterServiceInstance();
+    const metaService = await getMetaServiceInstance();
+    const hissatsuService = await getHissatsuServiceInstance();
+    const character = await new FindCharacterById({ characterService, metaService, hissatsuService }).execute(id);
+    if (character) {
+      if (params?.locale) {
+        character.setLocalizedName(params.locale);
+      }
+      return character.toFullJSON();
     }
-    return character.toFullJSON();
+    return null;
+  } catch (error) {
+    console.error("[Action - findCharacterById] error:", error);
+    return null;
   }
-  return null;
 }
 
 export async function findAllCharactersAction(params?: IDefaultFindCharacterParams): Promise<IFullCharacter[]> {
-  console.log("[Action] Character : findAllCharacters");
-  const characterService = await getCharacterServiceInstance();
-  const metaService = await getMetaServiceInstance();
-  const hissatsuService = await getHissatsuServiceInstance();
-  const characters = await new FindAllCharacters({ characterService, metaService, hissatsuService }).execute();
-  if (characters) {
-    return characters.map((c) => {
-      if (params?.locale) {
-        c.setLocalizedName(params?.locale);
-      }
-      return c.toFullJSON();
-    });
+  console.log("[Action - findAllCharacters]");
+  try {
+    const characterService = await getCharacterServiceInstance();
+    const metaService = await getMetaServiceInstance();
+    const hissatsuService = await getHissatsuServiceInstance();
+    const characters = await new FindAllCharacters({ characterService, metaService, hissatsuService }).execute();
+    if (characters) {
+      return characters.map((c) => {
+        if (params?.locale) {
+          c.setLocalizedName(params.locale);
+        }
+        return c.toFullJSON();
+      });
+    }
+    return [];
+  } catch (error) {
+    console.error("[Action - findAllCharacters] error:", error);
+    return [];
   }
-  return [];
 }
 
 export async function createCharacterAction(characterData: ICharacterFormData): Promise<string> {

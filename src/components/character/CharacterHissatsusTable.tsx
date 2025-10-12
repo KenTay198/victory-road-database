@@ -6,7 +6,7 @@ import type Hissatsu from "@hissatsu/hissatsu.entity";
 import type { IHissatsu } from "@hissatsu/hissatsu.types";
 import HissatsuPropertyFormatter from "@components/hissatsus/HissatsuPropertyFormatter";
 import { getTranslations } from "next-intl/server";
-import { getSettingsAction } from "@/actions/settings.actions";
+import { getPageContext } from "@/actions/page.actions";
 
 interface IProps extends React.HTMLAttributes<HTMLDivElement> {
   template: AppTemplate;
@@ -15,7 +15,7 @@ interface IProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 const CharacterHissatsusTable = async ({ className, learnedHissatsus, hissatsus, template, ...props }: IProps) => {
-  const settings = await getSettingsAction();
+  const { settings } = await getPageContext();
   const t = await getTranslations("hissatsu");
   const { value, accent } = ColorsHelper.getTemplateColor(template);
   const keys = ["element", "name", "type", "characteristic", "power", "cost"];

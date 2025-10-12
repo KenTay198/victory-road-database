@@ -36,6 +36,7 @@ const UserSchema = new mongoose.Schema<IUserDocument>(
 if (process.env.NODE_ENV === "development" && mongoose.models.User) {
   mongoose.deleteModel("User");
 }
+
 const UserModel = mongoose.model<IUserDocument>("User", UserSchema);
 
 export default UserModel;

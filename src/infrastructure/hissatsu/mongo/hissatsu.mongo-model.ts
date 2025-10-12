@@ -39,6 +39,10 @@ const HissatsuSchema = new mongoose.Schema(
   { timestamps: true },
 );
 
+if (process.env.NODE_ENV === "development" && mongoose.models.Hissatsu) {
+  mongoose.deleteModel("Hissatsu");
+}
+
 const HissatsuModel = mongoose.model<IHissatsuDocument>("Hissatsu", HissatsuSchema);
 
 export default HissatsuModel;

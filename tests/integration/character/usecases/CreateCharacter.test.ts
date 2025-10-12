@@ -1,15 +1,12 @@
 import { describe, expect, it, vi, beforeEach, afterEach } from "vitest";
 import StubCharacterService from "@infrastructure/character/stub/character.stub-service";
-import StubMetaService from "@infrastructure/meta/stub/meta.stub-service";
 import StubHissatsuService from "@infrastructure/hissatsu/stub/hissatsu.stub-service";
-import Character from "@character/entities/character.entity";
-import Hissatsu from "@hissatsu/hissatsu.entity";
 import CreateCharacter from "@character/usecases/CreateCharacter";
 import type IHissatsuService from "@hissatsu/hissatsu.service";
 import type ICharacterService from "@character/character.service";
 import FakeCharacter from "../../../entities/character/character.fake";
 import FakeHissatsu from "../../../entities/hissatsus/hissatsu.fake";
-import { ICreateLearnedHissatsu } from "@hissatsu/hissatsu.types";
+import type { ICreateLearnedHissatsu } from "@hissatsu/hissatsu.types";
 
 describe("CreateCharacter", () => {
   let characterService: ICharacterService;

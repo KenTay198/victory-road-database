@@ -3,7 +3,7 @@ import type { CharacterLocale } from "@character/character.types";
 import type { HissatsuLocale } from "@hissatsu/hissatsu.types";
 
 export default class Settings implements ISettings {
-  userId: string;
+  userId?: string;
   hissatsuLocale: HissatsuLocale;
   characterLocale: CharacterLocale;
 
@@ -13,7 +13,7 @@ export default class Settings implements ISettings {
     this.userId = data.userId;
   }
 
-  static default(userId: string): Settings {
+  static default(userId?: string): Settings {
     return new Settings({
       hissatsuLocale: "jp",
       characterLocale: "west",

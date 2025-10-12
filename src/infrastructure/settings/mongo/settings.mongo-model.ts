@@ -24,6 +24,10 @@ const SettingsSchema = new mongoose.Schema(
   { timestamps: true },
 );
 
+if (process.env.NODE_ENV === "development" && mongoose.models.Settings) {
+  mongoose.deleteModel("Settings");
+}
+
 const SettingsModel = mongoose.model<ISettingsDocument>("Settings", SettingsSchema);
 
 export default SettingsModel;

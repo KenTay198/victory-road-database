@@ -6,7 +6,7 @@ import type IHissatsuService from "@hissatsu/hissatsu.service";
 import type ICharacterService from "@character/character.service";
 import FakeCharacter from "../../../entities/character/character.fake";
 import FakeHissatsu from "../../../entities/hissatsus/hissatsu.fake";
-import { ICreateLearnedHissatsu } from "@hissatsu/hissatsu.types";
+import type { ICreateLearnedHissatsu } from "@hissatsu/hissatsu.types";
 
 describe("UpdateCharacter", () => {
   let characterService: ICharacterService;

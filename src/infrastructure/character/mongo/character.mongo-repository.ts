@@ -9,31 +9,27 @@ import type { ICharacterData } from "@character/character.types";
 export default class MongoCharacterRepository implements ICharacterRepository {
   adapter: ICharacterAdapter = new MongoCharacterAdapter();
 
-  private async ensureConnection(): Promise<void> {
-    await connectMongo();
-  }
-
   async findAll(): Promise<Character[]> {
-    await this.ensureConnection();
+    await connectMongo();
     const characters: ICharacterDocument[] = await CharacterModel.find().exec();
     return characters.map((data) => this.adapter.toEntity(data));
   }
 
   async findById(id: string): Promise<Character | null> {
-    await this.ensureConnection();
+    await connectMongo();
     const character: ICharacterDocument | null = await CharacterModel.findById(id).exec();
     return character ? this.adapter.toEntity(character) : null;
   }
 
   async create(data: ICharacterData): Promise<string> {
-    await this.ensureConnection();
+    await connectMongo();
     const newCharacter = new CharacterModel(this.adapter.createToDatabase(data));
     const savedCharacter = await newCharacter.save();
     return savedCharacter._id.toString();
   }
 
   async updateById(id: string, character: Partial<ICharacterData>): Promise<boolean> {
-    await this.ensureConnection();
+    await connectMongo();
     const result = await CharacterModel.updateOne({ _id: id }, { $set: character }).exec();
     return result.matchedCount > 0;
   }

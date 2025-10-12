@@ -1,13 +1,14 @@
 import GetSettings from "@settings/usecases/GetSettings";
 import { describe, expect, it, vi, beforeEach, afterEach } from "vitest";
-import StubSettingsService from "@infrastructure/settings/stub/settings.stub-service";
 import Settings from "@settings/settings.entity";
+import SettingsService from "@infrastructure/settings/settings.default-service";
+import type ISettingsService from "@settings/settings.service";
 
 describe("GetSettings", () => {
-  let settingsService: StubSettingsService;
+  let settingsService: ISettingsService;
 
   beforeEach(() => {
-    settingsService = new StubSettingsService();
+    settingsService = new SettingsService("stub");
   });
 
   afterEach(() => {

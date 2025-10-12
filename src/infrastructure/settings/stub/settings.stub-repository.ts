@@ -18,7 +18,7 @@ export default class StubSettingsRepository implements ISettingsRepository {
     return Promise.resolve(userSettings as Settings);
   }
 
-  updateSettings(userId: string, newSettings: Partial<ISettings>): Promise<boolean> {
+  updateSettings(newSettings: Partial<ISettings>, userId: string): Promise<boolean> {
     if (!this.userSettings.has(userId)) {
       this.userSettings.set(userId, Settings.default(userId));
     }

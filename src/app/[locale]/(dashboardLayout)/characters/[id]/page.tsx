@@ -5,11 +5,10 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import { findCharacterByIdAction } from "@/actions/character.actions";
-import { getSettingsAction } from "@/actions/settings.actions";
 import Character from "@character/entities/character.entity";
-import { getCurrentUserAction } from "@/actions/auth.actions";
 import Button from "@components/ui/Buttons/Button";
 import { GrUpdate } from "react-icons/gr";
+import { getPageContext } from "@/actions/page.actions";
 
 const getCharacter = cache(async (id: string) => {
   return await findCharacterByIdAction(id);
@@ -35,12 +34,12 @@ const CharacterPage = async ({ params }: any) => {
   if (!character) {
     return notFound();
   }
-  console.log(character);
 
+  const { user, settings } = await getPageContext();
   const characterEntity = Character.fromFullJSON(character);
-  const settings = await getSettingsAction();
-  characterEntity.setLocalizedName(settings.characterLocale);
-  const user = await getCurrentUserAction();
+  if (user?.id) {
+    characterEntity.setLocalizedName(settings.characterLocale);
+  }
 
   return (
     <>
