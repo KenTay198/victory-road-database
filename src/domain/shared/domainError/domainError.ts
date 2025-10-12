@@ -14,19 +14,23 @@ export default class DomainError extends Error {
     if (!DomainError.isDomainError(error)) {
       let category: ErrorCategory = "UNEXPECTED";
       let code: ErrorCode = "UNKNOWN";
-      if (error instanceof ZodError) {
+
+      if (DomainError.isValidationError(error)) {
         category = "VALIDATION";
         code = "VALIDATION_FAILED";
-        details = details.toString();
+        details = error instanceof ZodError ? error.toString() : JSON.stringify(error);
       } else if (error instanceof Error) {
         details = error.message;
-      } else {
-        details = null;
       }
+
       error = new DomainError(category, code, details);
     }
 
     return error.toJSON();
+  }
+
+  static isValidationError(error: any): boolean {
+    return error instanceof ZodError || error?.name === "ZodError" || error?.[0]?.code === "invalid_format";
   }
 
   static isDomainError(error: any): error is DomainError {

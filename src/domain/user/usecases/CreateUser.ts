@@ -17,7 +17,7 @@ export default class CreateUser {
 }
 
 const CreateUserData = z.object({
-  email: z.email("errors.common.invalidEmail").trim(),
+  email: z.string().check(z.trim(), z.email("errors.common.invalidEmail")),
   username: z
     .string()
     .trim()

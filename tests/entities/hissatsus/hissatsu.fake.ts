@@ -1,10 +1,10 @@
 import Hissatsu from "@hissatsu/hissatsu.entity";
-import type { IHissatsuData } from "@hissatsu/hissatsu.types";
+import type { IHissatsu } from "@hissatsu/hissatsu.types";
 
 export default class FakeHissatsu extends Hissatsu {
-  constructor({ name, type, characteristic, names }: Partial<IHissatsuData> = {}) {
+  constructor({ id, name, type, characteristic, names }: Partial<IHissatsu> = {}) {
     super({
-      id: "name",
+      id: id || "id",
       name: name || "Fake",
       element: "earth",
       names: names || { fr: "Nom", en: "Name", jp: "Name" },

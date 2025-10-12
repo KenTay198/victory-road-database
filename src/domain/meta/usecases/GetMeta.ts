@@ -7,7 +7,7 @@ export default class GetMeta {
 
   async execute(): Promise<Meta | null> {
     try {
-      return this.metaService.get();
+      return await this.metaService.get();
     } catch (error: any) {
       throw DomainError.handleError(error);
     }

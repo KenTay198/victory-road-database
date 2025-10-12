@@ -11,10 +11,10 @@ export default class StubMetaService implements IMetaService {
     this.metaRepository = new StubMetaRepository();
   }
 
-  get(): Promise<Meta> {
+  get(): Promise<Meta | null> {
     return this.metaRepository.get();
   }
-  calculate(characters: Character[]): Promise<Meta> {
+  calculate(characters: Character[]): Promise<Meta | null> {
     return this.metaRepository.calculate(characters);
   }
 }

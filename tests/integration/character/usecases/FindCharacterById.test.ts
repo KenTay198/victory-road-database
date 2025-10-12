@@ -1,15 +1,18 @@
-import FindCharacterById from "@character/usecases/FindCharacterById";
 import { describe, expect, it, vi, beforeEach, afterEach } from "vitest";
+import FindCharacterById from "@character/usecases/FindCharacterById";
 import StubCharacterService from "@infrastructure/character/stub/character.stub-service";
 import StubHissatsuService from "@infrastructure/hissatsu/stub/hissatsu.stub-service";
 import StubMetaService from "@infrastructure/meta/stub/meta.stub-service";
 import Character from "@character/entities/character.entity";
 import Meta from "@meta/meta.entity";
+import type ICharacterService from "@character/character.service";
+import type IMetaService from "@meta/meta.service";
+import type IHissatsuService from "@hissatsu/hissatsu.service";
 
 describe("FindCharacterById", () => {
-  let characterService: StubCharacterService;
-  let metaService: StubMetaService;
-  let hissatsuService: StubHissatsuService;
+  let characterService: ICharacterService;
+  let metaService: IMetaService;
+  let hissatsuService: IHissatsuService;
 
   beforeEach(() => {
     characterService = new StubCharacterService();
@@ -29,6 +32,21 @@ describe("FindCharacterById", () => {
       expect(character).toBeTruthy();
       expect(character).toBeInstanceOf(Character);
       expect(character?.id).toBe("1");
+    });
+
+    it("should return character with no archetypes when meta service is provided and meta is not initialized", async () => {
+      // arrange
+      const meta = new Meta({ initialized: false });
+      const getMetaSpy = vi.spyOn(metaService, "get").mockResolvedValue(meta);
+      // act
+      const character = await new FindCharacterById({ characterService, metaService }).execute("1");
+      // assert
+      expect(character).toBeTruthy();
+      expect(character?.id).toBe("1");
+      expect(character?.archetypes).toBeDefined();
+      expect(getMetaSpy).toHaveBeenCalledOnce();
+      expect(Array.isArray(character?.archetypes)).toBe(true);
+      expect(character?.archetypes).toEqual(["none"]);
     });
 
     it("should return character with archetypes when meta service is provided", async () => {

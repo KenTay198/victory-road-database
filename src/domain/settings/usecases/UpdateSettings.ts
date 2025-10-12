@@ -7,7 +7,7 @@ export default class UpdateSettings {
 
   async execute(settings: ISettings): Promise<boolean> {
     try {
-      return this.settingsService.updateSettings(settings);
+      return await this.settingsService.updateSettings(settings);
     } catch (error: any) {
       throw DomainError.handleError(error);
     }

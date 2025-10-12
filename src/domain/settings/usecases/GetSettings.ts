@@ -7,7 +7,7 @@ export default class GetSettings {
 
   async execute(): Promise<Settings> {
     try {
-      return this.settingsService.getSettings();
+      return await this.settingsService.getSettings();
     } catch (error: any) {
       throw DomainError.handleError(error);
     }
