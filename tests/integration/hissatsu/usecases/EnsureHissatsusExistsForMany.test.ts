@@ -23,9 +23,7 @@ describe("EnsureHissatsusExistsForMany", () => {
           { id: "existing1", learnLevel: 1 },
           { id: "existing2", learnLevel: 5 },
         ],
-        [
-          { id: "existing3", learnLevel: 2 },
-        ],
+        [{ id: "existing3", learnLevel: 2 }],
       ];
       const createMultipleSpy = vi.spyOn(hissatsuService, "createMultiple");
 
@@ -38,9 +36,7 @@ describe("EnsureHissatsusExistsForMany", () => {
         { id: "existing1", learnLevel: 1 },
         { id: "existing2", learnLevel: 5 },
       ]);
-      expect(result.get(1)).toEqual([
-        { id: "existing3", learnLevel: 2 },
-      ]);
+      expect(result.get(1)).toEqual([{ id: "existing3", learnLevel: 2 }]);
       expect(createMultipleSpy).not.toHaveBeenCalled();
     });
 
@@ -55,9 +51,7 @@ describe("EnsureHissatsusExistsForMany", () => {
           { ...fakeHissatsu1.toJSON(), learnLevel: 1, create: true },
           { ...fakeHissatsu2.toJSON(), learnLevel: 3, create: true },
         ],
-        [
-          { ...fakeHissatsu3.toJSON(), learnLevel: 2, create: true },
-        ],
+        [{ ...fakeHissatsu3.toJSON(), learnLevel: 2, create: true }],
       ];
 
       // Remove ids to simulate new hissatsus
@@ -76,9 +70,7 @@ describe("EnsureHissatsusExistsForMany", () => {
         { id: "id1", learnLevel: 1 },
         { id: "id2", learnLevel: 3 },
       ]);
-      expect(result.get(1)).toEqual([
-        { id: "id3", learnLevel: 2 },
-      ]);
+      expect(result.get(1)).toEqual([{ id: "id3", learnLevel: 2 }]);
       expect(createMultipleSpy).toHaveBeenCalledOnce();
       expect(createMultipleSpy).toHaveBeenCalledWith([
         expect.objectContaining({ name: fakeHissatsu1.name }),
@@ -95,9 +87,7 @@ describe("EnsureHissatsusExistsForMany", () => {
           { id: "existing1", learnLevel: 1 },
           { ...fakeHissatsu.toJSON(), learnLevel: 2, create: true },
         ],
-        [
-          { id: "existing2", learnLevel: 3 },
-        ],
+        [{ id: "existing2", learnLevel: 3 }],
       ];
 
       delete charactersHissatsus[0][1].id;
@@ -112,9 +102,7 @@ describe("EnsureHissatsusExistsForMany", () => {
         { id: "existing1", learnLevel: 1 },
         { id: "new-id", learnLevel: 2 },
       ]);
-      expect(result.get(1)).toEqual([
-        { id: "existing2", learnLevel: 3 },
-      ]);
+      expect(result.get(1)).toEqual([{ id: "existing2", learnLevel: 3 }]);
       expect(createMultipleSpy).toHaveBeenCalledOnce();
     });
 
@@ -133,13 +121,28 @@ describe("EnsureHissatsusExistsForMany", () => {
       expect(createMultipleSpy).not.toHaveBeenCalled();
     });
 
-    it("should clean create flag from existing hissatsus", async () => {
+    it("should handle hissatsus with create flag but existing id as new hissatsus", async () => {
       // arrange
-      const charactersHissatsus: ICreateLearnedHissatsu[][] = [
-        [
-          { id: "existing1", learnLevel: 1, create: true },
-        ],
+      const fakeHissatsu = new FakeHissatsu();
+      const charactersHissatsus: Partial<ICreateLearnedHissatsu>[][] = [
+        [{ ...fakeHissatsu.toJSON(), id: "existing1", learnLevel: 1, create: true }],
       ];
+
+      const createMultipleSpy = vi.spyOn(hissatsuService, "createMultiple").mockResolvedValue(["new-id"]);
+
+      // act
+      const result = await new EnsureHissatsusExistsForMany(hissatsuService).execute(charactersHissatsus);
+
+      // assert
+      expect(result.size).toBe(1);
+      expect(result.get(0)).toEqual([{ id: "new-id", learnLevel: 1 }]);
+      expect(createMultipleSpy).toHaveBeenCalledOnce();
+      expect(createMultipleSpy).toHaveBeenCalledWith([expect.objectContaining({ name: fakeHissatsu.name })]);
+    });
+
+    it("should clean create flag from existing hissatsus without create flag", async () => {
+      // arrange
+      const charactersHissatsus: Partial<ICreateLearnedHissatsu>[][] = [[{ id: "existing1", learnLevel: 1 }]];
 
       const createMultipleSpy = vi.spyOn(hissatsuService, "createMultiple");
 
@@ -147,11 +150,9 @@ describe("EnsureHissatsusExistsForMany", () => {
       const result = await new EnsureHissatsusExistsForMany(hissatsuService).execute(charactersHissatsus);
 
       // assert
-      expect(charactersHissatsus[0][0]).not.toHaveProperty("create");
+      expect(result.size).toBe(1);
+      expect(result.get(0)).toEqual([{ id: "existing1", learnLevel: 1 }]);
       expect(createMultipleSpy).not.toHaveBeenCalled();
-      expect(result.get(0)).toEqual([
-        { id: "existing1", learnLevel: 1 },
-      ]);
     });
   });
 
@@ -167,9 +168,9 @@ describe("EnsureHissatsusExistsForMany", () => {
       vi.spyOn(hissatsuService, "createMultiple").mockRejectedValue(new Error("Creation failed"));
 
       // act & assert
-      await expect(
-        new EnsureHissatsusExistsForMany(hissatsuService).execute(charactersHissatsus)
-      ).rejects.toThrow("Creation failed");
+      await expect(new EnsureHissatsusExistsForMany(hissatsuService).execute(charactersHissatsus)).rejects.toThrow(
+        "Creation failed",
+      );
     });
   });
 });
