@@ -12,7 +12,7 @@ declare global {
   var userService: IUserService | undefined;
 }
 
-const defaultType = process.env.NODE_ENV === "development" ? "stub" : "mongo";
+const defaultType = process.env.DEFAULT_ACTION_TYPE;
 
 export async function getUserServiceInstance(type = defaultType): Promise<IUserService> {
   if (globalThis.userService) return globalThis.userService;

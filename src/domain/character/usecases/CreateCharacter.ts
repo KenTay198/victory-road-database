@@ -44,7 +44,6 @@ export const CreateCharacterData = z.object({
   defaultPosition: z.enum(positions),
   element: z.enum(characterElements),
   imageUrl: z.union([z.literal(""), z.url("errors.character.imageUrlInvalid")]).optional(),
-  //#region Statistics
   statistics: z.object({
     kick: z
       .number()

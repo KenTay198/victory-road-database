@@ -10,7 +10,7 @@ export const generateMetadata = async (): Promise<Metadata> => {
   const t = await getTranslations("pages.characters.new.metadata");
 
   return {
-    title: t("title"),
+    title: `${t("title")} | Victory Road Database`,
     description: t("description"),
   };
 };

@@ -79,13 +79,16 @@ const ItemTableFilterBar = ({ className, items, onFilterChange, properties, Filt
         <TextInput
           id="query"
           type="text"
-          className="flex-1"
+          divClassName="flex-1"
           value={query}
           placeholder={t("inputs.search.placeholder")}
           handleChange={handleQueryChange}
         />
       </div>
-      {filtersExpanded && <FilterComponent items={items} onFilterChange={handleFiltersChange} />}
+
+      <div className={filtersExpanded ? "block" : "hidden"}>
+        <FilterComponent items={items} onFilterChange={handleFiltersChange} />
+      </div>
     </div>
   );
 };

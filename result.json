@@ -1,0 +1,2058 @@
+{
+  _id: ObjectId('66c10bd2cca2b886b48a7395'),
+  firstName: 'Aitor',
+  lastName: 'Cazador',
+  element: 'forest',
+  defaultPosition: 'defender',
+  statistics: {
+    kick: 70,
+    control: 110,
+    pressure: 142,
+    physical: 98,
+    agility: 104,
+    intelligence: 92,
+    technique: 102
+  },
+  createdAt: ISODate('2024-08-17T20:45:06.536Z'),
+  updatedAt: ISODate('2024-08-17T20:45:06.536Z'),
+  __v: 0,
+  imageUrl: '/images/characters/aitor_cazador.jpg',
+  learnedHissatsus: [
+    {
+      _id: ObjectId('66c10bd2cca2b886b48a7393'),
+      name: 'Filet de Chasse',
+      type: 'defense',
+      element: 'forest',
+      createdAt: ISODate('2024-08-17T20:45:06.332Z'),
+      updatedAt: ISODate('2024-08-17T20:45:06.332Z'),
+      __v: 0,
+      learnLevel: 1
+    },
+    {
+      _id: ObjectId('66c104d4cca2b886b48a72a5'),
+      name: 'Ballon Illusoire',
+      type: 'dribble',
+      element: 'forest',
+      createdAt: ISODate('2024-08-17T20:15:16.787Z'),
+      updatedAt: ISODate('2024-08-17T20:15:16.787Z'),
+      __v: 0,
+      learnLevel: 23
+    }
+  ]
+}
+{
+  _id: ObjectId('66c1023ecca2b886b48a725f'),
+  firstName: 'Arion',
+  lastName: 'Sherwind',
+  element: 'wind',
+  defaultPosition: 'midfielder',
+  statistics: {
+    kick: 122,
+    control: 102,
+    pressure: 108,
+    physical: 88,
+    agility: 110,
+    intelligence: 102,
+    technique: 170
+  },
+  createdAt: ISODate('2024-08-17T20:04:14.209Z'),
+  updatedAt: ISODate('2024-08-17T20:05:07.312Z'),
+  __v: 0,
+  imageUrl: '/images/characters/arion_sherwind.jpg',
+  learnedHissatsus: [
+    {
+      _id: ObjectId('66c10272cca2b886b48a7268'),
+      name: 'Attaque ventriculaire',
+      type: 'dribble',
+      element: 'fire',
+      createdAt: ISODate('2024-08-17T20:05:06.799Z'),
+      updatedAt: ISODate('2024-08-17T20:05:06.799Z'),
+      __v: 0,
+      learnLevel: 1
+    },
+    {
+      _id: ObjectId('66c10273cca2b886b48a726a'),
+      name: 'Sprint Tourbillon',
+      type: 'defense',
+      element: 'wind',
+      createdAt: ISODate('2024-08-17T20:05:07.047Z'),
+      updatedAt: ISODate('2024-08-17T20:05:07.047Z'),
+      __v: 0,
+      learnLevel: 14
+    }
+  ]
+}
+{
+  _id: ObjectId('66c1065ccca2b886b48a72db'),
+  firstName: 'Axel',
+  lastName: 'Blaze',
+  element: 'fire',
+  defaultPosition: 'forward',
+  statistics: {
+    kick: 170,
+    control: 116,
+    pressure: 82,
+    physical: 120,
+    agility: 94,
+    intelligence: 90,
+    technique: 126
+  },
+  createdAt: ISODate('2024-08-17T20:21:48.139Z'),
+  updatedAt: ISODate('2024-08-17T20:21:48.139Z'),
+  __v: 0,
+  imageUrl: '/images/characters/axel_blaze.jpg',
+  learnedHissatsus: [
+    {
+      _id: ObjectId('66c1065bcca2b886b48a72d7'),
+      name: 'Tornade de Feu',
+      type: 'kick',
+      element: 'fire',
+      createdAt: ISODate('2024-08-17T20:21:47.753Z'),
+      updatedAt: ISODate('2024-08-17T20:21:47.753Z'),
+      __v: 0,
+      learnLevel: 1
+    },
+    {
+      _id: ObjectId('66c1065bcca2b886b48a72d9'),
+      name: 'Charge Enflammée',
+      type: 'dribble',
+      element: 'fire',
+      createdAt: ISODate('2024-08-17T20:21:47.930Z'),
+      updatedAt: ISODate('2024-08-17T20:21:47.930Z'),
+      __v: 0,
+      learnLevel: 15
+    }
+  ]
+}
+{
+  _id: ObjectId('66c10553cca2b886b48a72bb'),
+  firstName: 'Bailong',
+  lastName: '',
+  element: 'wind',
+  defaultPosition: 'forward',
+  statistics: {
+    kick: 184,
+    control: 148,
+    pressure: 74,
+    physical: 62,
+    agility: 96,
+    intelligence: 108,
+    technique: 128
+  },
+  createdAt: ISODate('2024-08-17T20:17:23.624Z'),
+  updatedAt: ISODate('2024-08-17T20:17:23.624Z'),
+  __v: 0,
+  imageUrl: '/images/characters/bailong.jpg',
+  learnedHissatsus: [
+    {
+      _id: ObjectId('66c10553cca2b886b48a72b7'),
+      name: 'Tourbillon du Dragon',
+      type: 'kick',
+      element: 'wind',
+      createdAt: ISODate('2024-08-17T20:17:23.302Z'),
+      updatedAt: ISODate('2024-08-17T20:17:23.302Z'),
+      __v: 0,
+      learnLevel: 1
+    },
+    {
+      _id: ObjectId('66c10553cca2b886b48a72b9'),
+      name: "Danse d'Éole",
+      type: 'dribble',
+      element: 'wind',
+      createdAt: ISODate('2024-08-17T20:17:23.464Z'),
+      updatedAt: ISODate('2024-08-17T20:17:23.464Z'),
+      __v: 0,
+      learnLevel: 20
+    }
+  ]
+}
+{
+  _id: ObjectId('66c105e8cca2b886b48a72cb'),
+  firstName: 'Bellatrix',
+  lastName: '',
+  element: 'wind',
+  defaultPosition: 'midfielder',
+  statistics: {
+    kick: 136,
+    control: 106,
+    pressure: 114,
+    physical: 86,
+    agility: 88,
+    intelligence: 112,
+    technique: 158
+  },
+  createdAt: ISODate('2024-08-17T20:19:52.459Z'),
+  updatedAt: ISODate('2024-08-17T20:19:52.459Z'),
+  __v: 0,
+  imageUrl: '/images/characters/bellatrix.jpg',
+  learnedHissatsus: [
+    {
+      _id: ObjectId('66c105e8cca2b886b48a72c7'),
+      name: 'Sprint Éclair',
+      type: 'dribble',
+      element: 'fire',
+      createdAt: ISODate('2024-08-17T20:19:52.093Z'),
+      updatedAt: ISODate('2024-08-17T20:19:52.093Z'),
+      __v: 0,
+      learnLevel: 1
+    },
+    {
+      _id: ObjectId('66c105e8cca2b886b48a72c9'),
+      name: 'Supernova',
+      type: 'kick',
+      element: 'forest',
+      createdAt: ISODate('2024-08-17T20:19:52.264Z'),
+      updatedAt: ISODate('2024-08-17T20:19:52.264Z'),
+      __v: 0,
+      learnLevel: 16
+    }
+  ]
+}
+{
+  _id: ObjectId('66c1019bcca2b886b48a7246'),
+  firstName: 'Beta',
+  lastName: '',
+  element: 'wind',
+  defaultPosition: 'forward',
+  statistics: {
+    kick: 154,
+    control: 124,
+    pressure: 104,
+    physical: 98,
+    agility: 106,
+    intelligence: 88,
+    technique: 132
+  },
+  createdAt: ISODate('2024-08-17T20:01:31.532Z'),
+  updatedAt: ISODate('2024-08-17T20:01:31.532Z'),
+  __v: 0,
+  imageUrl: '/images/characters/beta.jpg',
+  learnedHissatsus: [
+    {
+      _id: ObjectId('66c10199cca2b886b48a7242'),
+      name: 'Fission Fusion',
+      type: 'kick',
+      element: 'void',
+      createdAt: ISODate('2024-08-17T20:01:29.796Z'),
+      updatedAt: ISODate('2024-08-17T20:01:29.796Z'),
+      __v: 0,
+      learnLevel: 1
+    },
+    {
+      _id: ObjectId('66c1019acca2b886b48a7244'),
+      name: 'Attaque Oméga',
+      type: 'kick',
+      element: 'void',
+      createdAt: ISODate('2024-08-17T20:01:30.517Z'),
+      updatedAt: ISODate('2024-08-17T20:01:30.517Z'),
+      __v: 0,
+      learnLevel: 18
+    }
+  ]
+}
+{
+  _id: ObjectId('66c10c3ccca2b886b48a73a6'),
+  firstName: 'Bomber',
+  lastName: '',
+  element: 'fire',
+  defaultPosition: 'defender',
+  statistics: {
+    kick: 72,
+    control: 118,
+    pressure: 100,
+    physical: 92,
+    agility: 94,
+    intelligence: 94,
+    technique: 148
+  },
+  createdAt: ISODate('2024-08-17T20:46:52.060Z'),
+  updatedAt: ISODate('2024-08-17T20:46:52.060Z'),
+  __v: 0,
+  imageUrl: '/images/characters/bomber.jpg',
+  learnedHissatsus: [
+    {
+      _id: ObjectId('66c109c7cca2b886b48a7346'),
+      name: 'Tacle Incendiaire',
+      type: 'defense',
+      element: 'fire',
+      createdAt: ISODate('2024-08-17T20:36:23.225Z'),
+      updatedAt: ISODate('2024-08-17T20:36:23.225Z'),
+      __v: 0,
+      learnLevel: 1
+    },
+    {
+      _id: ObjectId('66c10b7acca2b886b48a7383'),
+      name: 'Astéroïdes',
+      type: 'defense',
+      element: 'forest',
+      createdAt: ISODate('2024-08-17T20:43:38.386Z'),
+      updatedAt: ISODate('2024-08-17T20:43:38.386Z'),
+      __v: 0,
+      learnLevel: 17
+    }
+  ]
+}
+{
+  _id: ObjectId('66c102b1cca2b886b48a7275'),
+  firstName: 'Byron',
+  lastName: 'Love',
+  element: 'forest',
+  defaultPosition: 'midfielder',
+  statistics: {
+    kick: 140,
+    control: 126,
+    pressure: 110,
+    physical: 84,
+    agility: 86,
+    intelligence: 100,
+    technique: 156
+  },
+  createdAt: ISODate('2024-08-17T20:06:09.550Z'),
+  updatedAt: ISODate('2024-08-17T20:06:09.550Z'),
+  __v: 0,
+  imageUrl: '/images/characters/byron_love.jpg',
+  learnedHissatsus: [
+    {
+      _id: ObjectId('66c102b1cca2b886b48a7271'),
+      name: 'Instant Céleste',
+      type: 'dribble',
+      element: 'wind',
+      createdAt: ISODate('2024-08-17T20:06:09.187Z'),
+      updatedAt: ISODate('2024-08-17T20:06:09.187Z'),
+      __v: 0,
+      learnLevel: 1
+    },
+    {
+      _id: ObjectId('66c102b1cca2b886b48a7273'),
+      name: 'Savoir Suprême',
+      type: 'kick',
+      element: 'wind',
+      createdAt: ISODate('2024-08-17T20:06:09.373Z'),
+      updatedAt: ISODate('2024-08-17T20:06:09.373Z'),
+      __v: 0,
+      learnLevel: 20
+    }
+  ]
+}
+{
+  _id: ObjectId('66c1067ccca2b886b48a72e0'),
+  firstName: 'Caleb',
+  lastName: 'Stonewall',
+  element: 'fire',
+  defaultPosition: 'midfielder',
+  statistics: {
+    kick: 122,
+    control: 122,
+    pressure: 124,
+    physical: 92,
+    agility: 94,
+    intelligence: 92,
+    technique: 152
+  },
+  createdAt: ISODate('2024-08-17T20:22:20.214Z'),
+  updatedAt: ISODate('2024-08-17T20:22:20.214Z'),
+  __v: 0,
+  imageUrl: '/images/characters/caleb_stonewall.jpg',
+  learnedHissatsus: [
+    {
+      _id: ObjectId('66c1032ccca2b886b48a727c'),
+      name: 'Tacle de la Mort',
+      type: 'defense',
+      element: 'forest',
+      createdAt: ISODate('2024-08-17T20:08:12.302Z'),
+      updatedAt: ISODate('2024-08-17T20:08:12.302Z'),
+      __v: 0,
+      learnLevel: 1
+    },
+    {
+      _id: ObjectId('66c10506cca2b886b48a72ae'),
+      name: 'Triangle de la Mort',
+      type: 'kick',
+      element: 'forest',
+      createdAt: ISODate('2024-08-17T20:16:06.549Z'),
+      updatedAt: ISODate('2024-08-17T20:16:06.549Z'),
+      __v: 0,
+      learnLevel: 17
+    }
+  ]
+}
+{
+  _id: ObjectId('66c10977cca2b886b48a733c'),
+  firstName: 'Clear',
+  lastName: '',
+  element: 'wind',
+  defaultPosition: 'defender',
+  statistics: {
+    kick: 66,
+    control: 112,
+    pressure: 152,
+    physical: 96,
+    agility: 122,
+    intelligence: 120,
+    technique: 92
+  },
+  createdAt: ISODate('2024-08-17T20:35:03.170Z'),
+  updatedAt: ISODate('2024-08-17T20:35:03.170Z'),
+  __v: 0,
+  imageUrl: '/images/characters/clear.jpg',
+  learnedHissatsus: [
+    {
+      _id: ObjectId('66c10976cca2b886b48a733a'),
+      name: 'La Tour',
+      type: 'defense',
+      element: 'wind',
+      createdAt: ISODate('2024-08-17T20:35:02.839Z'),
+      updatedAt: ISODate('2024-08-17T20:35:02.839Z'),
+      __v: 0,
+      learnLevel: 1
+    },
+    {
+      _id: ObjectId('66c10361cca2b886b48a7283'),
+      name: 'Trou de Ver',
+      type: 'keep',
+      element: 'forest',
+      createdAt: ISODate('2024-08-17T20:09:05.240Z'),
+      updatedAt: ISODate('2024-08-17T20:09:05.240Z'),
+      __v: 0,
+      learnLevel: 12
+    }
+  ]
+}
+{
+  _id: ObjectId('66c0f6c7cca2b886b48a71ef'),
+  firstName: 'Darren',
+  lastName: 'LaChance',
+  element: 'forest',
+  defaultPosition: 'goalkeeper',
+  statistics: {
+    kick: 72,
+    control: 120,
+    pressure: 100,
+    physical: 118,
+    agility: 148,
+    intelligence: 112,
+    technique: 90
+  },
+  createdAt: ISODate('2024-08-17T19:15:19.038Z'),
+  updatedAt: ISODate('2024-08-17T19:46:24.882Z'),
+  __v: 0,
+  imageUrl: '/images/characters/darren_lachance.jpg',
+  learnedHissatsus: [
+    {
+      _id: ObjectId('66c0fe09cca2b886b48a7231'),
+      name: 'Main céleste (bleu)',
+      type: 'keep',
+      element: 'forest',
+      createdAt: ISODate('2024-08-17T19:46:17.708Z'),
+      updatedAt: ISODate('2024-08-17T19:46:17.708Z'),
+      __v: 0,
+      learnLevel: 1
+    },
+    {
+      _id: ObjectId('66c0de5dcca2b886b48a7165'),
+      name: "Mains de l'infini",
+      type: 'keep',
+      createdAt: ISODate('2024-08-17T17:31:09.288Z'),
+      updatedAt: ISODate('2024-08-17T19:36:34.231Z'),
+      __v: 0,
+      element: 'forest',
+      learnLevel: 21
+    }
+  ]
+}
+{
+  _id: ObjectId('66c10361cca2b886b48a7287'),
+  firstName: 'Dvalin',
+  lastName: '',
+  element: 'fire',
+  defaultPosition: 'goalkeeper',
+  statistics: {
+    kick: 126,
+    control: 118,
+    pressure: 120,
+    physical: 110,
+    agility: 156,
+    intelligence: 68,
+    technique: 104
+  },
+  createdAt: ISODate('2024-08-17T20:09:05.688Z'),
+  updatedAt: ISODate('2024-08-17T20:09:05.688Z'),
+  __v: 0,
+  imageUrl: '/images/characters/dvalin.jpg',
+  learnedHissatsus: [
+    {
+      _id: ObjectId('66c10361cca2b886b48a7283'),
+      name: 'Trou de Ver',
+      type: 'keep',
+      element: 'forest',
+      createdAt: ISODate('2024-08-17T20:09:05.240Z'),
+      updatedAt: ISODate('2024-08-17T20:09:05.240Z'),
+      __v: 0,
+      learnLevel: 1
+    },
+    {
+      _id: ObjectId('66c10361cca2b886b48a7285'),
+      name: 'Lame de Sable',
+      type: 'keep',
+      element: 'fire',
+      createdAt: ISODate('2024-08-17T20:09:05.461Z'),
+      updatedAt: ISODate('2024-08-17T20:09:05.461Z'),
+      __v: 0,
+      learnLevel: 16
+    }
+  ]
+}
+{
+  _id: ObjectId('66c10506cca2b886b48a72b0'),
+  firstName: 'Elliot',
+  lastName: 'Ember',
+  element: 'forest',
+  defaultPosition: 'forward',
+  statistics: {
+    kick: 168,
+    control: 86,
+    pressure: 134,
+    physical: 138,
+    agility: 120,
+    intelligence: 82,
+    technique: 72
+  },
+  createdAt: ISODate('2024-08-17T20:16:06.810Z'),
+  updatedAt: ISODate('2024-08-17T20:16:06.810Z'),
+  __v: 0,
+  imageUrl: '/images/characters/elliot_ember.jpg',
+  learnedHissatsus: [
+    {
+      _id: ObjectId('66c10506cca2b886b48a72ae'),
+      name: 'Triangle de la Mort',
+      type: 'kick',
+      element: 'forest',
+      createdAt: ISODate('2024-08-17T20:16:06.549Z'),
+      updatedAt: ISODate('2024-08-17T20:16:06.549Z'),
+      __v: 0,
+      learnLevel: 1
+    },
+    {
+      _id: ObjectId('66c1032ccca2b886b48a727c'),
+      name: 'Tacle de la Mort',
+      type: 'defense',
+      element: 'forest',
+      createdAt: ISODate('2024-08-17T20:08:12.302Z'),
+      updatedAt: ISODate('2024-08-17T20:08:12.302Z'),
+      __v: 0,
+      learnLevel: 16
+    }
+  ]
+}
+{
+  _id: ObjectId('66c1094fcca2b886b48a7335'),
+  firstName: 'Erik',
+  lastName: 'Eagle',
+  element: 'forest',
+  defaultPosition: 'midfielder',
+  statistics: {
+    kick: 128,
+    control: 124,
+    pressure: 108,
+    physical: 82,
+    agility: 84,
+    intelligence: 90,
+    technique: 144
+  },
+  createdAt: ISODate('2024-08-17T20:34:23.309Z'),
+  updatedAt: ISODate('2024-08-17T20:34:23.309Z'),
+  __v: 0,
+  imageUrl: '/images/characters/erik_eagle.jpg',
+  learnedHissatsus: [
+    {
+      _id: ObjectId('66c1094fcca2b886b48a7333'),
+      name: 'Tir Hélicoptère',
+      type: 'kick',
+      element: 'wind',
+      createdAt: ISODate('2024-08-17T20:34:23.099Z'),
+      updatedAt: ISODate('2024-08-17T20:34:23.099Z'),
+      __v: 0,
+      learnLevel: 1
+    },
+    {
+      _id: ObjectId('66c104d4cca2b886b48a72a5'),
+      name: 'Ballon Illusoire',
+      type: 'dribble',
+      element: 'forest',
+      createdAt: ISODate('2024-08-17T20:15:16.787Z'),
+      updatedAt: ISODate('2024-08-17T20:15:16.787Z'),
+      __v: 0,
+      learnLevel: 12
+    }
+  ]
+}
+{
+  _id: ObjectId('66c10922cca2b886b48a732e'),
+  firstName: 'Fei',
+  lastName: 'Rune',
+  element: 'forest',
+  defaultPosition: 'midfielder',
+  statistics: {
+    kick: 152,
+    control: 108,
+    pressure: 80,
+    physical: 102,
+    agility: 94,
+    intelligence: 112,
+    technique: 112
+  },
+  createdAt: ISODate('2024-08-17T20:33:38.403Z'),
+  updatedAt: ISODate('2024-08-17T20:33:38.403Z'),
+  __v: 0,
+  imageUrl: '/images/characters/fei_rune.jpg',
+  learnedHissatsus: [
+    {
+      _id: ObjectId('66c10922cca2b886b48a732c'),
+      name: 'Lièvre Bondissant',
+      type: 'kick',
+      element: 'forest',
+      createdAt: ISODate('2024-08-17T20:33:38.163Z'),
+      updatedAt: ISODate('2024-08-17T20:33:38.163Z'),
+      __v: 0,
+      learnLevel: 1
+    },
+    {
+      _id: ObjectId('66c1022bcca2b886b48a7258'),
+      name: "Danse de l'Air",
+      type: 'dribble',
+      element: 'earth',
+      createdAt: ISODate('2024-08-17T20:03:55.574Z'),
+      updatedAt: ISODate('2024-08-17T20:03:55.574Z'),
+      __v: 0,
+      learnLevel: 11
+    }
+  ]
+}
+{
+  _id: ObjectId('66c10adccca2b886b48a7370'),
+  firstName: 'Gabriel',
+  lastName: 'Garcia',
+  element: 'forest',
+  defaultPosition: 'defender',
+  statistics: {
+    kick: 76,
+    control: 122,
+    pressure: 112,
+    physical: 112,
+    agility: 94,
+    intelligence: 128,
+    technique: 76
+  },
+  createdAt: ISODate('2024-08-17T20:41:00.876Z'),
+  updatedAt: ISODate('2024-08-17T20:41:00.876Z'),
+  __v: 0,
+  imageUrl: '/images/characters/gabriel_garcia.jpg',
+  learnedHissatsus: [
+    {
+      _id: ObjectId('66c10adccca2b886b48a736e'),
+      name: 'Brume Illusoire',
+      type: 'defense',
+      element: 'forest',
+      createdAt: ISODate('2024-08-17T20:41:00.653Z'),
+      updatedAt: ISODate('2024-08-17T20:41:00.653Z'),
+      __v: 0,
+      learnLevel: 1
+    },
+    {
+      _id: ObjectId('66c104d4cca2b886b48a72a5'),
+      name: 'Ballon Illusoire',
+      type: 'dribble',
+      element: 'forest',
+      createdAt: ISODate('2024-08-17T20:15:16.787Z'),
+      updatedAt: ISODate('2024-08-17T20:15:16.787Z'),
+      __v: 0,
+      learnLevel: 16
+    }
+  ]
+}
+{
+  _id: ObjectId('66c106e3cca2b886b48a72f0'),
+  firstName: 'Gazelle',
+  lastName: '',
+  element: 'wind',
+  defaultPosition: 'forward',
+  statistics: {
+    kick: 174,
+    control: 120,
+    pressure: 120,
+    physical: 90,
+    agility: 94,
+    intelligence: 68,
+    technique: 132
+  },
+  createdAt: ISODate('2024-08-17T20:24:03.010Z'),
+  updatedAt: ISODate('2024-08-17T20:24:03.010Z'),
+  __v: 0,
+  imageUrl: '/images/characters/gazelle.jpg',
+  learnedHissatsus: [
+    {
+      _id: ObjectId('66c106e2cca2b886b48a72ec'),
+      name: 'Impact Nordique',
+      type: 'kick',
+      element: 'wind',
+      createdAt: ISODate('2024-08-17T20:24:02.509Z'),
+      updatedAt: ISODate('2024-08-17T20:24:02.509Z'),
+      __v: 0,
+      learnLevel: 1
+    },
+    {
+      _id: ObjectId('66c106e2cca2b886b48a72ee'),
+      name: 'Patinoire',
+      type: 'defense',
+      element: 'wind',
+      createdAt: ISODate('2024-08-17T20:24:02.743Z'),
+      updatedAt: ISODate('2024-08-17T20:24:02.743Z'),
+      __v: 0,
+      learnLevel: 20
+    }
+  ]
+}
+{
+  _id: ObjectId('66c10c1ecca2b886b48a73a1'),
+  firstName: 'Gocker',
+  lastName: '',
+  element: 'earth',
+  defaultPosition: 'defender',
+  statistics: {
+    kick: 80,
+    control: 86,
+    pressure: 160,
+    physical: 126,
+    agility: 84,
+    intelligence: 112,
+    technique: 70
+  },
+  createdAt: ISODate('2024-08-17T20:46:22.869Z'),
+  updatedAt: ISODate('2024-08-17T20:46:22.869Z'),
+  __v: 0,
+  imageUrl: '/images/characters/gocker.jpg',
+  learnedHissatsus: [
+    {
+      _id: ObjectId('66c10b7acca2b886b48a7385'),
+      name: 'Tacle Glacial',
+      type: 'defense',
+      element: 'wind',
+      createdAt: ISODate('2024-08-17T20:43:38.631Z'),
+      updatedAt: ISODate('2024-08-17T20:43:38.631Z'),
+      __v: 0,
+      learnLevel: 1
+    },
+    {
+      _id: ObjectId('66c10b7acca2b886b48a7383'),
+      name: 'Astéroïdes',
+      type: 'defense',
+      element: 'forest',
+      createdAt: ISODate('2024-08-17T20:43:38.386Z'),
+      updatedAt: ISODate('2024-08-17T20:43:38.386Z'),
+      __v: 0,
+      learnLevel: 17
+    }
+  ]
+}
+{
+  _id: ObjectId('66c1022bcca2b886b48a725a'),
+  firstName: 'Goldie',
+  lastName: 'Lemmon',
+  element: 'fire',
+  defaultPosition: 'defender',
+  statistics: {
+    kick: 124,
+    control: 114,
+    pressure: 130,
+    physical: 106,
+    agility: 112,
+    intelligence: 112,
+    technique: 104
+  },
+  createdAt: ISODate('2024-08-17T20:03:55.735Z'),
+  updatedAt: ISODate('2024-08-17T20:03:55.735Z'),
+  __v: 0,
+  imageUrl: '/images/characters/goldie_lemmon.jpg',
+  learnedHissatsus: [
+    {
+      _id: ObjectId('66c1022bcca2b886b48a7256'),
+      name: 'Pâte Gluante',
+      type: 'defense',
+      element: 'fire',
+      createdAt: ISODate('2024-08-17T20:03:55.387Z'),
+      updatedAt: ISODate('2024-08-17T20:03:55.387Z'),
+      __v: 0,
+      learnLevel: 1
+    },
+    {
+      _id: ObjectId('66c1022bcca2b886b48a7258'),
+      name: "Danse de l'Air",
+      type: 'dribble',
+      element: 'earth',
+      createdAt: ISODate('2024-08-17T20:03:55.574Z'),
+      updatedAt: ISODate('2024-08-17T20:03:55.574Z'),
+      __v: 0,
+      learnLevel: 17
+    }
+  ]
+}
+{
+  _id: ObjectId('66c10393cca2b886b48a728e'),
+  firstName: 'Heath',
+  lastName: 'Moore',
+  element: 'fire',
+  defaultPosition: 'forward',
+  statistics: {
+    kick: 170,
+    control: 110,
+    pressure: 74,
+    physical: 84,
+    agility: 104,
+    intelligence: 144,
+    technique: 114
+  },
+  createdAt: ISODate('2024-08-17T20:09:55.399Z'),
+  updatedAt: ISODate('2024-08-17T20:09:55.399Z'),
+  __v: 0,
+  imageUrl: '/images/characters/heath_moore.jpg',
+  learnedHissatsus: [
+    {
+      _id: ObjectId('66c10393cca2b886b48a728c'),
+      name: 'Royal Lancer',
+      type: 'kick',
+      element: 'earth',
+      createdAt: ISODate('2024-08-17T20:09:55.081Z'),
+      updatedAt: ISODate('2024-08-17T20:09:55.081Z'),
+      __v: 0,
+      learnLevel: 1
+    },
+    {
+      _id: ObjectId('66c101e1cca2b886b48a724b'),
+      name: 'Passage Presto',
+      type: 'dribble',
+      element: 'forest',
+      createdAt: ISODate('2024-08-17T20:02:41.422Z'),
+      updatedAt: ISODate('2024-08-17T20:02:41.422Z'),
+      __v: 0,
+      learnLevel: 19
+    }
+  ]
+}
+{
+  _id: ObjectId('66c10795cca2b886b48a7309'),
+  firstName: 'Hurley',
+  lastName: 'Kane',
+  element: 'wind',
+  defaultPosition: 'defender',
+  statistics: {
+    kick: 134,
+    control: 70,
+    pressure: 144,
+    physical: 112,
+    agility: 104,
+    intelligence: 96,
+    technique: 102
+  },
+  createdAt: ISODate('2024-08-17T20:27:01.662Z'),
+  updatedAt: ISODate('2024-08-17T20:27:01.662Z'),
+  __v: 0,
+  imageUrl: '/images/characters/hurley_kane.jpg',
+  learnedHissatsus: [
+    {
+      _id: ObjectId('66c10795cca2b886b48a7307'),
+      name: 'Tir Tsunami',
+      type: 'kick',
+      element: 'wind',
+      createdAt: ISODate('2024-08-17T20:27:01.450Z'),
+      updatedAt: ISODate('2024-08-17T20:27:01.450Z'),
+      __v: 0,
+      learnLevel: 1
+    },
+    {
+      _id: ObjectId('66c10729cca2b886b48a72f7'),
+      name: 'Scie Circulaire',
+      type: 'defense',
+      element: 'wind',
+      createdAt: ISODate('2024-08-17T20:25:13.477Z'),
+      updatedAt: ISODate('2024-08-17T20:25:13.477Z'),
+      __v: 0,
+      learnLevel: 15
+    }
+  ]
+}
+{
+  _id: ObjectId('66c10c74cca2b886b48a73ab'),
+  firstName: 'Icer',
+  lastName: '',
+  element: 'wind',
+  defaultPosition: 'midfielder',
+  statistics: {
+    kick: 74,
+    control: 100,
+    pressure: 100,
+    physical: 88,
+    agility: 118,
+    intelligence: 90,
+    technique: 148
+  },
+  createdAt: ISODate('2024-08-17T20:47:48.062Z'),
+  updatedAt: ISODate('2024-08-17T20:47:48.062Z'),
+  __v: 0,
+  imageUrl: '/images/characters/icer.jpg',
+  learnedHissatsus: [
+    {
+      _id: ObjectId('66c10729cca2b886b48a72f7'),
+      name: 'Scie Circulaire',
+      type: 'defense',
+      element: 'wind',
+      createdAt: ISODate('2024-08-17T20:25:13.477Z'),
+      updatedAt: ISODate('2024-08-17T20:25:13.477Z'),
+      __v: 0,
+      learnLevel: 1
+    },
+    {
+      _id: ObjectId('66c106e2cca2b886b48a72ec'),
+      name: 'Impact Nordique',
+      type: 'kick',
+      element: 'wind',
+      createdAt: ISODate('2024-08-17T20:24:02.509Z'),
+      updatedAt: ISODate('2024-08-17T20:24:02.509Z'),
+      __v: 0,
+      learnLevel: 27
+    }
+  ]
+}
+{
+  _id: ObjectId('66c10762cca2b886b48a7302'),
+  firstName: 'Jack',
+  lastName: 'Wallside',
+  element: 'earth',
+  defaultPosition: 'defender',
+  statistics: {
+    kick: 68,
+    control: 110,
+    pressure: 160,
+    physical: 96,
+    agility: 122,
+    intelligence: 138,
+    technique: 68
+  },
+  createdAt: ISODate('2024-08-17T20:26:10.058Z'),
+  updatedAt: ISODate('2024-08-17T20:26:10.058Z'),
+  __v: 0,
+  imageUrl: '/images/characters/jack_wallside.jpg',
+  learnedHissatsus: [
+    {
+      _id: ObjectId('66c10761cca2b886b48a72fe'),
+      name: 'Le Mur',
+      type: 'defense',
+      element: 'earth',
+      createdAt: ISODate('2024-08-17T20:26:09.561Z'),
+      updatedAt: ISODate('2024-08-17T20:26:09.561Z'),
+      __v: 0,
+      learnLevel: 1
+    },
+    {
+      _id: ObjectId('66c10761cca2b886b48a7300'),
+      name: 'Électrocution',
+      type: 'dribble',
+      element: 'wind',
+      createdAt: ISODate('2024-08-17T20:26:09.867Z'),
+      updatedAt: ISODate('2024-08-17T20:26:09.867Z'),
+      __v: 0,
+      learnLevel: 24
+    }
+  ]
+}
+{
+  _id: ObjectId('66c10829cca2b886b48a7319'),
+  firstName: 'Janus',
+  lastName: '',
+  element: 'forest',
+  defaultPosition: 'midfielder',
+  statistics: {
+    kick: 146,
+    control: 126,
+    pressure: 84,
+    physical: 74,
+    agility: 96,
+    intelligence: 88,
+    technique: 148
+  },
+  createdAt: ISODate('2024-08-17T20:29:29.676Z'),
+  updatedAt: ISODate('2024-08-17T20:29:29.676Z'),
+  __v: 0,
+  imageUrl: '/images/characters/janus.jpg',
+  learnedHissatsus: [
+    {
+      _id: ObjectId('66c10829cca2b886b48a7315'),
+      name: 'Tacle Fulgurant',
+      type: 'dribble',
+      element: 'fire',
+      createdAt: ISODate('2024-08-17T20:29:29.293Z'),
+      updatedAt: ISODate('2024-08-17T20:29:29.293Z'),
+      __v: 0,
+      learnLevel: 1
+    },
+    {
+      _id: ObjectId('66c10829cca2b886b48a7317'),
+      name: 'Tir Astral',
+      type: 'kick',
+      element: 'forest',
+      createdAt: ISODate('2024-08-17T20:29:29.488Z'),
+      updatedAt: ISODate('2024-08-17T20:29:29.488Z'),
+      __v: 0,
+      learnLevel: 13
+    }
+  ]
+}
+{
+  _id: ObjectId('66c10baecca2b886b48a738e'),
+  firstName: 'Jean-Pierre',
+  lastName: 'Lapin',
+  element: 'earth',
+  defaultPosition: 'defender',
+  statistics: {
+    kick: 64,
+    control: 110,
+    pressure: 118,
+    physical: 108,
+    agility: 146,
+    intelligence: 86,
+    technique: 86
+  },
+  createdAt: ISODate('2024-08-17T20:44:30.050Z'),
+  updatedAt: ISODate('2025-09-26T18:58:21.989Z'),
+  __v: 0,
+  imageUrl: '/images/characters/jp_lapin.jpg',
+  learnedHissatsus: [
+    {
+      _id: ObjectId('66c10badcca2b886b48a738c'),
+      name: 'Tir de Défense Canon',
+      type: 'defense',
+      element: 'earth',
+      createdAt: ISODate('2024-08-17T20:44:29.693Z'),
+      updatedAt: ISODate('2024-08-17T20:44:29.693Z'),
+      __v: 0,
+      learnLevel: 1
+    },
+    {
+      _id: ObjectId('66c1022bcca2b886b48a7258'),
+      name: "Danse de l'Air",
+      type: 'dribble',
+      element: 'earth',
+      createdAt: ISODate('2024-08-17T20:03:55.574Z'),
+      updatedAt: ISODate('2024-08-17T20:03:55.574Z'),
+      __v: 0,
+      learnLevel: 16
+    }
+  ]
+}
+{
+  _id: ObjectId('66c108c8cca2b886b48a7327'),
+  firstName: 'Jordan',
+  lastName: 'Greenway',
+  element: 'forest',
+  defaultPosition: 'midfielder',
+  statistics: {
+    kick: 124,
+    control: 114,
+    pressure: 98,
+    physical: 76,
+    agility: 98,
+    intelligence: 110,
+    technique: 140
+  },
+  createdAt: ISODate('2024-08-17T20:32:08.785Z'),
+  updatedAt: ISODate('2024-08-17T20:32:08.785Z'),
+  __v: 0,
+  imageUrl: '/images/characters/jordan_greenway.jpg',
+  learnedHissatsus: [
+    {
+      _id: ObjectId('66c105e8cca2b886b48a72c7'),
+      name: 'Sprint Éclair',
+      type: 'dribble',
+      element: 'fire',
+      createdAt: ISODate('2024-08-17T20:19:52.093Z'),
+      updatedAt: ISODate('2024-08-17T20:19:52.093Z'),
+      __v: 0,
+      learnLevel: 1
+    },
+    {
+      _id: ObjectId('66c10273cca2b886b48a726a'),
+      name: 'Sprint Tourbillon',
+      type: 'defense',
+      element: 'wind',
+      createdAt: ISODate('2024-08-17T20:05:07.047Z'),
+      updatedAt: ISODate('2024-08-17T20:05:07.047Z'),
+      __v: 0,
+      learnLevel: 17
+    }
+  ]
+}
+{
+  _id: ObjectId('66c104d5cca2b886b48a72a9'),
+  firstName: 'Jude',
+  lastName: 'Sharp',
+  element: 'wind',
+  defaultPosition: 'midfielder',
+  statistics: {
+    kick: 124,
+    control: 128,
+    pressure: 80,
+    physical: 102,
+    agility: 106,
+    intelligence: 100,
+    technique: 160
+  },
+  createdAt: ISODate('2024-08-17T20:15:17.171Z'),
+  updatedAt: ISODate('2024-08-17T20:15:17.171Z'),
+  __v: 0,
+  imageUrl: '/images/characters/jude_sharp.jpg',
+  learnedHissatsus: [
+    {
+      _id: ObjectId('66c104d4cca2b886b48a72a5'),
+      name: 'Ballon Illusoire',
+      type: 'dribble',
+      element: 'forest',
+      createdAt: ISODate('2024-08-17T20:15:16.787Z'),
+      updatedAt: ISODate('2024-08-17T20:15:16.787Z'),
+      __v: 0,
+      learnLevel: 1
+    },
+    {
+      _id: ObjectId('66c104d4cca2b886b48a72a7'),
+      name: 'Manchot Empereur N°2',
+      type: 'kick',
+      element: 'forest',
+      createdAt: ISODate('2024-08-17T20:15:16.980Z'),
+      updatedAt: ISODate('2024-08-17T20:15:16.980Z'),
+      __v: 0,
+      learnLevel: 13
+    }
+  ]
+}
+{
+  _id: ObjectId('66c10b40cca2b886b48a737e'),
+  firstName: 'Kevin',
+  lastName: 'Dragonfly',
+  element: 'forest',
+  defaultPosition: 'forward',
+  statistics: {
+    kick: 156,
+    control: 110,
+    pressure: 74,
+    physical: 134,
+    agility: 86,
+    intelligence: 72,
+    technique: 88
+  },
+  createdAt: ISODate('2024-08-17T20:42:40.801Z'),
+  updatedAt: ISODate('2024-08-17T20:42:40.801Z'),
+  __v: 0,
+  imageUrl: '/images/characters/kevin_dragonfly.jpg',
+  learnedHissatsus: [
+    {
+      _id: ObjectId('66c10b40cca2b886b48a737c'),
+      name: 'Choc du Dragon',
+      type: 'kick',
+      element: 'forest',
+      createdAt: ISODate('2024-08-17T20:42:40.504Z'),
+      updatedAt: ISODate('2024-08-17T20:42:40.504Z'),
+      __v: 0,
+      learnLevel: 1
+    },
+    {
+      _id: ObjectId('66c10761cca2b886b48a7300'),
+      name: 'Électrocution',
+      type: 'dribble',
+      element: 'wind',
+      createdAt: ISODate('2024-08-17T20:26:09.867Z'),
+      updatedAt: ISODate('2024-08-17T20:26:09.867Z'),
+      __v: 0,
+      learnLevel: 25
+    }
+  ]
+}
+{
+  _id: ObjectId('66c10996cca2b886b48a7341'),
+  firstName: 'Kormer',
+  lastName: '',
+  element: 'fire',
+  defaultPosition: 'midfielder',
+  statistics: {
+    kick: 116,
+    control: 128,
+    pressure: 84,
+    physical: 90,
+    agility: 94,
+    intelligence: 106,
+    technique: 142
+  },
+  createdAt: ISODate('2024-08-17T20:35:34.383Z'),
+  updatedAt: ISODate('2024-08-17T20:35:34.383Z'),
+  __v: 0,
+  imageUrl: '/images/characters/kormer.jpg',
+  learnedHissatsus: [
+    {
+      _id: ObjectId('66c105e8cca2b886b48a72c7'),
+      name: 'Sprint Éclair',
+      type: 'dribble',
+      element: 'fire',
+      createdAt: ISODate('2024-08-17T20:19:52.093Z'),
+      updatedAt: ISODate('2024-08-17T20:19:52.093Z'),
+      __v: 0,
+      learnLevel: 1
+    },
+    {
+      _id: ObjectId('66c10729cca2b886b48a72f7'),
+      name: 'Scie Circulaire',
+      type: 'defense',
+      element: 'wind',
+      createdAt: ISODate('2024-08-17T20:25:13.477Z'),
+      updatedAt: ISODate('2024-08-17T20:25:13.477Z'),
+      __v: 0,
+      learnLevel: 13
+    }
+  ]
+}
+{
+  _id: ObjectId('66c10a3ccca2b886b48a735b'),
+  firstName: 'Lean',
+  lastName: '',
+  element: 'fire',
+  defaultPosition: 'midfielder',
+  statistics: {
+    kick: 88,
+    control: 114,
+    pressure: 112,
+    physical: 98,
+    agility: 90,
+    intelligence: 110,
+    technique: 146
+  },
+  createdAt: ISODate('2024-08-17T20:38:20.495Z'),
+  updatedAt: ISODate('2024-08-17T20:38:20.495Z'),
+  __v: 0,
+  imageUrl: '/images/characters/lean.jpg',
+  learnedHissatsus: [
+    {
+      _id: ObjectId('66c1065bcca2b886b48a72d9'),
+      name: 'Charge Enflammée',
+      type: 'dribble',
+      element: 'fire',
+      createdAt: ISODate('2024-08-17T20:21:47.930Z'),
+      updatedAt: ISODate('2024-08-17T20:21:47.930Z'),
+      __v: 0,
+      learnLevel: 1
+    },
+    {
+      _id: ObjectId('66c10634cca2b886b48a72d0'),
+      name: 'Éruption Solaire',
+      type: 'kick',
+      element: 'fire',
+      createdAt: ISODate('2024-08-17T20:21:08.606Z'),
+      updatedAt: ISODate('2024-08-17T20:21:08.606Z'),
+      __v: 0,
+      learnLevel: 27
+    }
+  ]
+}
+{
+  _id: ObjectId('66c0cd945794a821dca01219'),
+  firstName: 'Mark',
+  lastName: 'Evans',
+  statistics: {
+    kick: 92,
+    control: 126,
+    pressure: 102,
+    physical: 122,
+    agility: 168,
+    intelligence: 118,
+    technique: 72
+  },
+  createdAt: ISODate('2024-08-17T16:19:32.045Z'),
+  updatedAt: ISODate('2024-08-17T18:13:09.141Z'),
+  __v: 0,
+  defaultPosition: 'goalkeeper',
+  element: 'earth',
+  imageUrl: '/images/characters/mark_evans.jpg',
+  learnedHissatsus: [
+    {
+      _id: ObjectId('66c0cd945794a821dca01217'),
+      name: 'Main céleste',
+      type: 'keep',
+      createdAt: ISODate('2024-08-17T16:19:32.013Z'),
+      updatedAt: ISODate('2024-08-17T19:30:42.963Z'),
+      __v: 0,
+      element: 'earth',
+      learnLevel: 1
+    },
+    {
+      _id: ObjectId('66c0ddb9cca2b886b48a7151'),
+      name: 'Main céleste V',
+      type: 'keep',
+      createdAt: ISODate('2024-08-17T17:28:25.140Z'),
+      updatedAt: ISODate('2024-08-17T19:34:05.622Z'),
+      __v: 0,
+      element: 'earth',
+      learnLevel: 19
+    }
+  ]
+}
+{
+  _id: ObjectId('66c10729cca2b886b48a72f9'),
+  firstName: 'Nathan',
+  lastName: 'Swift',
+  element: 'wind',
+  defaultPosition: 'defender',
+  statistics: {
+    kick: 82,
+    control: 98,
+    pressure: 150,
+    physical: 110,
+    agility: 90,
+    intelligence: 114,
+    technique: 118
+  },
+  createdAt: ISODate('2024-08-17T20:25:13.646Z'),
+  updatedAt: ISODate('2024-08-17T20:25:13.646Z'),
+  __v: 0,
+  imageUrl: '/images/characters/nathan_swift.jpg',
+  learnedHissatsus: [
+    {
+      _id: ObjectId('66c10729cca2b886b48a72f5'),
+      name: 'Dribble Rafale',
+      type: 'dribble',
+      element: 'wind',
+      createdAt: ISODate('2024-08-17T20:25:13.316Z'),
+      updatedAt: ISODate('2024-08-17T20:25:13.316Z'),
+      __v: 0,
+      learnLevel: 1
+    },
+    {
+      _id: ObjectId('66c10729cca2b886b48a72f7'),
+      name: 'Scie Circulaire',
+      type: 'defense',
+      element: 'wind',
+      createdAt: ISODate('2024-08-17T20:25:13.477Z'),
+      updatedAt: ISODate('2024-08-17T20:25:13.477Z'),
+      __v: 0,
+      learnLevel: 13
+    }
+  ]
+}
+{
+  _id: ObjectId('66c109c7cca2b886b48a7348'),
+  firstName: 'Neppten',
+  lastName: '',
+  element: 'forest',
+  defaultPosition: 'forward',
+  statistics: {
+    kick: 162,
+    control: 116,
+    pressure: 78,
+    physical: 102,
+    agility: 84,
+    intelligence: 94,
+    technique: 124
+  },
+  createdAt: ISODate('2024-08-17T20:36:23.457Z'),
+  updatedAt: ISODate('2024-08-17T20:36:23.457Z'),
+  __v: 0,
+  imageUrl: '/images/characters/neppten.jpg',
+  learnedHissatsus: [
+    {
+      _id: ObjectId('66c109c7cca2b886b48a7346'),
+      name: 'Tacle Incendiaire',
+      type: 'defense',
+      element: 'fire',
+      createdAt: ISODate('2024-08-17T20:36:23.225Z'),
+      updatedAt: ISODate('2024-08-17T20:36:23.225Z'),
+      __v: 0,
+      learnLevel: 1
+    },
+    {
+      _id: ObjectId('66c10895cca2b886b48a731e'),
+      name: 'Rayon Ganymède',
+      type: 'kick',
+      element: 'forest',
+      createdAt: ISODate('2024-08-17T20:31:17.900Z'),
+      updatedAt: ISODate('2024-08-17T20:31:17.900Z'),
+      __v: 0,
+      learnLevel: 17
+    }
+  ]
+}
+{
+  _id: ObjectId('66c101e1cca2b886b48a724f'),
+  firstName: 'Riccardo',
+  lastName: 'Di Rigo',
+  element: 'earth',
+  defaultPosition: 'midfielder',
+  statistics: {
+    kick: 116,
+    control: 126,
+    pressure: 112,
+    physical: 88,
+    agility: 104,
+    intelligence: 118,
+    technique: 140
+  },
+  createdAt: ISODate('2024-08-17T20:02:41.880Z'),
+  updatedAt: ISODate('2024-08-17T20:02:41.880Z'),
+  __v: 0,
+  imageUrl: '/images/characters/riccardo_di_rigo.jpg',
+  learnedHissatsus: [
+    {
+      _id: ObjectId('66c101e1cca2b886b48a724b'),
+      name: 'Passage Presto',
+      type: 'dribble',
+      element: 'forest',
+      createdAt: ISODate('2024-08-17T20:02:41.422Z'),
+      updatedAt: ISODate('2024-08-17T20:02:41.422Z'),
+      __v: 0,
+      learnLevel: 1
+    },
+    {
+      _id: ObjectId('66c101e1cca2b886b48a724d'),
+      name: 'Tir Fortissimo',
+      type: 'kick',
+      element: 'forest',
+      createdAt: ISODate('2024-08-17T20:02:41.655Z'),
+      updatedAt: ISODate('2024-08-17T20:02:41.655Z'),
+      __v: 0,
+      learnLevel: 11
+    }
+  ]
+}
+{
+  _id: ObjectId('66c10a69cca2b886b48a7364'),
+  firstName: 'Samguk',
+  lastName: 'Han',
+  element: 'fire',
+  defaultPosition: 'goalkeeper',
+  statistics: {
+    kick: 64,
+    control: 104,
+    pressure: 110,
+    physical: 108,
+    agility: 158,
+    intelligence: 96,
+    technique: 82
+  },
+  createdAt: ISODate('2024-08-17T20:39:05.284Z'),
+  updatedAt: ISODate('2024-08-17T20:39:05.284Z'),
+  __v: 0,
+  imageUrl: '/images/characters/samguk_han.jpg',
+  learnedHissatsus: [
+    {
+      _id: ObjectId('66c10a68cca2b886b48a7360'),
+      name: 'Arrêt Flamboyant',
+      type: 'keep',
+      element: 'fire',
+      createdAt: ISODate('2024-08-17T20:39:04.723Z'),
+      updatedAt: ISODate('2024-08-17T20:39:04.723Z'),
+      __v: 0,
+      learnLevel: 1
+    },
+    {
+      _id: ObjectId('66c10a68cca2b886b48a7362'),
+      name: 'Mains Libérées',
+      type: 'keep',
+      element: 'fire',
+      createdAt: ISODate('2024-08-17T20:39:04.962Z'),
+      updatedAt: ISODate('2024-08-17T20:39:04.962Z'),
+      __v: 0,
+      learnLevel: 26
+    }
+  ]
+}
+{
+  _id: ObjectId('66c107f5cca2b886b48a7310'),
+  firstName: 'Scott',
+  lastName: 'Banyan',
+  element: 'forest',
+  defaultPosition: 'defender',
+  statistics: {
+    kick: 76,
+    control: 128,
+    pressure: 152,
+    physical: 102,
+    agility: 78,
+    intelligence: 118,
+    technique: 108
+  },
+  createdAt: ISODate('2024-08-17T20:28:37.765Z'),
+  updatedAt: ISODate('2024-08-17T20:28:37.765Z'),
+  __v: 0,
+  imageUrl: '/images/characters/scott_banyan.jpg',
+  learnedHissatsus: [
+    {
+      _id: ObjectId('66c107f5cca2b886b48a730e'),
+      name: 'Tourbillon Vivant',
+      type: 'defense',
+      element: 'wind',
+      createdAt: ISODate('2024-08-17T20:28:37.401Z'),
+      updatedAt: ISODate('2024-08-17T20:28:37.401Z'),
+      __v: 0,
+      learnLevel: 1
+    },
+    {
+      _id: ObjectId('66c101e1cca2b886b48a724b'),
+      name: 'Passage Presto',
+      type: 'dribble',
+      element: 'forest',
+      createdAt: ISODate('2024-08-17T20:02:41.422Z'),
+      updatedAt: ISODate('2024-08-17T20:02:41.422Z'),
+      __v: 0,
+      learnLevel: 19
+    }
+  ]
+}
+{
+  _id: ObjectId('66c10a12cca2b886b48a7356'),
+  firstName: 'Shawn',
+  lastName: 'Froste',
+  element: 'wind',
+  defaultPosition: 'forward',
+  statistics: {
+    kick: 162,
+    control: 112,
+    pressure: 126,
+    physical: 84,
+    agility: 90,
+    intelligence: 80,
+    technique: 104
+  },
+  createdAt: ISODate('2024-08-17T20:37:38.745Z'),
+  updatedAt: ISODate('2024-08-17T20:37:38.745Z'),
+  __v: 0,
+  imageUrl: '/images/characters/shawn_froste.jpg',
+  learnedHissatsus: [
+    {
+      _id: ObjectId('66c10a12cca2b886b48a7354'),
+      name: 'Loup Légendaire',
+      type: 'kick',
+      element: 'wind',
+      createdAt: ISODate('2024-08-17T20:37:38.374Z'),
+      updatedAt: ISODate('2024-08-17T20:37:38.374Z'),
+      __v: 0,
+      learnLevel: 1
+    },
+    {
+      _id: ObjectId('66c106e2cca2b886b48a72ee'),
+      name: 'Patinoire',
+      type: 'defense',
+      element: 'wind',
+      createdAt: ISODate('2024-08-17T20:24:02.743Z'),
+      updatedAt: ISODate('2024-08-17T20:24:02.743Z'),
+      __v: 0,
+      learnLevel: 10
+    }
+  ]
+}
+{
+  _id: ObjectId('66c104a1cca2b886b48a72a0'),
+  firstName: 'Sonny',
+  lastName: 'Wright',
+  element: 'fire',
+  defaultPosition: 'midfielder',
+  statistics: {
+    kick: 140,
+    control: 140,
+    pressure: 104,
+    physical: 74,
+    agility: 110,
+    intelligence: 100,
+    technique: 132
+  },
+  createdAt: ISODate('2024-08-17T20:14:25.569Z'),
+  updatedAt: ISODate('2024-08-17T20:14:25.569Z'),
+  __v: 0,
+  imageUrl: '/images/characters/sonny_wright.jpg',
+  learnedHissatsus: [
+    {
+      _id: ObjectId('66c104a1cca2b886b48a729c'),
+      name: 'Accélération Éclair',
+      type: 'dribble',
+      element: 'wind',
+      createdAt: ISODate('2024-08-17T20:14:25.009Z'),
+      updatedAt: ISODate('2024-08-17T20:14:25.009Z'),
+      __v: 0,
+      learnLevel: 1
+    },
+    {
+      _id: ObjectId('66c104a1cca2b886b48a729e'),
+      name: 'Soleil Aveuglant',
+      type: 'dribble',
+      element: 'fire',
+      createdAt: ISODate('2024-08-17T20:14:25.363Z'),
+      updatedAt: ISODate('2024-08-17T20:14:25.363Z'),
+      __v: 0,
+      learnLevel: 23
+    }
+  ]
+}
+{
+  _id: ObjectId('66c10bfecca2b886b48a739c'),
+  firstName: 'Suzette',
+  lastName: 'Hartland',
+  element: 'forest',
+  defaultPosition: 'forward',
+  statistics: {
+    kick: 142,
+    control: 108,
+    pressure: 86,
+    physical: 88,
+    agility: 86,
+    intelligence: 102,
+    technique: 106
+  },
+  createdAt: ISODate('2024-08-17T20:45:50.472Z'),
+  updatedAt: ISODate('2024-08-17T20:45:50.472Z'),
+  __v: 0,
+  imageUrl: '/images/characters/suzette_hartland.jpg',
+  learnedHissatsus: [
+    {
+      _id: ObjectId('66c10b05cca2b886b48a7375'),
+      name: 'Danse des Papillons',
+      type: 'kick',
+      element: 'earth',
+      createdAt: ISODate('2024-08-17T20:41:41.752Z'),
+      updatedAt: ISODate('2024-08-17T20:41:41.752Z'),
+      __v: 0,
+      learnLevel: 1
+    },
+    {
+      _id: ObjectId('66c10bfecca2b886b48a739a'),
+      name: 'Cerceau Piégeant',
+      type: 'dribble',
+      element: 'wind',
+      createdAt: ISODate('2024-08-17T20:45:50.133Z'),
+      updatedAt: ISODate('2024-08-17T20:45:50.133Z'),
+      __v: 0,
+      learnLevel: 19
+    }
+  ]
+}
+{
+  _id: ObjectId('66c1057fcca2b886b48a72c2'),
+  firstName: 'Tezcat',
+  lastName: '',
+  element: 'forest',
+  defaultPosition: 'forward',
+  statistics: {
+    kick: 176,
+    control: 126,
+    pressure: 114,
+    physical: 72,
+    agility: 98,
+    intelligence: 78,
+    technique: 136
+  },
+  createdAt: ISODate('2024-08-17T20:18:07.157Z'),
+  updatedAt: ISODate('2024-08-17T20:18:07.157Z'),
+  __v: 0,
+  imageUrl: '/images/characters/tezcat.jpg',
+  learnedHissatsus: [
+    {
+      _id: ObjectId('66c1057ecca2b886b48a72c0'),
+      name: 'Cendres Noires',
+      type: 'kick',
+      element: 'forest',
+      createdAt: ISODate('2024-08-17T20:18:06.745Z'),
+      updatedAt: ISODate('2024-08-17T20:18:06.745Z'),
+      __v: 0,
+      learnLevel: 1
+    },
+    {
+      _id: ObjectId('66c10273cca2b886b48a726a'),
+      name: 'Sprint Tourbillon',
+      type: 'defense',
+      element: 'wind',
+      createdAt: ISODate('2024-08-17T20:05:07.047Z'),
+      updatedAt: ISODate('2024-08-17T20:05:07.047Z'),
+      __v: 0,
+      learnLevel: 20
+    }
+  ]
+}
+{
+  _id: ObjectId('66c10634cca2b886b48a72d2'),
+  firstName: 'Torch',
+  lastName: '',
+  element: 'fire',
+  defaultPosition: 'forward',
+  statistics: {
+    kick: 184,
+    control: 132,
+    pressure: 78,
+    physical: 102,
+    agility: 90,
+    intelligence: 68,
+    technique: 146
+  },
+  createdAt: ISODate('2024-08-17T20:21:08.945Z'),
+  updatedAt: ISODate('2024-08-17T20:21:08.945Z'),
+  __v: 0,
+  imageUrl: '/images/characters/torch.jpg',
+  learnedHissatsus: [
+    {
+      _id: ObjectId('66c10634cca2b886b48a72d0'),
+      name: 'Éruption Solaire',
+      type: 'kick',
+      element: 'fire',
+      createdAt: ISODate('2024-08-17T20:21:08.606Z'),
+      updatedAt: ISODate('2024-08-17T20:21:08.606Z'),
+      __v: 0,
+      learnLevel: 1
+    },
+    {
+      _id: ObjectId('66c104a1cca2b886b48a729e'),
+      name: 'Soleil Aveuglant',
+      type: 'dribble',
+      element: 'fire',
+      createdAt: ISODate('2024-08-17T20:14:25.363Z'),
+      updatedAt: ISODate('2024-08-17T20:14:25.363Z'),
+      __v: 0,
+      learnLevel: 20
+    }
+  ]
+}
+{
+  _id: ObjectId('66c1040dcca2b886b48a7297'),
+  firstName: 'Victor',
+  lastName: 'Blade',
+  element: 'fire',
+  defaultPosition: 'forward',
+  statistics: {
+    kick: 180,
+    control: 130,
+    pressure: 76,
+    physical: 106,
+    agility: 98,
+    intelligence: 94,
+    technique: 116
+  },
+  createdAt: ISODate('2024-08-17T20:11:57.402Z'),
+  updatedAt: ISODate('2024-08-17T20:11:57.402Z'),
+  __v: 0,
+  imageUrl: '/images/characters/victor_blade.jpg',
+  learnedHissatsus: [
+    {
+      _id: ObjectId('66c1040dcca2b886b48a7293'),
+      name: 'Lame des Ténèbres',
+      type: 'kick',
+      element: 'fire',
+      createdAt: ISODate('2024-08-17T20:11:57.018Z'),
+      updatedAt: ISODate('2024-08-17T20:11:57.018Z'),
+      __v: 0,
+      learnLevel: 1
+    },
+    {
+      _id: ObjectId('66c1040dcca2b886b48a7295'),
+      name: 'Fulgurante Double Tornade de Feu',
+      type: 'kick',
+      element: 'fire',
+      createdAt: ISODate('2024-08-17T20:11:57.193Z'),
+      updatedAt: ISODate('2024-08-17T20:11:57.193Z'),
+      __v: 0,
+      learnLevel: 21
+    }
+  ]
+}
+{
+  _id: ObjectId('66c10b05cca2b886b48a7377'),
+  firstName: 'Victoria',
+  lastName: 'Vanguard',
+  element: 'wind',
+  defaultPosition: 'defender',
+  statistics: {
+    kick: 104,
+    control: 120,
+    pressure: 116,
+    physical: 66,
+    agility: 106,
+    intelligence: 94,
+    technique: 114
+  },
+  createdAt: ISODate('2024-08-17T20:41:41.933Z'),
+  updatedAt: ISODate('2024-08-17T20:41:41.933Z'),
+  __v: 0,
+  imageUrl: '/images/characters/victoria_vanguard.jpg',
+  learnedHissatsus: [
+    {
+      _id: ObjectId('66c10976cca2b886b48a733a'),
+      name: 'La Tour',
+      type: 'defense',
+      element: 'wind',
+      createdAt: ISODate('2024-08-17T20:35:02.839Z'),
+      updatedAt: ISODate('2024-08-17T20:35:02.839Z'),
+      __v: 0,
+      learnLevel: 1
+    },
+    {
+      _id: ObjectId('66c10b05cca2b886b48a7375'),
+      name: 'Danse des Papillons',
+      type: 'kick',
+      element: 'earth',
+      createdAt: ISODate('2024-08-17T20:41:41.752Z'),
+      updatedAt: ISODate('2024-08-17T20:41:41.752Z'),
+      __v: 0,
+      learnLevel: 22
+    }
+  ]
+}
+{
+  _id: ObjectId('66c10a84cca2b886b48a7369'),
+  firstName: 'Wittz',
+  lastName: '',
+  element: 'forest',
+  defaultPosition: 'forward',
+  statistics: {
+    kick: 176,
+    control: 98,
+    pressure: 68,
+    physical: 110,
+    agility: 98,
+    intelligence: 58,
+    technique: 114
+  },
+  createdAt: ISODate('2024-08-17T20:39:32.443Z'),
+  updatedAt: ISODate('2024-08-17T20:39:32.443Z'),
+  __v: 0,
+  imageUrl: '/images/characters/wittz.jpg',
+  learnedHissatsus: [
+    {
+      _id: ObjectId('66c10895cca2b886b48a731e'),
+      name: 'Rayon Ganymède',
+      type: 'kick',
+      element: 'forest',
+      createdAt: ISODate('2024-08-17T20:31:17.900Z'),
+      updatedAt: ISODate('2024-08-17T20:31:17.900Z'),
+      __v: 0,
+      learnLevel: 1
+    },
+    {
+      _id: ObjectId('66c105e8cca2b886b48a72c9'),
+      name: 'Supernova',
+      type: 'kick',
+      element: 'forest',
+      createdAt: ISODate('2024-08-17T20:19:52.264Z'),
+      updatedAt: ISODate('2024-08-17T20:19:52.264Z'),
+      __v: 0,
+      learnLevel: 22
+    }
+  ]
+}
+{
+  _id: ObjectId('66c109eecca2b886b48a734f'),
+  firstName: 'Xavier',
+  lastName: 'Foster',
+  element: 'fire',
+  defaultPosition: 'forward',
+  statistics: {
+    kick: 144,
+    control: 130,
+    pressure: 72,
+    physical: 90,
+    agility: 106,
+    intelligence: 108,
+    technique: 108
+  },
+  createdAt: ISODate('2024-08-17T20:37:02.506Z'),
+  updatedAt: ISODate('2024-08-17T20:37:02.506Z'),
+  __v: 0,
+  imageUrl: '/images/characters/xavier_foster.jpg',
+  learnedHissatsus: [
+    {
+      _id: ObjectId('66c106a0cca2b886b48a72e5'),
+      name: 'Météore Géant',
+      type: 'kick',
+      element: 'fire',
+      createdAt: ISODate('2024-08-17T20:22:56.403Z'),
+      updatedAt: ISODate('2024-08-17T20:22:56.403Z'),
+      __v: 0,
+      learnLevel: 1
+    },
+    {
+      _id: ObjectId('66c109eecca2b886b48a734d'),
+      name: 'Croix du Sud',
+      type: 'dribble',
+      element: 'forest',
+      createdAt: ISODate('2024-08-17T20:37:02.298Z'),
+      updatedAt: ISODate('2024-08-17T20:37:02.298Z'),
+      __v: 0,
+      learnLevel: 22
+    }
+  ]
+}
+{
+  _id: ObjectId('66c106a0cca2b886b48a72e7'),
+  firstName: 'Xene',
+  lastName: '',
+  element: 'fire',
+  defaultPosition: 'forward',
+  statistics: {
+    kick: 164,
+    control: 138,
+    pressure: 76,
+    physical: 100,
+    agility: 98,
+    intelligence: 104,
+    technique: 118
+  },
+  createdAt: ISODate('2024-08-17T20:22:56.604Z'),
+  updatedAt: ISODate('2024-08-17T20:22:56.604Z'),
+  __v: 0,
+  imageUrl: '/images/characters/xene.jpg',
+  learnedHissatsus: [
+    {
+      _id: ObjectId('66c106a0cca2b886b48a72e5'),
+      name: 'Météore Géant',
+      type: 'kick',
+      element: 'fire',
+      createdAt: ISODate('2024-08-17T20:22:56.403Z'),
+      updatedAt: ISODate('2024-08-17T20:22:56.403Z'),
+      __v: 0,
+      learnLevel: 1
+    },
+    {
+      _id: ObjectId('66c105e8cca2b886b48a72c9'),
+      name: 'Supernova',
+      type: 'kick',
+      element: 'forest',
+      createdAt: ISODate('2024-08-17T20:19:52.264Z'),
+      updatedAt: ISODate('2024-08-17T20:19:52.264Z'),
+      __v: 0,
+      learnLevel: 12
+    }
+  ]
+}
+{
+  _id: ObjectId('66c1032ccca2b886b48a727e'),
+  firstName: 'Zanark',
+  lastName: 'Avalonic',
+  element: 'earth',
+  defaultPosition: 'forward',
+  statistics: {
+    kick: 170,
+    control: 134,
+    pressure: 100,
+    physical: 136,
+    agility: 98,
+    intelligence: 46,
+    technique: 118
+  },
+  createdAt: ISODate('2024-08-17T20:08:12.461Z'),
+  updatedAt: ISODate('2024-08-17T20:08:12.461Z'),
+  __v: 0,
+  imageUrl: '/images/characters/zanark_avalonic.jpg',
+  learnedHissatsus: [
+    {
+      _id: ObjectId('66c1032ccca2b886b48a727a'),
+      name: 'Tir Cataclysme',
+      type: 'kick',
+      element: 'earth',
+      createdAt: ISODate('2024-08-17T20:08:12.077Z'),
+      updatedAt: ISODate('2024-08-17T20:08:12.077Z'),
+      __v: 0,
+      learnLevel: 1
+    },
+    {
+      _id: ObjectId('66c1032ccca2b886b48a727c'),
+      name: 'Tacle de la Mort',
+      type: 'defense',
+      element: 'forest',
+      createdAt: ISODate('2024-08-17T20:08:12.302Z'),
+      updatedAt: ISODate('2024-08-17T20:08:12.302Z'),
+      __v: 0,
+      learnLevel: 14
+    }
+  ]
+}
+{
+  _id: ObjectId('66c10896cca2b886b48a7320'),
+  firstName: 'Zell',
+  lastName: '',
+  element: 'wind',
+  defaultPosition: 'forward',
+  statistics: {
+    kick: 148,
+    control: 116,
+    pressure: 84,
+    physical: 108,
+    agility: 96,
+    intelligence: 86,
+    technique: 124
+  },
+  createdAt: ISODate('2024-08-17T20:31:18.215Z'),
+  updatedAt: ISODate('2024-08-17T20:31:18.215Z'),
+  __v: 0,
+  imageUrl: '/images/characters/zell.jpg',
+  learnedHissatsus: [
+    {
+      _id: ObjectId('66c10895cca2b886b48a731e'),
+      name: 'Rayon Ganymède',
+      type: 'kick',
+      element: 'forest',
+      createdAt: ISODate('2024-08-17T20:31:17.900Z'),
+      updatedAt: ISODate('2024-08-17T20:31:17.900Z'),
+      __v: 0,
+      learnLevel: 1
+    },
+    {
+      _id: ObjectId('66c10361cca2b886b48a7283'),
+      name: 'Trou de Ver',
+      type: 'keep',
+      element: 'forest',
+      createdAt: ISODate('2024-08-17T20:09:05.240Z'),
+      updatedAt: ISODate('2024-08-17T20:09:05.240Z'),
+      __v: 0,
+      learnLevel: 17
+    }
+  ]
+}
+{
+  _id: ObjectId('66c10b7acca2b886b48a7387'),
+  firstName: 'Zohen',
+  lastName: '',
+  element: 'earth',
+  defaultPosition: 'defender',
+  statistics: {
+    kick: 68,
+    control: 90,
+    pressure: 166,
+    physical: 128,
+    agility: 90,
+    intelligence: 72,
+    technique: 106
+  },
+  createdAt: ISODate('2024-08-17T20:43:38.810Z'),
+  updatedAt: ISODate('2024-08-17T20:43:38.810Z'),
+  __v: 0,
+  imageUrl: '/images/characters/zohen.jpg',
+  learnedHissatsus: [
+    {
+      _id: ObjectId('66c10b7acca2b886b48a7383'),
+      name: 'Astéroïdes',
+      type: 'defense',
+      element: 'forest',
+      createdAt: ISODate('2024-08-17T20:43:38.386Z'),
+      updatedAt: ISODate('2024-08-17T20:43:38.386Z'),
+      __v: 0,
+      learnLevel: 1
+    },
+    {
+      _id: ObjectId('66c10b7acca2b886b48a7385'),
+      name: 'Tacle Glacial',
+      type: 'defense',
+      element: 'wind',
+      createdAt: ISODate('2024-08-17T20:43:38.631Z'),
+      updatedAt: ISODate('2024-08-17T20:43:38.631Z'),
+      __v: 0,
+      learnLevel: 13
+    }
+  ]
+}

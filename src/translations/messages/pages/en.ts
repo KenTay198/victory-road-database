@@ -7,6 +7,7 @@ import settingsPageEn from "./settingsPage/en";
 import hissatsusPageEn from "./hissatsusPage/en";
 import registerPageEn from "./registerPage/en";
 import loginPageEn from "./loginPage/en";
+import adminPageEn from "./adminPage/en";
 
 const pagesEn: IPagesTranslations = {
   home: homePageEn,
@@ -17,6 +18,7 @@ const pagesEn: IPagesTranslations = {
   hissatsus: hissatsusPageEn,
   register: registerPageEn,
   login: loginPageEn,
+  admin: adminPageEn,
 };
 
 export default pagesEn;

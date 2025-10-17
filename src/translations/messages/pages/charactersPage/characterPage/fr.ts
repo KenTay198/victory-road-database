@@ -3,7 +3,7 @@ import updateCharacterPageFr from "./updateCharacterPage/fr";
 
 const characterPageFr: ICharacterPageTranslations = {
   metadata: {
-    title: "{CharacterName} | Victory Road Database",
+    title: "{CharacterName}",
     description: "Détails et informations de {CharacterName}",
   },
   sections: {

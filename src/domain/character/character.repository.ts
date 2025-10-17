@@ -5,6 +5,7 @@ interface ICharacterRepository {
   findAll: () => Promise<Character[]>;
   findById: (id: string) => Promise<Character | null>;
   create: (character: ICharacterData) => Promise<string>;
+  createMultiple: (characters: ICharacterData[]) => Promise<string[]>;
   updateById: (id: string, character: Partial<ICharacterData>) => Promise<boolean>;
 }
 

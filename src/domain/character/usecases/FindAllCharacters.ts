@@ -5,6 +5,7 @@ import type IMetaService from "@meta/meta.service";
 import type IHissatsuService from "@hissatsu/hissatsu.service";
 import FindAllHissatsus from "@hissatsu/usecases/FindAllHissatsus";
 import GetMeta from "@meta/usecases/GetMeta";
+import Hissatsu from "@hissatsu/hissatsu.entity";
 
 export default class FindAllCharacters {
   private characterService: ICharacterService;
@@ -34,9 +35,11 @@ export default class FindAllCharacters {
           c.hissatsus = hissatsus
             .filter((h) => c.learnedHissatsus.some((lh) => lh.id === h.id))
             .map((h) => {
-              h.learnLevel = c.learnedHissatsus.find((lh) => lh.id === h.id)?.learnLevel;
-              return h;
-            });
+              const hissatsu = h.toJSON();
+              hissatsu.learnLevel = c.learnedHissatsus.find((lh) => lh.id === h.id)?.learnLevel;
+              return Hissatsu.fromJSON(hissatsu);
+            })
+            .sort((a, b) => (a.learnLevel || 0) - (b.learnLevel || 0));
         }
         return c;
       });

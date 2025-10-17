@@ -11,9 +11,10 @@ declare global {
   var hissatsuService: IHissatsuService | undefined;
 }
 
-const defaultType = process.env.NODE_ENV === "development" ? "stub" : "mongo";
+const defaultType = process.env.DEFAULT_ACTION_TYPE;
 
 export async function getHissatsuServiceInstance(type = defaultType): Promise<IHissatsuService> {
+  delete globalThis.hissatsuService;
   if (globalThis.hissatsuService) return globalThis.hissatsuService;
   switch (type) {
     case "mongo":
@@ -31,15 +32,20 @@ export async function getHissatsuServiceInstance(type = defaultType): Promise<IH
 
 export async function findAllHissatsusAction(params?: IDefaultHissatsuFindParams): Promise<IHissatsu[]> {
   console.log("[Action] Hissatsu : findAllHissatsus");
-  const hissatsuService = await getHissatsuServiceInstance();
-  const hissatsus = await new FindAllHissatsus(hissatsuService).execute();
-  if (hissatsus && hissatsus.length > 0) {
-    return hissatsus.map((h) => {
-      if (params?.locale) {
-        h.setLocalizedName(params.locale);
-      }
-      return h.toJSON();
-    });
+  try {
+    const hissatsuService = await getHissatsuServiceInstance();
+    const hissatsus = await new FindAllHissatsus(hissatsuService).execute();
+    if (hissatsus && hissatsus.length > 0) {
+      const hissatsusJSON = hissatsus.map((h) => {
+        if (params?.locale) {
+          h.setLocalizedName(params.locale);
+        }
+        return h.toJSON();
+      });
+      return hissatsusJSON;
+    }
+  } catch (error) {
+    console.error("[Action - findAllHissatsus] error:", error);
   }
   return [];
 }

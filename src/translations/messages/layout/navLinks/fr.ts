@@ -9,6 +9,13 @@ const navLinksFr: INavLinksTranslations = {
   glossary: "Glossaire",
   settings: "Paramètres",
   hissatsus: "Hissatsus",
+  admin: {
+    label: "Admin",
+    characters: {
+      label: "Personnages",
+      import: "Importer",
+    },
+  },
 };
 
 export default navLinksFr;

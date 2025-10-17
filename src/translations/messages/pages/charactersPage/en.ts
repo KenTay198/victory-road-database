@@ -4,7 +4,7 @@ import newCharacterPageEn from "./newCharacterPage/en";
 
 const charactersPageEn: ICharactersPageTranslations = {
   metadata: {
-    title: "Characters | Victory Road Database",
+    title: "Characters",
     description: "List of characters from Inazuma Eleven: Victory Road",
   },
   header: "List of characters",

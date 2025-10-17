@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import type { ICreateLearnedHissatsu } from "@hissatsu/hissatsu.types";
 import Button from "@components/ui/Buttons/Button";
 import NumberInput from "@components/ui/Inputs/NumberInput";
@@ -8,11 +8,10 @@ import { useTranslations } from "next-intl";
 import type { IHissatsu } from "@hissatsu/hissatsu.types";
 import { elements } from "@domain/shared/variables";
 import TextInput from "@components/ui/Inputs/TextInput";
-import { hissatsuTypes } from "@hissatsu/hissatsu.variables";
+import { hissatsuCharacteristics, hissatsuTypes } from "@hissatsu/hissatsu.variables";
 import type { FormError } from "@utils/types";
 import IconButton from "@components/ui/Buttons/IconButton";
 import { FaTrash } from "react-icons/fa";
-import { useSettings } from "@context/SettingsContext";
 
 interface IProps extends React.HTMLAttributes<HTMLDivElement> {
   id: string;
@@ -35,26 +34,26 @@ const CharacterFormHissatsu = ({
   ...props
 }: IProps) => {
   const t = useTranslations();
-  const { settings } = useSettings();
-  const [isCreating, setIsCreating] = useState(false);
+  const [isCreating, setIsCreating] = useState(learnedHissatsu?.create || false);
 
   const handleChange = (field: keyof ICreateLearnedHissatsu, value: any) => {
     const newLearnedHissatsu = { ...learnedHissatsu, [field]: value };
-    if (field === "names" && value.jp) {
+    if (field === "names" && value?.jp) {
       newLearnedHissatsu.name = value.jp;
     }
     onChangeHissatsu(newLearnedHissatsu);
   };
 
-  useEffect(() => {
-    onChangeHissatsu({ learnLevel: learnedHissatsu?.learnLevel, create: isCreating });
-  }, [isCreating]);
+  const toggleIsCreating = () => {
+    onChangeHissatsu({ learnLevel: learnedHissatsu?.learnLevel, create: !isCreating });
+    setIsCreating((prev) => !prev);
+  };
 
   return (
     <div className="flex-1 space-y-2">
       <div className="flex items-center gap-4">
         <h3>{t(`character.properties.hissatsuNb`, { count: index + 1 })}</h3>
-        <Button template="blue" size="S" active={isCreating} onClick={() => setIsCreating((prev) => !prev)}>
+        <Button template="blue" size="S" active={isCreating} onClick={toggleIsCreating}>
           {t("components.character.newCharacterForm.actions.newHissatsu")}
         </Button>
         <IconButton size="S" title={t("common.buttons.delete")} Icon={FaTrash} template="fire" onClick={onDelete} />
@@ -120,6 +119,18 @@ const CharacterFormHissatsu = ({
               error={errors.find((e) => e.field === `learnedHissatsus.${index}.type`)?.message}
               divClassName="flex-1"
             />
+            <SelectInput
+              id={`${props.id}-characteristic`}
+              label={t(`hissatsu.properties.characteristic`)}
+              value={learnedHissatsu?.characteristic || ""}
+              options={hissatsuCharacteristics.map((characteristic) => ({
+                value: characteristic,
+                label: t(`hissatsu.characteristics.${characteristic}`),
+              }))}
+              handleChange={(value) => handleChange("characteristic", value)}
+              error={errors.find((e) => e.field === `learnedHissatsus.${index}.characteristic`)?.message}
+              divClassName="flex-1"
+            />
           </div>
           <div className="flex flex-wrap gap-2">
             <NumberInput
@@ -151,10 +162,12 @@ const CharacterFormHissatsu = ({
           id={`${props.id}-id`}
           label={t(`hissatsu.properties.name`)}
           value={learnedHissatsu?.id || ""}
-          options={hissatsus.map((hissatsu) => ({
-            value: hissatsu.id,
-            label: hissatsu.names[settings.hissatsuLocale],
-          }))}
+          options={hissatsus
+            .sort((a, b) => a.name.localeCompare(b.name))
+            .map((hissatsu) => ({
+              value: hissatsu.id,
+              label: hissatsu.name,
+            }))}
           handleChange={(value) => handleChange("id", value)}
           error={errors.find((e) => e.field === `learnedHissatsus.${index}.id`)?.message}
           divClassName="flex-1"

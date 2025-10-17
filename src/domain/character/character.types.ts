@@ -84,3 +84,8 @@ export type CharacterArchetype =
 export type IDefaultFindCharacterParams = {
   locale?: CharacterLocale;
 };
+
+export type IFindCharactersParams = IDefaultFindCharacterParams & {
+  withHissatsus?: boolean;
+  withMeta?: boolean;
+};

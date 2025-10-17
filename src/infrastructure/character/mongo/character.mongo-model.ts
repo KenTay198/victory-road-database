@@ -1,4 +1,4 @@
-import type { ICharacterData } from "@character/character.types";
+import type { CharacterNames, ICharacterData } from "@character/character.types";
 import { positions } from "@character/character.variables";
 import mongoose, { type ObjectId } from "mongoose";
 
@@ -15,9 +15,9 @@ const LearnedHissatsuSchema = new mongoose.Schema(
   { _id: false },
 );
 
-const CharacterNamesSchema = new mongoose.Schema(
+const CharacterNamesSchema = new mongoose.Schema<CharacterNames>(
   {
-    fr: {
+    west: {
       firstName: { type: String, required: true },
       lastName: { type: String },
     },

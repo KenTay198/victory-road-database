@@ -2,7 +2,7 @@ import type ISettingsPageTranslations from "./settingsPage.translations";
 
 const settingsPageFr: ISettingsPageTranslations = {
   metadata: {
-    title: "Paramètres | Victory Road Database",
+    title: "Paramètres",
     description: "Configurer votre base de données Victory Road",
   },
   header: "Paramètres",

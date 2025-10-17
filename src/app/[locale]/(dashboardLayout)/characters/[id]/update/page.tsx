@@ -7,10 +7,10 @@ import AdminRoute from "@components/auth/AdminRoute";
 import { findCharacterByIdAction } from "@/actions/character.actions";
 import { notFound } from "next/navigation";
 import { findAllHissatsusAction } from "@/actions/hissatsu.actions";
-import type { IDefaultFindCharacterParams } from "@character/character.types";
+import type { IFindCharactersParams } from "@character/character.types";
 import { getPageContext } from "@/actions/page.actions";
 
-const getCharacter = cache(async (id: string, params?: IDefaultFindCharacterParams) => {
+const getCharacter = cache(async (id: string, params?: IFindCharactersParams) => {
   return await findCharacterByIdAction(id, params);
 });
 

@@ -7,21 +7,20 @@ export default class EnsureHissatsusExist {
   constructor(private hissatsuService: IHissatsuService) {}
 
   async execute(learnedHissatsus: Partial<ICreateLearnedHissatsu>[]): Promise<ILearnedHissatsu[]> {
-    const newHissatsuMap = new Map<number, IHissatsuData>();
+    const HissatsuMap = new Map<number, IHissatsuData>();
 
     for (let i = 0; i < learnedHissatsus.length; i++) {
       const h = learnedHissatsus[i];
       if (!h.id || h.create) {
-        newHissatsuMap.set(i, h as IHissatsuData);
-      } else {
-        delete h.create;
+        HissatsuMap.set(i, h as IHissatsuData);
       }
+      delete h.create;
     }
 
-    if (newHissatsuMap.size > 0) {
-      const ids = await new CreateHissatsus(this.hissatsuService).execute(Array.from(newHissatsuMap.values()));
+    if (HissatsuMap.size > 0) {
+      const ids = await new CreateHissatsus(this.hissatsuService).execute(Array.from(HissatsuMap.values()));
 
-      for (const [index] of newHissatsuMap) {
+      for (const [index] of HissatsuMap) {
         const old = learnedHissatsus[index];
         learnedHissatsus[index] = { id: ids.shift(), learnLevel: old.learnLevel } as ILearnedHissatsu;
       }

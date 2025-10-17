@@ -4,6 +4,8 @@ interface ICommonTranslations {
     submit: string;
     add: string;
     delete: string;
+    import: string;
+    export: string;
   };
   locales: {
     fr: string;

@@ -5,9 +5,13 @@ import Hissatsu from "@hissatsu/hissatsu.entity";
 export default class MongoHissatsuAdapter implements IHissatsuAdapter {
   toEntity(data: IHissatsuDocument): Hissatsu {
     return new Hissatsu({
-      id: data._id.toString(),
+      id: data._id?.toString(),
       name: data.name,
-      names: data.names,
+      names: {
+        en: data.names.en,
+        jp: data.names.jp,
+        fr: data.names.fr,
+      },
       type: data.type,
       element: data.element,
       power: data.power,

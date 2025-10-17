@@ -2,7 +2,7 @@ import type IUpdateCharacterPageTranslations from "./updateCharacterPage.transla
 
 const updateCharacterPageFr: IUpdateCharacterPageTranslations = {
   metadata: {
-    title: "Mettre à jour {CharacterName} | Victory Road Database",
+    title: "Mettre à jour {CharacterName}",
     description: "Mettez à jour les informations de {CharacterName}.",
   },
   header: "Mettre à jour",

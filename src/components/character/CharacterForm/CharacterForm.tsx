@@ -9,9 +9,9 @@ import ErrorHelpers from "@utils/helpers/error.helpers";
 import type {
   CharacterLocale,
   CharacterNames,
+  ICharacter,
   ICharacterData,
   ICharacterFormData,
-  IFullCharacter,
 } from "@character/character.types";
 import SelectInput from "@components/ui/Inputs/SelectInput";
 import { characterElements, positions, statKeys } from "@character/character.variables";
@@ -24,13 +24,26 @@ import type { IHissatsu, ICreateLearnedHissatsu } from "@hissatsu/hissatsu.types
 import CharacterFormHissatsu from "./CharacterFormHissatsu";
 
 interface IProps extends React.HTMLAttributes<HTMLFormElement> {
-  character?: IFullCharacter;
+  character?: Partial<ICharacterData> | Partial<ICharacterFormData>;
   hissatsus: IHissatsu[];
+  onFormChange?: (character: Partial<ICharacterFormData>) => void;
+  submitLabel?: string;
+  onFormSubmit?: (character: ICharacterFormData) => void;
 }
 
-const CharacterForm = ({ className, character, hissatsus, ...props }: IProps) => {
+const CharacterForm = ({
+  className,
+  character,
+  hissatsus,
+  onFormChange,
+  onFormSubmit,
+  submitLabel,
+  ...props
+}: IProps) => {
   const t = useTranslations();
-  const isEdit = !!character;
+  const isEditing = (character?: Partial<ICharacterFormData> | Partial<ICharacter>): character is ICharacter =>
+    !!character && typeof (character as ICharacter).id === "string";
+  const isEdit = isEditing(character);
   const form = isEdit ? "updateCharacterForm" : "newCharacterForm";
   const router = useRouter();
   const [data, setData] = useState<Partial<ICharacterFormData>>({
@@ -89,6 +102,9 @@ const CharacterForm = ({ className, character, hissatsus, ...props }: IProps) =>
         (newData as any)[field] = value;
       }
 
+      if (onFormChange) {
+        onFormChange(newData);
+      }
       return newData;
     });
   };
@@ -173,29 +189,31 @@ const CharacterForm = ({ className, character, hissatsus, ...props }: IProps) =>
 
   const handleSubmit = () => {
     if (checkErrors(data)) {
-      let promise: Promise<any>;
-      if (isEdit) {
-        promise = updateCharacterAction(character.id, data);
+      if (onFormSubmit) {
+        onFormSubmit(data);
       } else {
-        promise = createCharacterAction(data);
+        let promise: Promise<any>;
+        if (isEdit) {
+          promise = updateCharacterAction(character.id, data);
+        } else {
+          promise = createCharacterAction(data);
+        }
+        toast.promise(promise, {
+          success: (result) => {
+            router.push(`/characters/${isEdit ? `${character.id}` : `${result}`}`);
+            return t(`components.character.${form}.toasts.success`);
+          },
+          error: (e) => {
+            const error = ErrorHelpers.parse(e);
+            const explanation = error.messageKey || `components.character.${form}.toasts.error`;
+            if (error.hasFields()) {
+              setErrors(error.data.fields.map(({ field, message }) => ({ field, message: t(message) })));
+            }
+            return t(explanation);
+          },
+          loading: t(`components.character.${form}.toasts.loading`),
+        });
       }
-      toast.promise(promise, {
-        success: (result) => {
-          router.push(`/characters/${isEdit ? `${character.id}` : `${result}`}`);
-          return t(`components.character.${form}.toasts.success`);
-        },
-        error: (e) => {
-          const error = ErrorHelpers.parse(e);
-          const explanation = error.messageKey || `components.character.${form}.toasts.error`;
-          if (error.hasFields()) {
-            console.log(error.data.fields);
-
-            setErrors(error.data.fields.map(({ field, message }) => ({ field, message: t(message) })));
-          }
-          return t(explanation);
-        },
-        loading: t(`components.character.${form}.toasts.loading`),
-      });
     }
   };
 
@@ -346,8 +364,9 @@ const CharacterForm = ({ className, character, hissatsus, ...props }: IProps) =>
           </div>
         );
       })}
+
       <Button className="mx-auto flex" template="blue" onClick={handleSubmit}>
-        {t("common.buttons.submit")}
+        {submitLabel || t("common.buttons.submit")}
       </Button>
     </form>
   );

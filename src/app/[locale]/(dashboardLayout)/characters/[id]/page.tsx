@@ -9,9 +9,10 @@ import Character from "@character/entities/character.entity";
 import Button from "@components/ui/Buttons/Button";
 import { GrUpdate } from "react-icons/gr";
 import { getPageContext } from "@/actions/page.actions";
+import type { IFindCharactersParams } from "@character/character.types";
 
-const getCharacter = cache(async (id: string) => {
-  return await findCharacterByIdAction(id);
+const getCharacter = cache(async (id: string, params?: IFindCharactersParams) => {
+  return await findCharacterByIdAction(id, params);
 });
 
 export const generateMetadata = async ({ params }: any): Promise<Metadata> => {
@@ -30,16 +31,13 @@ export const generateMetadata = async ({ params }: any): Promise<Metadata> => {
 const CharacterPage = async ({ params }: any) => {
   const t = await getTranslations("pages.characters.character");
   const { id } = await params;
-  const character = await getCharacter(id);
+  const { user, settings } = await getPageContext();
+  const character = await getCharacter(id, { locale: settings.characterLocale });
   if (!character) {
     return notFound();
   }
 
-  const { user, settings } = await getPageContext();
   const characterEntity = Character.fromFullJSON(character);
-  if (user?.id) {
-    characterEntity.setLocalizedName(settings.characterLocale);
-  }
 
   return (
     <>

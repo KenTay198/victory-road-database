@@ -201,6 +201,10 @@ export default class StubCharacterRepository implements ICharacterRepository {
     return newCharacter.id;
   }
 
+  async createMultiple(characters: ICharacterData[]): Promise<string[]> {
+    return Promise.all(characters.map((character) => this.create(character)));
+  }
+
   async updateById(id: string, character: Partial<ICharacterData>): Promise<boolean> {
     const exists = this.characters.some((c) => c.id === id);
     if (!exists) {

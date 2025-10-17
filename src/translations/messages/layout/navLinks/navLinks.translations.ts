@@ -7,6 +7,13 @@ interface INavLinksTranslations {
   glossary: string;
   settings: string;
   hissatsus: string;
+  admin: {
+    label: string;
+    characters: {
+      label: string;
+      import: string;
+    };
+  };
 }
 
 export default INavLinksTranslations;

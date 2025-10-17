@@ -1,3 +1,4 @@
+import type IAdminPageTranslations from "./adminPage/adminPage.translations";
 import type ICharactersPageTranslations from "./charactersPage/charactersPage.translations";
 import type IErrorPageTranslations from "./errorPage/errorPage.translations";
 import type IGlossaryPageTranslations from "./glossaryPage/glossaryPage.translations";
@@ -16,6 +17,7 @@ interface IPagesTranslations {
   hissatsus: IHissatsusPageTranslations;
   register: IRegisterPageTranslations;
   login: ILoginPageTranslations;
+  admin: IAdminPageTranslations;
 }
 
 export default IPagesTranslations;

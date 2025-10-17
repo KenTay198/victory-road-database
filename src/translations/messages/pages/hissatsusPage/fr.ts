@@ -2,7 +2,7 @@ import type IHissatsusPageTranslations from "./hissatsusPage.translations";
 
 const hissatsusPageFr: IHissatsusPageTranslations = {
   metadata: {
-    title: "Hissatsu | Victory Road Database",
+    title: "Hissatsu",
     description: "Liste des super techniques de Inazuma Eleven: Victory Road",
   },
   header: "Liste des hissatsus",

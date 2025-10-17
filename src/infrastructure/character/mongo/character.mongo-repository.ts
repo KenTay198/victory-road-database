@@ -28,9 +28,19 @@ export default class MongoCharacterRepository implements ICharacterRepository {
     return savedCharacter._id.toString();
   }
 
+  async createMultiple(data: ICharacterData[]): Promise<string[]> {
+    await connectMongo();
+    const characters = data.map((character) => new CharacterModel(this.adapter.createToDatabase(character)));
+    const savedCharacters = await CharacterModel.insertMany(characters);
+    return savedCharacters.map((character) => character._id.toString());
+  }
+
   async updateById(id: string, character: Partial<ICharacterData>): Promise<boolean> {
     await connectMongo();
-    const result = await CharacterModel.updateOne({ _id: id }, { $set: character }).exec();
+    const result = await CharacterModel.updateOne(
+      { _id: id },
+      { $set: this.adapter.updateToDatabase(character) },
+    ).exec();
     return result.matchedCount > 0;
   }
 }

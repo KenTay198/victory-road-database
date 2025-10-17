@@ -6,6 +6,8 @@ const commonEn: ICommonTranslations = {
     submit: "Submit",
     add: "Add",
     delete: "Delete",
+    import: "Import",
+    export: "Export",
   },
   locales: {
     fr: "French",

@@ -7,7 +7,7 @@ export const generateMetadata = async (): Promise<Metadata> => {
   const t = await getTranslations("pages.glossary.metadata");
 
   return {
-    title: t("title"),
+    title: `${t("title")} | Victory Road Database`,
     description: t("description"),
   };
 };

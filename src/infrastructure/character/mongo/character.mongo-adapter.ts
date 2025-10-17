@@ -6,10 +6,19 @@ import type { ICharacter, ICharacterData } from "@character/character.types";
 export default class MongoCharacterAdapter implements ICharacterAdapter {
   toEntity(data: ICharacterDocument): Character {
     return new Character({
-      id: data._id.toString(),
+      id: data?._id.toString(),
       firstName: data.firstName,
       lastName: data.lastName,
-      names: data.names,
+      names: {
+        west: {
+          firstName: data.names.west.firstName,
+          lastName: data.names.west.lastName,
+        },
+        vo: {
+          firstName: data.names.vo.firstName,
+          lastName: data.names.vo.lastName,
+        },
+      },
       element: data.element,
       defaultPosition: data.defaultPosition,
       learnedHissatsus: this.learnedHissatsusToEntity(data.learnedHissatsus),
@@ -31,7 +40,7 @@ export default class MongoCharacterAdapter implements ICharacterAdapter {
     };
   }
 
-  updateToDatabase(character: Partial<ICharacter>): Partial<ICharacterDocument> {
+  updateToDatabase(character: Partial<ICharacterData>): Partial<ICharacterDocument> {
     const json = character instanceof Character ? character.toJSON() : character;
     return {
       firstName: json.firstName,
@@ -48,12 +57,12 @@ export default class MongoCharacterAdapter implements ICharacterAdapter {
   private learnedHissatsusToEntity(
     learnedHissatsus: ICharacterDocument["learnedHissatsus"],
   ): ICharacter["learnedHissatsus"] {
-    return learnedHissatsus.map(({ hissatsuId, ...e }) => ({ ...e, id: hissatsuId ? hissatsuId.toString() : "" }));
+    return learnedHissatsus.map((e) => ({ id: e.hissatsuId ? e.hissatsuId.toString() : "", learnLevel: e.learnLevel }));
   }
 
   private learnedHissatsusToDatabase(
     learnedHissatsus: ICharacter["learnedHissatsus"],
   ): ICharacterDocument["learnedHissatsus"] {
-    return learnedHissatsus.map(({ id, ...e }) => ({ ...e, hissatsuId: id }));
+    return learnedHissatsus.map((e) => ({ learnLevel: e.learnLevel, hissatsuId: e.id }));
   }
 }

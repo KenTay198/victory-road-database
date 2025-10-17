@@ -117,7 +117,7 @@ function ItemTableBody<T extends { id: any }>({
               const statDescription = statisticDescriptions[slug];
               const color = ColorsHelper.getColorByTier(value, statDescription);
               return (
-                <td key={slug}>
+                <td key={`item-${item.id}-property-${slug}`}>
                   <div
                     style={{ color }}
                     className={`w-fit text-center whitespace-nowrap ${color ? `font-bold` : ""} ${className || ""}`}

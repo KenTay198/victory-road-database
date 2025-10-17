@@ -10,11 +10,9 @@ declare global {
   var settingsService: ISettingsService | undefined;
 }
 
-const defaultType = process.env.NODE_ENV === "development" ? "stub" : "mongo";
+const defaultType: SettingsRepositoryType = process.env.DEFAULT_ACTION_TYPE as SettingsRepositoryType;
 
-export async function getSettingsServiceInstance(
-  type: SettingsRepositoryType = defaultType,
-): Promise<ISettingsService> {
+export async function getSettingsServiceInstance(type = defaultType): Promise<ISettingsService> {
   if (type !== "cookie" && globalThis.settingsService) return globalThis.settingsService;
 
   globalThis.settingsService = new SettingsService(type);

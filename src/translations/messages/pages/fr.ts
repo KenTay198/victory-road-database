@@ -7,6 +7,7 @@ import settingsPageFr from "./settingsPage/fr";
 import hissatsusPageFr from "./hissatsusPage/fr";
 import registerPageFr from "./registerPage/fr";
 import loginPageFr from "./loginPage/fr";
+import adminPageFr from "./adminPage/fr";
 
 const pagesFr: IPagesTranslations = {
   home: homePageFr,
@@ -17,6 +18,7 @@ const pagesFr: IPagesTranslations = {
   hissatsus: hissatsusPageFr,
   register: registerPageFr,
   login: loginPageFr,
+  admin: adminPageFr,
 };
 
 export default pagesFr;
