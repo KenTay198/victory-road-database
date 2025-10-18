@@ -4,7 +4,7 @@ import type { ICreateLearnedHissatsu, IHissatsu } from "@hissatsu/hissatsu.types
 import ExportEntitiesButton from "../common/ExportEntitiesButton";
 import type { IFullCharacter } from "@character/character.types";
 
-const ExportCharacterButton = ({ className, ...props }: React.HTMLAttributes<HTMLButtonElement>) => {
+const ExportCharactersButton = ({ className, ...props }: React.HTMLAttributes<HTMLButtonElement>) => {
   const transformFunction = (e: IFullCharacter) => {
     const character: any = { ...e };
     delete character.id;
@@ -34,4 +34,4 @@ const ExportCharacterButton = ({ className, ...props }: React.HTMLAttributes<HTM
   );
 };
 
-export default ExportCharacterButton;
+export default ExportCharactersButton;
