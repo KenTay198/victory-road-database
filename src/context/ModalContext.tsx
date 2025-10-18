@@ -3,6 +3,7 @@ import { createContext, useContext, useState, type ReactNode } from "react";
 
 export interface ModalParams {
   title?: string;
+  description?: string;
   content: ReactNode;
   width?: string | number;
   maxWidth?: string | number;

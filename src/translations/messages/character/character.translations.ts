@@ -62,7 +62,7 @@ interface ICharacterTranslations {
       max: string;
     };
   };
-  tendencies: string;
+  statDistribution: string;
 }
 
 export default ICharacterTranslations;

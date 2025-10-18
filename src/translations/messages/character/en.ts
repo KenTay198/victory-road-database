@@ -64,7 +64,7 @@ const characterEn: ICharacterTranslations = {
       max: "You can compare up to 5 characters at a time.",
     },
   },
-  tendencies: "Tendencies",
+  statDistribution: "Statistical distribution",
 };
 
 export default characterEn;

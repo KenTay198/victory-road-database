@@ -51,7 +51,10 @@ const CharacterView = ({ className, character, ...props }: IProps) => {
               </div>
             ))}
           </div>
-          <CharacterTendencies character={character.toJSON()} meta={character.getMeta()?.toJSON()} />
+          <div className="flex flex-col">
+            <strong>{t("character.statDistribution")}</strong>
+            <CharacterTendencies character={character.toJSON()} meta={character.getMeta()?.toJSON()} />
+          </div>
         </div>
       </section>
 

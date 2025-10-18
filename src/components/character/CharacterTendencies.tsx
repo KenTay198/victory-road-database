@@ -31,8 +31,8 @@ interface IProps {
 const CharacterTendencies = ({ character: characterJSON, meta, size = 400, disableClick }: IProps) => {
   const t = useTranslations();
   const modal = useModalDialog({
-    title: t("character.tendencies"),
-    content: <CharacterTendencies character={characterJSON} meta={meta} size={700} disableClick={disableClick} />,
+    title: t("character.statDistribution"),
+    content: <CharacterTendencies character={characterJSON} meta={meta} size={700} disableClick={true} />,
   });
   if (!meta) return null;
   const character = new Character(characterJSON);
@@ -107,12 +107,17 @@ const CharacterTendencies = ({ character: characterJSON, meta, size = 400, disab
     },
   };
 
+  const handleClick = () => {
+    if (!disableClick) modal.open();
+  };
+
   return (
     <button
-      style={{ maxWidth: "100%", width: size, maxHeight: size, height: "100%" }}
-      onClick={() => modal.open()}
-      onKeyUp={() => modal.open()}
+      style={{ width: size, height: size }}
+      onClick={handleClick}
+      onKeyUp={handleClick}
       type="button"
+      className={`${disableClick ? "" : "cursor-pointer"} max-w-full max-h-full`}
     >
       <Radar data={data} options={options} />
     </button>

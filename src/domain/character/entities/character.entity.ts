@@ -126,7 +126,7 @@ export default class Character implements ICharacter {
         if (isAbove("focusAtt") || isAbove("scrambleAtt")) archetypes.push("forward");
       }
 
-      if (isAbove("focusAtt") && hasHissatsus.kick) archetypes.push("attacking-midfielder");
+      if (isAbove("focusAtt") && hasHissatsus.dribble && hasHissatsus.kick) archetypes.push("attacking-midfielder");
 
       if (isAbove("focusAtt") && (isAbove("focusDef") || isAbove("scrambleDef")) && hasHissatsus.dribble)
         archetypes.push("central-midfielder");
