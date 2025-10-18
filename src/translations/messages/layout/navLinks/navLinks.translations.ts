@@ -13,6 +13,10 @@ interface INavLinksTranslations {
       label: string;
       import: string;
     };
+    hissatsus: {
+      label: string;
+      import: string;
+    };
     meta: string;
   };
 }

@@ -117,7 +117,7 @@ function ItemTable<T extends { id: string } = any>({
   }, [selectedItems]);
   //#endregion
 
-  if (!items?.length || !properties?.length) return null;
+  if (!properties?.length) return null;
 
   const areItemsSelectable = Boolean(onSelectedUpdate);
 

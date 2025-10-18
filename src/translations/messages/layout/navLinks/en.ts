@@ -15,6 +15,10 @@ const navLinksEn: INavLinksTranslations = {
       label: "Characters",
       import: "Import",
     },
+    hissatsus: {
+      label: "Hissatsus",
+      import: "Import",
+    },
     meta: "Meta",
   },
 };

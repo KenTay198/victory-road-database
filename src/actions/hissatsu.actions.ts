@@ -2,7 +2,7 @@
 
 import StubHissatsuService from "@infrastructure/hissatsu/stub/hissatsu.stub-service";
 import type IHissatsuService from "@hissatsu/hissatsu.service";
-import type { IDefaultHissatsuFindParams, IHissatsu } from "@hissatsu/hissatsu.types";
+import type { IDefaultHissatsuFindParams, IHissatsu, IHissatsuData } from "@hissatsu/hissatsu.types";
 import FindAllHissatsus from "@hissatsu/usecases/FindAllHissatsus";
 import CreateHissatsus from "@hissatsu/usecases/CreateHissatsus";
 import MongoHissatsuService from "@infrastructure/hissatsu/mongo/hissatsu.mongo-service";
@@ -49,7 +49,7 @@ export async function findAllHissatsusAction(params?: IDefaultHissatsuFindParams
   return [];
 }
 
-export async function createHissatsusAction(hissatsus: IHissatsu[]): Promise<string[]> {
+export async function createHissatsusAction(hissatsus: IHissatsuData[]): Promise<string[]> {
   console.log("[Action] Hissatsu : createHissatsus");
   const hissatsuService = await getHissatsuServiceInstance();
   const ids = await new CreateHissatsus(hissatsuService).execute(hissatsus);

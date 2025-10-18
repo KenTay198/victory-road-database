@@ -35,3 +35,7 @@ export interface ICreateLearnedHissatsu extends Partial<ILearnedHissatsu>, Parti
   learnLevel: number;
   create?: boolean;
 }
+
+export interface IHissatsuFormData extends Omit<Partial<IHissatsuData>, "names"> {
+  names?: Partial<HissatsuNames>;
+}

@@ -18,7 +18,10 @@ interface ICommonTranslations {
     logoAlt: string;
   };
   none: string;
-  character: string;
+  entities: {
+    character: string;
+    hissatsu: string;
+  };
   mean: string;
 }
 

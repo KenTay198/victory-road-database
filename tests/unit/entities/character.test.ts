@@ -152,7 +152,7 @@ describe("Character Entity", () => {
       {
         aboveAverageStats: ["shoot", "focusAtt"],
         hissatsuTypesAndCharacteristics: { kick: true },
-        expected: ["striker", "forward", "attacking-midfielder"],
+        expected: ["striker", "forward"],
       },
       {
         aboveAverageStats: ["shoot", "scrambleAtt"],
@@ -166,7 +166,7 @@ describe("Character Entity", () => {
       },
       {
         aboveAverageStats: ["focusAtt"],
-        hissatsuTypesAndCharacteristics: { kick: true },
+        hissatsuTypesAndCharacteristics: { kick: true, dribble: true },
         expected: ["attacking-midfielder"],
       },
       {

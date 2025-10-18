@@ -18,9 +18,7 @@ const AdminMetaPage = async () => {
   return (
     <>
       <Banner title={t("header")} path={[{ value: "admin" }, { value: "meta" }]} />
-      <div className="flex flex-wrap gap-4">
-        <UpdateMetaButton />
-      </div>
+      <UpdateMetaButton />
     </>
   );
 };

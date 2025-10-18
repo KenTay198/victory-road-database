@@ -73,7 +73,7 @@ const CharacterTendencies = ({ character: characterJSON, meta, size = 400, disab
     labels: filteredStatKeys.map((key) => t(`character.advancedStatistics.${key}`)),
     datasets: [
       {
-        label: t("common.character"),
+        label: t("common.entities.character"),
         data: characterStatsPercentage,
         borderColor: "rgb(255, 99, 132)",
         backgroundColor: "rgba(255, 99, 132, 0.2)",

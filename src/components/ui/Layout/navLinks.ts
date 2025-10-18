@@ -21,31 +21,6 @@ export const navLinks: INavLink[] = [
     Icon: FaHome,
   },
   {
-    url: "/admin",
-    labelKey: "admin.label",
-    Icon: RiAdminFill,
-    isAdmin: true,
-    subLinks: [
-      {
-        url: "/admin/characters",
-        labelKey: "admin.characters.label",
-        Icon: FaUsers,
-        subLinks: [
-          {
-            url: "/admin/characters/import",
-            labelKey: "admin.characters.import",
-            Icon: LuImport,
-          },
-        ],
-      },
-      {
-        url: "/admin/meta",
-        labelKey: "admin.meta",
-        Icon: FaChartBar,
-      },
-    ],
-  },
-  {
     url: "/characters",
     labelKey: "characters",
     Icon: FaUsers,
@@ -83,6 +58,43 @@ export const navLinks: INavLink[] = [
         labelKey: "hissatsu",
         Icon: GiFireDash,
         hidden: true,
+      },
+    ],
+  },
+  {
+    url: "/admin",
+    labelKey: "admin.label",
+    Icon: RiAdminFill,
+    isAdmin: true,
+    subLinks: [
+      {
+        url: "/admin/characters",
+        labelKey: "admin.characters.label",
+        Icon: FaUsers,
+        subLinks: [
+          {
+            url: "/admin/characters/import",
+            labelKey: "admin.characters.import",
+            Icon: LuImport,
+          },
+        ],
+      },
+      {
+        url: "/admin/hissatsus",
+        labelKey: "admin.hissatsus.label",
+        Icon: GiFireDash,
+        subLinks: [
+          {
+            url: "/admin/hissatsus/import",
+            labelKey: "admin.hissatsus.import",
+            Icon: LuImport,
+          },
+        ],
+      },
+      {
+        url: "/admin/meta",
+        labelKey: "admin.meta",
+        Icon: FaChartBar,
       },
     ],
   },

@@ -20,7 +20,10 @@ const commonFr: ICommonTranslations = {
     logoAlt: "Logo d'Inazuma Eleven : Victory Road",
   },
   none: "Aucun{feminine}",
-  character: "Personnage",
+  entities: {
+    hissatsu: "Hissatsu{plural}",
+    character: "Personnage{plural}",
+  },
   mean: "Moyenne",
 };
 
