@@ -10,9 +10,7 @@ export const connectMongo = async () => {
   const uri = process.env.MONGODB_URI;
   if (!uri) throw new Error("MONGODB_URI not defined");
 
-  globalThis.mongoClient = await mongoose.connect(uri, {
-    dbName: "prod", // process.env.NODE_ENV === "production" ? "prod" : "dev",
-  });
+  globalThis.mongoClient = await mongoose.connect(uri);
 
   console.log("✅ MongoDB connected");
   return globalThis.mongoClient;

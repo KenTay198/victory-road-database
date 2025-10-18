@@ -1,7 +1,8 @@
 import type { IconType } from "react-icons";
-import { FaBook, FaCog, FaHome, FaUser, FaUsers } from "react-icons/fa";
+import { FaBook, FaChartBar, FaCog, FaHome, FaUser, FaUsers } from "react-icons/fa";
 import { GiFireDash } from "react-icons/gi";
 import { IoMdPersonAdd } from "react-icons/io";
+import { LuImport } from "react-icons/lu";
 import { RiAdminFill } from "react-icons/ri";
 
 export interface INavLink {
@@ -33,9 +34,14 @@ export const navLinks: INavLink[] = [
           {
             url: "/admin/characters/import",
             labelKey: "admin.characters.import",
-            Icon: FaUsers,
+            Icon: LuImport,
           },
         ],
+      },
+      {
+        url: "/admin/meta",
+        labelKey: "admin.meta",
+        Icon: FaChartBar,
       },
     ],
   },

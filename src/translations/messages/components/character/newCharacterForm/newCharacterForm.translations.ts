@@ -1,3 +1,5 @@
+import type { IToastTranslations } from "@translations/messages/messages.translations";
+
 interface INewCharacterFormTranslations {
   sections: {
     general: string;
@@ -14,11 +16,7 @@ interface INewCharacterFormTranslations {
     statMinValue: string;
     statMaxValue: string;
   };
-  toasts: {
-    success: string;
-    error: string;
-    loading: string;
-  };
+  toasts: IToastTranslations;
   actions: {
     newHissatsu: string;
   };

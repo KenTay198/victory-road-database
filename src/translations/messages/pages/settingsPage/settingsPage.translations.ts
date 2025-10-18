@@ -1,3 +1,4 @@
+import type { IToastTranslations } from "@translations/messages/messages.translations";
 import type { IDefaultPageTranslations } from "@translations/messages/pages/pages.translations";
 
 interface ISettingsPageTranslations extends IDefaultPageTranslations {
@@ -12,11 +13,7 @@ interface ISettingsPageTranslations extends IDefaultPageTranslations {
     };
   };
   toasts: {
-    update: {
-      success: string;
-      error: string;
-      loading: string;
-    };
+    update: IToastTranslations;
   };
 }
 

@@ -24,6 +24,7 @@ const CharacterTable = ({ className, characters, ...props }: IProps) => {
   const [options, setOptions] = useState<CharacterTableOptions>({
     display: "table",
     mode: "general",
+    normalize: false,
   });
   const [properties, setProperties] = useState<ItemTableProperty[]>([]);
   const [selectedCharacters, setSelectedCharacters] = useState<Character[]>([]);
@@ -33,6 +34,7 @@ const CharacterTable = ({ className, characters, ...props }: IProps) => {
     const character = Character.fromFullJSON(c);
     character.archetypes = character.getArchetypes();
     character.setLocalizedName(settings.characterLocale);
+    character.setNormalizedAdvancedStatistics(true);
     character.hissatsus = character.hissatsus.map((h) => {
       h.setLocalizedName(settings.hissatsuLocale);
       return h;
@@ -62,7 +64,7 @@ const CharacterTable = ({ className, characters, ...props }: IProps) => {
     switch (options.mode) {
       case "general": {
         const statisticKeys: ItemTableProperty[] = statKeys.map((slug) => ({
-          slug: `statistics.${slug}`,
+          slug: `${options.normalize ? "normalizedStatistics.general" : "statistics"}.${slug}`,
           label: t(`statistics.${slug}`),
           sortType: "number",
           withCalculations: true,
@@ -75,7 +77,7 @@ const CharacterTable = ({ className, characters, ...props }: IProps) => {
         const advancedStatisticKeys: ItemTableProperty[] = advancedStatKeys
           .filter((slug) => !["faceoffAtt", "faceoffDef"].includes(slug))
           .map((slug) => ({
-            slug: `advancedStatistics.${slug}`,
+            slug: `${options.normalize ? "normalizedStatistics.advanced" : "advancedStatistics"}.${slug}`,
             label: t(`advancedStatistics.${slug}`),
             sortType: "number",
             withCalculations: true,
@@ -98,7 +100,7 @@ const CharacterTable = ({ className, characters, ...props }: IProps) => {
       default:
         break;
     }
-  }, [options.mode, t]);
+  }, [options.mode, options.normalize, t]);
 
   return (
     <>

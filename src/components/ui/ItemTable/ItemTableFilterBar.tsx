@@ -6,6 +6,7 @@ import { useTranslations } from "next-intl";
 import Button from "../Buttons/Button";
 import { FaSliders } from "react-icons/fa6";
 import type { FilterComponentProps, ItemTableProperty } from "./ItemTable";
+import ObjectHelpers from "@utils/helpers/object.helpers";
 
 export interface IItemTableFilter {
   query: string;
@@ -23,20 +24,6 @@ const ItemTableFilterBar = ({ className, items, onFilterChange, properties, Filt
   const [query, setQuery] = useState("");
   const t = useTranslations("components.ui.itemTable");
 
-  const getPropertyValue = (item: any, property: string, nameAccessor?: string): any => {
-    let value: any;
-    if (property.includes(".")) {
-      const [parent, child] = property.split(".");
-      value = (item as any)[parent] ? (item as any)[parent][child] : "";
-    } else {
-      value = item[property as keyof object];
-    }
-    if (nameAccessor && value && typeof value === "object") {
-      return (value as any)[nameAccessor] || "";
-    }
-    return value;
-  };
-
   const filterByQuery = (items: any[], query: string): any[] => {
     const trimmedQuery = query.trim().toLowerCase();
     const filteredItems = !trimmedQuery
@@ -46,7 +33,7 @@ const ItemTableFilterBar = ({ className, items, onFilterChange, properties, Filt
           return properties
             .filter(({ isSearchable }) => isSearchable)
             .some((property) => {
-              const value = getPropertyValue(item, property.slug, property.nameAccessor);
+              const value = ObjectHelpers.getNestedProperty(item, property.slug, property.nameAccessor);
               if (value === null || value === undefined) return false;
               return String(value).toLowerCase().includes(query);
             });

@@ -15,6 +15,7 @@ const navLinksEn: INavLinksTranslations = {
       label: "Characters",
       import: "Import",
     },
+    meta: "Meta",
   },
 };
 

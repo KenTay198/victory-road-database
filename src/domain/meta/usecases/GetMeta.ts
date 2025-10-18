@@ -5,7 +5,7 @@ import DomainError from "@domain/shared/domainError/domainError";
 export default class GetMeta {
   constructor(private metaService: IMetaService) {}
 
-  async execute(): Promise<Meta | null> {
+  async execute(): Promise<Meta> {
     try {
       return await this.metaService.get();
     } catch (error: any) {

@@ -31,13 +31,15 @@ export default class Meta implements IMeta {
       throw new Error("Cannot initialize Meta with an empty character list.");
     }
     const meta = new Meta();
-    meta.statRange.mean = new Statistics(characters[0].statistics);
-    meta.advancedStatRange.mean = new AdvancedStatistics(characters[0].advancedStatistics);
+    meta.statRange.mean = Statistics.initialize(0);
+    meta.advancedStatRange.mean = AdvancedStatistics.initialize(0);
     for (const character of characters) {
-      meta.statRange.mean = meta.statRange.mean.mean(character.statistics);
-      meta.advancedStatRange.mean = meta.advancedStatRange.mean.mean(character.advancedStatistics);
+      meta.statRange.mean = meta.statRange.mean.add(character.statistics);
+      meta.advancedStatRange.mean = meta.advancedStatRange.mean.add(character.advancedStatistics);
       meta.compareCharacter(character);
     }
+    meta.statRange.mean = meta.statRange.mean.multiply(1 / characters.length);
+    meta.advancedStatRange.mean = meta.advancedStatRange.mean.multiply(1 / characters.length);
     meta.initialized = true;
     return meta;
   }

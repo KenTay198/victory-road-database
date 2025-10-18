@@ -1,3 +1,5 @@
+import type { IToastTranslations } from "@translations/messages/messages.translations";
+
 interface IRegisterFormTranslations {
   fields: {
     username: {
@@ -13,11 +15,7 @@ interface IRegisterFormTranslations {
       label: string;
     };
   };
-  toasts: {
-    success: string;
-    error: string;
-    loading: string;
-  };
+  toasts: IToastTranslations;
   errors: {
     passwordsMismatch: string;
     usernameMinLength: string;

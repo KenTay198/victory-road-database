@@ -5,6 +5,7 @@ import { useEffect, useMemo, useState } from "react";
 import type { ItemTableProperty, SortState } from "./ItemTable";
 import ColorsHelper from "@utils/helpers/colors.helpers";
 import { useTranslations } from "next-intl";
+import ObjectHelpers from "@utils/helpers/object.helpers";
 
 interface IProps<T> extends React.HTMLAttributes<HTMLTableSectionElement> {
   properties: ItemTableProperty[];
@@ -32,14 +33,6 @@ function ItemTableBody<T extends { id: any }>({
 }: IProps<T>) {
   const t = useTranslations("components.ui.itemTable");
   const [statisticDescriptions, setStatisticDescriptions] = useState<Record<string, IStatisticDescriptions>>({});
-  const getPropertyValue = (item: T, property: string): any => {
-    if (property.includes(".")) {
-      const [parent, child] = property.split(".");
-      return (item as any)[parent] ? (item as any)[parent][child] : "";
-    }
-
-    return item[property as keyof T];
-  };
 
   useEffect(() => {
     if (!properties.some((p) => p.withCalculations)) return;
@@ -54,8 +47,8 @@ function ItemTableBody<T extends { id: any }>({
     if (!sortState) return items;
 
     return [...items].sort((a, b) => {
-      const aValue = getPropertyValue(a, sortState.property);
-      const bValue = getPropertyValue(b, sortState.property);
+      const aValue = ObjectHelpers.getNestedProperty(a, sortState.property);
+      const bValue = ObjectHelpers.getNestedProperty(b, sortState.property);
 
       let comparison = 0;
 
@@ -113,7 +106,7 @@ function ItemTableBody<T extends { id: any }>({
               </td>
             )}
             {properties.map(({ slug, className }) => {
-              const value = getPropertyValue(item, slug);
+              const value = ObjectHelpers.getNestedProperty(item, slug);
               const statDescription = statisticDescriptions[slug];
               const color = ColorsHelper.getColorByTier(value, statDescription);
               return (
@@ -122,7 +115,7 @@ function ItemTableBody<T extends { id: any }>({
                     style={{ color }}
                     className={`w-fit text-center whitespace-nowrap ${color ? `font-bold` : ""} ${className || ""}`}
                   >
-                    <PropertyFormatter property={slug} value={getPropertyValue(item, slug)} />
+                    <PropertyFormatter property={slug} value={value} />
                   </div>
                 </td>
               );

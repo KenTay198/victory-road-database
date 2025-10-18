@@ -54,7 +54,7 @@ function ItemTable<T extends { id: string } = any>({
   functions,
   ...props
 }: IProps<T>) {
-  const t = useTranslations("common");
+  const t = useTranslations();
   const { onCompare, onSelectedUpdate } = functions || {};
 
   //#region Sorting
@@ -133,10 +133,14 @@ function ItemTable<T extends { id: string } = any>({
       <div className="flex flex-wrap gap-4 mb-2">
         {onCompare && (
           <Button template="blue" size="S" disabled={selectedItems.size < 2} onClick={() => onCompare()}>
-            {t("buttons.compare")}
+            {t("common.buttons.compare")}
           </Button>
         )}
       </div>
+
+      <p className="text-sm italic">
+        {t("components.ui.itemTable.itemsDisplayed", { count: filteredItems.length, total: items.length })}
+      </p>
 
       <div className="overflow-x-auto">
         <table {...props} className={["bordered rounded min-w-full", className].join(" ")}>

@@ -1,5 +1,6 @@
 interface IItemTableTranslations {
   noItems: string;
+  itemsDisplayed: string;
   inputs: {
     search: {
       placeholder: string;

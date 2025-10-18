@@ -1,20 +1,14 @@
+import ObjectHelpers from "./object.helpers";
+
 const NumericHelpers = {
   getStatDescriptionsByProperties: function (
     datas: Record<string, any>[],
     properties: string[],
   ): Record<string, IStatisticDescriptions> {
     const statDescriptions: Record<string, IStatisticDescriptions> = {};
+
     for (const property of properties) {
-      const values = datas.map((data) => {
-        let value: any;
-        if (property.includes(".")) {
-          const [parent, child] = property.split(".");
-          value = (data as any)[parent] ? (data as any)[parent][child] : undefined;
-        } else {
-          value = data[property];
-        }
-        return typeof value === "number" ? value : Number(value) || 0;
-      });
+      const values = datas.map((data) => ObjectHelpers.getNestedProperty(data, property));
       statDescriptions[property] = this.calculateStatsDescriptions(values);
     }
     return statDescriptions;

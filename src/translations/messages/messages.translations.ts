@@ -18,4 +18,10 @@ interface IMessagesTranslations {
   components: IComponentsTranslations;
 }
 
+export interface IToastTranslations {
+  loading: string;
+  success: string;
+  error: string;
+}
+
 export default IMessagesTranslations;

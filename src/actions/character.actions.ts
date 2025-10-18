@@ -19,7 +19,6 @@ declare global {
 const defaultType = process.env.DEFAULT_ACTION_TYPE;
 
 export async function getCharacterServiceInstance(type = defaultType): Promise<ICharacterService> {
-  delete globalThis.characterService;
   if (globalThis.characterService) return globalThis.characterService;
 
   switch (type) {

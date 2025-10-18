@@ -84,6 +84,20 @@ export default class Statistics implements IStatistics {
       technique: this.technique * factor,
     });
   }
+
+  round(nbDecimals = 0): Statistics {
+    const stats = new Statistics({
+      kick: Math.round(this.kick * 10 ** nbDecimals) / 10 ** nbDecimals,
+      control: Math.round(this.control * 10 ** nbDecimals) / 10 ** nbDecimals,
+      pressure: Math.round(this.pressure * 10 ** nbDecimals) / 10 ** nbDecimals,
+      physical: Math.round(this.physical * 10 ** nbDecimals) / 10 ** nbDecimals,
+      agility: Math.round(this.agility * 10 ** nbDecimals) / 10 ** nbDecimals,
+      intelligence: Math.round(this.intelligence * 10 ** nbDecimals) / 10 ** nbDecimals,
+      technique: Math.round(this.technique * 10 ** nbDecimals) / 10 ** nbDecimals,
+    });
+    stats.total = Math.round(stats.getTotalStats() * 10 ** nbDecimals) / 10 ** nbDecimals;
+    return stats;
+  }
   //#endregion
 
   //#region Initialisation

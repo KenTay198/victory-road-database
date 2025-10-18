@@ -1,7 +1,8 @@
 import type { IToastTranslations } from "@translations/messages/messages.translations";
 
-interface IImportCharactersTranslations {
+interface IUpdateMetaTranslations {
+  button: string;
   toasts: IToastTranslations;
 }
 
-export default IImportCharactersTranslations;
+export default IUpdateMetaTranslations;

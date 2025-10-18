@@ -1,3 +1,5 @@
+import type { IToastTranslations } from "@translations/messages/messages.translations";
+
 interface ILoginFormTranslations {
   fields: {
     identifier: {
@@ -9,11 +11,7 @@ interface ILoginFormTranslations {
       placeholder: string;
     };
   };
-  toasts: {
-    success: string;
-    error: string;
-    loading: string;
-  };
+  toasts: IToastTranslations;
   errors: {
     invalidCredentials: string;
   };

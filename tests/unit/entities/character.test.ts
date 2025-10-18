@@ -112,10 +112,11 @@ describe("Character Entity", () => {
 
     it("should return stats above average when meta is initialized", () => {
       // arrange
+      const statistics = Statistics.initialize(10);
+      statistics.kick = 15;
       const character = new FakeCharacter({
-        statistics: Statistics.initialize(10),
+        statistics,
       });
-      character.statistics.kick = 15;
 
       const metaStats = Statistics.initialize(10);
       const metaAdvancedStats = metaStats.getAdvancedStatistics();
@@ -151,7 +152,7 @@ describe("Character Entity", () => {
       {
         aboveAverageStats: ["shoot", "focusAtt"],
         hissatsuTypesAndCharacteristics: { kick: true },
-        expected: ["striker", "forward"],
+        expected: ["striker", "forward", "attacking-midfielder"],
       },
       {
         aboveAverageStats: ["shoot", "scrambleAtt"],
@@ -164,32 +165,32 @@ describe("Character Entity", () => {
         expected: ["long-shooter"],
       },
       {
-        aboveAverageStats: ["faceoffAtt"],
+        aboveAverageStats: ["focusAtt"],
         hissatsuTypesAndCharacteristics: { kick: true },
         expected: ["attacking-midfielder"],
       },
       {
-        aboveAverageStats: ["faceoffAtt", "scrambleDef"],
+        aboveAverageStats: ["focusAtt", "scrambleDef"],
         hissatsuTypesAndCharacteristics: { dribble: true },
         expected: ["central-midfielder"],
       },
       {
-        aboveAverageStats: ["faceoffAtt", "focusDef"],
+        aboveAverageStats: ["focusAtt", "focusDef"],
         hissatsuTypesAndCharacteristics: { dribble: true },
         expected: ["central-midfielder"],
       },
       {
-        aboveAverageStats: ["faceoffAtt", "focusDef"],
+        aboveAverageStats: ["focusAtt", "focusDef"],
         hissatsuTypesAndCharacteristics: { defense: true },
         expected: ["defensive-midfielder"],
       },
       {
-        aboveAverageStats: ["faceoffAtt", "scrambleDef"],
+        aboveAverageStats: ["focusAtt", "scrambleDef"],
         hissatsuTypesAndCharacteristics: { defense: true },
         expected: ["defensive-midfielder"],
       },
       {
-        aboveAverageStats: ["faceoffDef"],
+        aboveAverageStats: ["totalDef"],
         hissatsuTypesAndCharacteristics: { defense: true },
         expected: ["defender"],
       },

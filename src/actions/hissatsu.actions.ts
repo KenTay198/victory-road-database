@@ -14,7 +14,6 @@ declare global {
 const defaultType = process.env.DEFAULT_ACTION_TYPE;
 
 export async function getHissatsuServiceInstance(type = defaultType): Promise<IHissatsuService> {
-  delete globalThis.hissatsuService;
   if (globalThis.hissatsuService) return globalThis.hissatsuService;
   switch (type) {
     case "mongo":

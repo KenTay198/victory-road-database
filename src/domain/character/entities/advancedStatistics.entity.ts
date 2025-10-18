@@ -30,7 +30,7 @@ export default class AdvancedStatistics implements IAdvancedStatistics {
   //#region Statistics calculations
   getTotalStats(): number {
     return Object.keys(this.toJSON())
-      .filter((e) => e !== "total")
+      .filter((key) => key.includes("total") || key.includes("faceoff"))
       .reduce((acc, key) => acc + this[key as keyof IAdvancedStatistics], 0);
   }
 
@@ -67,6 +67,22 @@ export default class AdvancedStatistics implements IAdvancedStatistics {
       focusDef: this.focusDef * factor,
       scrambleDef: this.scrambleDef * factor,
       gk: this.gk * factor,
+    });
+  }
+
+  round(nbDecimals = 0): AdvancedStatistics {
+    return new AdvancedStatistics({
+      totalAtt: Math.round(this.totalAtt * 10 ** nbDecimals) / 10 ** nbDecimals,
+      faceoffAtt: Math.round(this.faceoffAtt * 10 ** nbDecimals) / 10 ** nbDecimals,
+      shoot: Math.round(this.shoot * 10 ** nbDecimals) / 10 ** nbDecimals,
+      focusAtt: Math.round(this.focusAtt * 10 ** nbDecimals) / 10 ** nbDecimals,
+      scrambleAtt: Math.round(this.scrambleAtt * 10 ** nbDecimals) / 10 ** nbDecimals,
+      totalDef: Math.round(this.totalDef * 10 ** nbDecimals) / 10 ** nbDecimals,
+      wall: Math.round(this.wall * 10 ** nbDecimals) / 10 ** nbDecimals,
+      faceoffDef: Math.round(this.faceoffDef * 10 ** nbDecimals) / 10 ** nbDecimals,
+      focusDef: Math.round(this.focusDef * 10 ** nbDecimals) / 10 ** nbDecimals,
+      scrambleDef: Math.round(this.scrambleDef * 10 ** nbDecimals) / 10 ** nbDecimals,
+      gk: Math.round(this.gk * 10 ** nbDecimals) / 10 ** nbDecimals,
     });
   }
   //#endregion

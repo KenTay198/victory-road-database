@@ -1,4 +1,5 @@
 import adminCharactersPageEn from "./adminCharactersPage/en";
+import adminMetaPageEn from "./adminMetaPage/en";
 import type IAdminPageTranslations from "./adminPage.translations";
 
 const adminPageEn: IAdminPageTranslations = {
@@ -8,6 +9,7 @@ const adminPageEn: IAdminPageTranslations = {
   },
   header: "Admin",
   characters: adminCharactersPageEn,
+  meta: adminMetaPageEn,
 };
 
 export default adminPageEn;

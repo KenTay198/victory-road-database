@@ -98,7 +98,7 @@ const Navlink = ({ url, labelKey, Icon, sidebarExpanded, ...props }: NavLinkProp
 
       {hasSubLinks && (
         <div
-          className={`border-l border-l-raimon-yellow-dark ml-1 pl-1 mt-2 flex flex-col ${expanded ? "block" : "hidden"}`}
+          className={`border-l border-l-raimon-yellow-dark ml-1 pl-1 mt-2 flex flex-col gap-1 ${expanded ? "block" : "hidden"}`}
         >
           {subLinks.map((subLink) => {
             return <Navlink key={subLink.url} sidebarExpanded={sidebarExpanded} {...subLink} />;

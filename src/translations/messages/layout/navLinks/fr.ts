@@ -15,6 +15,7 @@ const navLinksFr: INavLinksTranslations = {
       label: "Personnages",
       import: "Importer",
     },
+    meta: "Meta",
   },
 };
 

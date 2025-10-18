@@ -27,6 +27,10 @@ export default class Character implements ICharacter {
   defaultPosition: Position;
   statistics: Statistics;
   advancedStatistics: AdvancedStatistics;
+  normalizedStatistics?: {
+    general?: Statistics;
+    advanced?: AdvancedStatistics;
+  };
   imageUrl?: string;
   archetypes: CharacterArchetype[];
   learnedHissatsus: ILearnedHissatsu[];
@@ -71,28 +75,42 @@ export default class Character implements ICharacter {
   }
   //#endregion
 
-  //#region Archetypes
-  calculateAboveAverageStats(): string[] {
-    if (!this.meta || !this.meta.initialized) return [];
+  //#region Statistics
+  setNormalizedAdvancedStatistics(round?: boolean): void {
+    if (!this.meta || !this.meta.initialized) return;
 
     // Normalize character stats
     const ratio = this.meta.statRange.mean.total / this.statistics.total;
-    const normalizedStats: Statistics = this.statistics.multiply(ratio);
-    const normalizedAdvancedStats: AdvancedStatistics = normalizedStats.getAdvancedStatistics();
-
-    // Retrieve all stats above average
-    const aboveAverageStats: string[] = [];
-    for (const stat of advancedStatKeys) {
-      const key = stat as keyof IAdvancedStatistics;
-
-      if (normalizedAdvancedStats[key] > this.meta.advancedStatRange.mean[key]) {
-        aboveAverageStats.push(key);
-      }
+    const advancedRatio = this.meta.advancedStatRange.mean.getTotalStats() / this.advancedStatistics.getTotalStats();
+    if (!this.normalizedStatistics) this.normalizedStatistics = {};
+    this.normalizedStatistics.general = this.statistics.multiply(ratio);
+    this.normalizedStatistics.advanced = this.advancedStatistics.multiply(advancedRatio);
+    if (round) {
+      this.normalizedStatistics.general = this.normalizedStatistics.general.round(2);
+      this.normalizedStatistics.advanced = this.normalizedStatistics.advanced.round(2);
     }
-
-    return aboveAverageStats;
   }
 
+  calculateAboveAverageStats(): string[] {
+    if (!this.normalizedStatistics) this.setNormalizedAdvancedStatistics();
+    if (this.meta && this.normalizedStatistics?.advanced) {
+      // Retrieve all stats above average
+      const aboveAverageStats: string[] = [];
+      for (const stat of advancedStatKeys) {
+        const key = stat as keyof IAdvancedStatistics;
+
+        if (this.normalizedStatistics.advanced[key] > this.meta.advancedStatRange.mean[key]) {
+          aboveAverageStats.push(key);
+        }
+      }
+
+      return aboveAverageStats;
+    }
+    return [];
+  }
+  //#endregion
+
+  //#region Archetypes
   getArchetypes(): CharacterArchetype[] {
     const archetypes: CharacterArchetype[] = [];
     const aboveAverageStats = this.calculateAboveAverageStats();
@@ -101,22 +119,22 @@ export default class Character implements ICharacter {
     if (hasHissatsus.long) archetypes.push("long-shooter");
 
     if (aboveAverageStats.length > 0) {
-      const isAbove = (key: string) => aboveAverageStats.find((stat) => stat === key);
+      const isAbove = (key: keyof IAdvancedStatistics) => aboveAverageStats.find((stat) => stat === key);
 
       if (isAbove("shoot") && hasHissatsus.kick) {
         archetypes.push("striker");
         if (isAbove("focusAtt") || isAbove("scrambleAtt")) archetypes.push("forward");
       }
 
-      if (isAbove("faceoffAtt") && hasHissatsus.kick) archetypes.push("attacking-midfielder");
+      if (isAbove("focusAtt") && hasHissatsus.kick) archetypes.push("attacking-midfielder");
 
-      if (isAbove("faceoffAtt") && (isAbove("focusDef") || isAbove("scrambleDef")) && hasHissatsus.dribble)
+      if (isAbove("focusAtt") && (isAbove("focusDef") || isAbove("scrambleDef")) && hasHissatsus.dribble)
         archetypes.push("central-midfielder");
 
-      if (isAbove("faceoffAtt") && (isAbove("focusDef") || isAbove("scrambleDef")) && hasHissatsus.defense)
+      if (isAbove("focusAtt") && (isAbove("focusDef") || isAbove("scrambleDef")) && hasHissatsus.defense)
         archetypes.push("defensive-midfielder");
 
-      if (isAbove("faceoffDef") && hasHissatsus.defense) {
+      if (isAbove("totalDef") && hasHissatsus.defense) {
         archetypes.push("defender");
       }
 
