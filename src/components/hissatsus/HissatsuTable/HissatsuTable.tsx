@@ -7,6 +7,8 @@ import type { IHissatsu } from "@hissatsu/hissatsu.types";
 import Hissatsu from "@hissatsu/hissatsu.entity";
 import HissatsuPropertyFormatter from "../HissatsuPropertyFormatter";
 import HissatsuFilters from "./HissatsuFilters";
+import HissatsuActionBar from "./HissatsuActionBar";
+import { useRouter } from "next/navigation";
 
 interface IProps extends React.HTMLAttributes<HTMLTableElement> {
   hissatsus: IHissatsu[];
@@ -14,6 +16,7 @@ interface IProps extends React.HTMLAttributes<HTMLTableElement> {
 
 const HissatsuTable = ({ className, hissatsus, ...props }: IProps) => {
   const { settings } = useSettings();
+  const router = useRouter();
   const t = useTranslations("hissatsu");
   const hissatsuEntities = hissatsus.map((h) => {
     const hissatsu = Hissatsu.fromJSON(h);
@@ -38,14 +41,21 @@ const HissatsuTable = ({ className, hissatsus, ...props }: IProps) => {
   });
 
   return (
-    <ItemTable<Hissatsu>
-      {...props}
-      items={hissatsuEntities}
-      properties={properties}
-      PropertyFormatter={HissatsuPropertyFormatter}
-      FilterComponent={HissatsuFilters}
-      defaultSortProperty="fullName"
-    />
+    <>
+      <HissatsuActionBar className="mb-4" />
+      <hr className="my-2 text-raimon-blue-dark" />
+      <ItemTable<Hissatsu>
+        {...props}
+        items={hissatsuEntities}
+        properties={properties}
+        PropertyFormatter={HissatsuPropertyFormatter}
+        FilterComponent={HissatsuFilters}
+        defaultSortProperty="name"
+        functions={{
+          onItemClick: (hissatsu) => router.push(`/hissatsus/${hissatsu.id}`),
+        }}
+      />
+    </>
   );
 };
 

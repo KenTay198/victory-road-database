@@ -10,6 +10,7 @@ const characterPageFr: ICharacterPageTranslations = {
     general: "Général",
     statistics: "Statistiques",
     hissatsus: "Hissatsus",
+    translations: "Traductions",
   },
   actions: {
     update: "Mettre à jour le personnage",

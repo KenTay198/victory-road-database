@@ -80,6 +80,22 @@ const CharacterView = ({ className, character, ...props }: IProps) => {
           </div>
         </div>
       </section>
+
+      {character.names && Object.keys(character.names).length > 0 && (
+        <section>
+          <h2>{pageT("sections.translations")}</h2>
+          <div className="space-y-2">
+            {Object.entries(character.names).map(([locale, { firstName, lastName }]) => (
+              <div key={locale} className="flex items-center gap-2">
+                <strong>{t(`common.locales.${locale}`)}:</strong>
+                <span>
+                  {firstName} {lastName}
+                </span>
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
     </div>
   );
 };

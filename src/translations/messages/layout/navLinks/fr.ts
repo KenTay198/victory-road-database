@@ -6,9 +6,12 @@ const navLinksFr: INavLinksTranslations = {
   newCharacter: "Nouveau personnage",
   updateCharacter: "Mettre à jour le personnage",
   character: "Personnage",
+  hissatsus: "Hissatsus",
+  newHissatsu: "Nouveau hissatsu",
+  updateHissatsu: "Mettre à jour le hissatsu",
+  hissatsu: "Hissatsu",
   glossary: "Glossaire",
   settings: "Paramètres",
-  hissatsus: "Hissatsus",
   admin: {
     label: "Admin",
     characters: {

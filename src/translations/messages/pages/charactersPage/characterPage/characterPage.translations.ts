@@ -6,6 +6,7 @@ interface ICharacterPageTranslations extends Omit<IDefaultPageTranslations, "hea
     general: string;
     statistics: string;
     hissatsus: string;
+    translations: string;
   };
   actions: {
     update: string;

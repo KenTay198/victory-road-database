@@ -10,6 +10,7 @@ const characterPageEn: ICharacterPageTranslations = {
     general: "General",
     statistics: "Statistics",
     hissatsus: "Hissatsus",
+    translations: "Translations",
   },
   actions: {
     update: "Update character",

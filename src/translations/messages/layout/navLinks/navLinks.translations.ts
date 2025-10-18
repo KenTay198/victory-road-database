@@ -4,9 +4,12 @@ interface INavLinksTranslations {
   newCharacter: string;
   updateCharacter: string;
   character: string;
+  hissatsus: string;
+  newHissatsu: string;
+  updateHissatsu: string;
+  hissatsu: string;
   glossary: string;
   settings: string;
-  hissatsus: string;
   admin: {
     label: string;
     characters: {

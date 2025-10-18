@@ -54,10 +54,25 @@ export const navLinks: INavLink[] = [
     Icon: GiFireDash,
     subLinks: [
       {
+        url: "/hissatsus/new",
+        labelKey: "newHissatsu",
+        Icon: IoMdPersonAdd,
+        isAdmin: true,
+      },
+      {
         url: "/hissatsus/:id",
         labelKey: "hissatsu",
         Icon: GiFireDash,
         hidden: true,
+        subLinks: [
+          {
+            url: "/hissatsus/:id/update",
+            labelKey: "updateHissatsu",
+            Icon: IoMdPersonAdd,
+            hidden: true,
+            isAdmin: true,
+          },
+        ],
       },
     ],
   },
