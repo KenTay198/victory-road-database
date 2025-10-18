@@ -22,21 +22,44 @@ const Banner = ({ className, title, path, ...props }: IProps) => {
     if (parentPath) {
       matchingSegment = navLink.url.replace(parentPath, "");
     }
+
+    // Si le segment a un label (route dynamique), on vérifie si le navLink a des paramètres dynamiques
+    if (segment.label && matchingSegment.includes(":")) {
+      return true;
+    }
+
+    // Pour les routes dynamiques dans le navLink (ex: "/:id")
     if (matchingSegment.startsWith("/:")) {
       return true;
     }
+
+    // Correspondance exacte
     return matchingSegment === `/${segment.value}`;
   };
 
   const getBreadcrumb = (segments: PathSegment[], links = navLinks, parentPath?: string): BreadcrumbSegment[] => {
     const [segment, ...rest] = segments;
+
+    if (!segment) return [];
+
     const fullPath = parentPath ? `${parentPath}/${segment.value}` : `/${segment.value}`;
-    const navItem = links.find((navLink) => isNavItemMatching(navLink, segment, parentPath));
-    if (!navItem) {
-      return [];
+
+    let navItem = links.find((navLink) => isNavItemMatching(navLink, segment, parentPath));
+
+    if (!navItem && parentPath) {
+      navItem = links.find((navLink) => navLink.url === fullPath);
     }
 
-    const name = navItem.url.includes(":") && segment.label ? segment.label : t(navItem.labelKey);
+    if (!navItem) {
+      const name = segment.label || segment.value;
+      if (rest.length === 0) {
+        return [{ name, href: fullPath }];
+      }
+      return [{ name, href: fullPath }].concat(getBreadcrumb(rest, [], fullPath));
+    }
+
+    const name = segment.label || t(navItem.labelKey);
+
     if (rest.length === 0) {
       return [{ name, href: fullPath }];
     }

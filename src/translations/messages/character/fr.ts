@@ -64,6 +64,7 @@ const characterFr: ICharacterTranslations = {
       max: "Vous pouvez comparer jusqu'à 5 personnages à la fois.",
     },
   },
+  tendencies: "Tendances",
 };
 
 export default characterFr;

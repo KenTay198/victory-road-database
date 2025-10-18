@@ -91,11 +91,11 @@ const Modal = () => {
 
         <div className="p-6">
           {params.title && (
-            <h2 id="modal-title" className="text-xl font-bold mb-4 pr-8">
+            <h2 id="modal-title" className="text-xl font-bold mb-4 p-8">
               {params.title}
             </h2>
           )}
-          <div>{params.content}</div>
+          <div className="p-8 overflow-auto">{params.content}</div>
         </div>
       </div>
     </div>,

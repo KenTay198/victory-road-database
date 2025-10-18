@@ -5,6 +5,7 @@ import CharacterPropertyFormatter from "./CharacterPropertyFormatter";
 import CharacterStatisticsTable from "./CharacterStatisticsTable";
 import CharacterHissatsusTable from "./CharacterHissatsusTable";
 import { useTranslations } from "next-intl";
+import CharacterTendencies from "./CharacterTendencies";
 
 interface IProps extends React.HTMLAttributes<HTMLDivElement> {
   character: Character;
@@ -28,7 +29,14 @@ const CharacterView = ({ className, character, ...props }: IProps) => {
       <section>
         <h2>{pageT("sections.general")}</h2>
         <div className="flex flex-wrap gap-8">
-          <CharacterImage imageUrl={character.imageUrl} fullName={character.fullName} size="L" className="rounded-lg" />
+          <div>
+            <CharacterImage
+              imageUrl={character.imageUrl}
+              fullName={character.fullName}
+              size="L"
+              className="rounded-lg"
+            />
+          </div>
           <div className="space-y-2">
             {generalProperties.map((key) => (
               <div key={key} className="flex items-center gap-2">
@@ -43,25 +51,30 @@ const CharacterView = ({ className, character, ...props }: IProps) => {
               </div>
             ))}
           </div>
+          <CharacterTendencies character={character.toJSON()} meta={character.getMeta()?.toJSON()} />
         </div>
       </section>
 
       <section className="flex flex-wrap gap-12">
-        <div>
+        <div className="max-w-full">
           <h2>{pageT("sections.statistics")}</h2>
-          <CharacterStatisticsTable
-            template={character.element}
-            statistics={character.statistics}
-            advancedStatistics={character.advancedStatistics}
-          />
+          <div className="overflow-auto">
+            <CharacterStatisticsTable
+              template={character.element}
+              statistics={character.statistics}
+              advancedStatistics={character.advancedStatistics}
+            />
+          </div>
         </div>
-        <div>
+        <div className="max-w-full">
           <h2>{pageT("sections.hissatsus")}</h2>
-          <CharacterHissatsusTable
-            template={character.element}
-            learnedHissatsus={character.learnedHissatsus}
-            hissatsus={character.hissatsus}
-          />
+          <div className="overflow-auto">
+            <CharacterHissatsusTable
+              template={character.element}
+              learnedHissatsus={character.learnedHissatsus}
+              hissatsus={character.hissatsus}
+            />
+          </div>
         </div>
       </section>
     </div>

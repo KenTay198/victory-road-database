@@ -20,7 +20,7 @@ interface IProps extends React.HTMLAttributes<HTMLDivElement> {
 
 const CharacterActionBar = ({ className, options, onChangeOptions, ...props }: IProps) => {
   return (
-    <div {...props} className={["flex justify-between gap-4", className].join(" ")}>
+    <div {...props} className={["flex flex-wrap justify-between gap-4", className].join(" ")}>
       {options.display === "table" ? (
         <ModeSwitcher
           mode={options.mode}
@@ -50,22 +50,26 @@ const DisplaySwitcher = ({ className, display, onChangeDisplay, ...props }: IDis
   const t = useTranslations("pages.characters");
   return (
     <div {...props} className={["flex gap-2", className].join(" ")}>
-      <IconButton
-        title={t("buttons.display.table")}
-        Icon={FaTable}
-        size="S"
-        template="darkBlue"
-        onClick={() => onChangeDisplay("table")}
-        active={display === "table"}
-      />
-      <IconButton
-        title={t("buttons.display.grid")}
-        Icon={IoGrid}
-        size="S"
-        template="darkBlue"
-        onClick={() => onChangeDisplay("grid")}
-        active={display === "grid"}
-      />
+      <div>
+        <IconButton
+          title={t("buttons.display.table")}
+          Icon={FaTable}
+          size="S"
+          template="darkBlue"
+          onClick={() => onChangeDisplay("table")}
+          active={display === "table"}
+        />
+      </div>
+      <div>
+        <IconButton
+          title={t("buttons.display.grid")}
+          Icon={IoGrid}
+          size="S"
+          template="darkBlue"
+          onClick={() => onChangeDisplay("grid")}
+          active={display === "grid"}
+        />
+      </div>
     </div>
   );
 };

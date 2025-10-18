@@ -1,20 +1,6 @@
 @import "tailwindcss";
 @import "./theme.css";
 
-@layer base {
-  html {
-    scroll-behavior: smooth;
-  }
-
-  body {
-    @apply antialiased;
-  }
-}
-
-html {
-  font-size: 16px;
-}
-
 main {
   h1 {
     font-size: 2.8rem;
@@ -56,6 +42,7 @@ table {
   }
 
   &.bordered {
+
     th,
     td {
       padding: 0.2rem 1rem;
@@ -72,14 +59,14 @@ table {
     }
 
     th:first-of-type,
-    th + th {
+    th+th {
       border-top: 1px solid black;
       border-left: 1px solid black;
       padding: 0.2rem 1rem;
     }
 
     td:first-of-type,
-    td + td {
+    td+td {
       border-left: 1px solid black;
       padding: 0.2rem 1rem;
     }

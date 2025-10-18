@@ -33,7 +33,7 @@ const ItemTableFilter = <T extends Record<string, any>>({
       {properties.map((property) => {
         const id = `${props.id}-filters-${property.slug}`;
         return (
-          <div key={id}>
+          <div key={id} className="max-w-full">
             <p className="font-bold">{property.title}:</p>
             {property.isMultiple ? (
               <CheckboxGroup
@@ -41,7 +41,7 @@ const ItemTableFilter = <T extends Record<string, any>>({
                 id={id}
                 values={filters[property.slug] || []}
                 options={property.options}
-                className="flex gap-4"
+                className="flex flex-wrap gap-4"
                 checkboxGap={4}
                 handleChange={(values: string[]) => handleChange(property.slug, values)}
               />

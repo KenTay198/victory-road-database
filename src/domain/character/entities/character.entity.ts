@@ -212,6 +212,12 @@ export default class Character implements ICharacter {
   }
   //#endregion
 
+  //#region Getters
+  getMeta(): Meta | undefined {
+    return this.meta;
+  }
+  //#endregion
+
   //#region Parsing
   toJSON(): ICharacter {
     return {

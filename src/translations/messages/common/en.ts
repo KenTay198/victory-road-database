@@ -20,6 +20,8 @@ const commonEn: ICommonTranslations = {
     logoAlt: "Logo of the Inazuma Eleven: Victory Road",
   },
   none: "None",
+  character: "Character",
+  mean: "Mean",
 };
 
 export default commonEn;

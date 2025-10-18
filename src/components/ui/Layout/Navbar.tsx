@@ -27,9 +27,27 @@ interface NavLinkProps extends INavLink {
 }
 
 const matchesRoutePattern = (currentPath: string, routePattern: string): boolean => {
+  // Convertir les paramètres dynamiques en regex
   const regexPattern = routePattern.replace(/:\w+/g, "[^/]+").replace(/\//g, "\\/");
-  const regex = new RegExp(`^${regexPattern}$`);
+  const regex = new RegExp(`^${regexPattern}(\\/.*)?$`); // Permet les sous-routes
   return regex.test(currentPath);
+};
+
+const isRouteActive = (currentPath: string, linkUrl: string, subLinks?: INavLink[]): boolean => {
+  // Vérifier si le lien principal correspond
+  const mainRouteActive = linkUrl.includes(":")
+    ? matchesRoutePattern(currentPath, linkUrl)
+    : currentPath === linkUrl || currentPath.startsWith(linkUrl + "/");
+
+  // Vérifier si un sous-lien correspond
+  const subRouteActive =
+    subLinks?.some((subLink) =>
+      subLink.url.includes(":")
+        ? matchesRoutePattern(currentPath, subLink.url)
+        : currentPath === subLink.url || currentPath.startsWith(subLink.url + "/"),
+    ) || false;
+
+  return mainRouteActive || subRouteActive;
 };
 
 const Navlink = ({ url, labelKey, Icon, sidebarExpanded, ...props }: NavLinkProps) => {
@@ -59,22 +77,15 @@ const Navlink = ({ url, labelKey, Icon, sidebarExpanded, ...props }: NavLinkProp
   //#region IS SELECTED
   const pathname = usePathname();
   const currentPath = `/${pathname.split("/").slice(2).join("/")}`;
-  const selected = url.includes(":") ? matchesRoutePattern(currentPath, url) : currentPath === url;
-  const hasSelectedSubLink = props.subLinks
-    ? props.subLinks.some((subLink) => {
-        if (subLink.url.includes(":")) {
-          return matchesRoutePattern(currentPath, subLink.url);
-        }
-        return currentPath === subLink.url;
-      })
-    : false;
-  const isParentSelected = selected || hasSelectedSubLink;
+
+  // Utiliser la nouvelle fonction pour déterminer si la route est active
+  const isParentSelected = isRouteActive(currentPath, url, subLinks);
 
   useEffect(() => {
-    if (hasSelectedSubLink) {
+    if (isParentSelected && hasSubLinks) {
       setExpanded(true);
     }
-  }, [hasSelectedSubLink]);
+  }, [isParentSelected, hasSubLinks]);
   //#endregion
 
   if (!adminCheck) return null;
@@ -98,7 +109,9 @@ const Navlink = ({ url, labelKey, Icon, sidebarExpanded, ...props }: NavLinkProp
 
       {hasSubLinks && (
         <div
-          className={`border-l border-l-raimon-yellow-dark ml-1 pl-1 mt-2 flex flex-col gap-1 ${expanded ? "block" : "hidden"}`}
+          className={`border-l border-l-raimon-yellow-dark ml-1 pl-1 mt-2 flex flex-col gap-1 ${
+            expanded && (sidebarExpanded || window.innerWidth >= 1024) ? "block" : "hidden"
+          }`}
         >
           {subLinks.map((subLink) => {
             return <Navlink key={subLink.url} sidebarExpanded={sidebarExpanded} {...subLink} />;

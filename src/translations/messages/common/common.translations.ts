@@ -18,6 +18,8 @@ interface ICommonTranslations {
     logoAlt: string;
   };
   none: string;
+  character: string;
+  mean: string;
 }
 
 export default ICommonTranslations;

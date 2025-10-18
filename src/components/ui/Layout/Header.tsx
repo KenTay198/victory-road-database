@@ -5,6 +5,7 @@ import { useAuth } from "@context/AuthContext";
 import { IoChevronDown, IoChevronUp } from "react-icons/io5";
 import useClickOutside from "@/hooks/useClickOutside";
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 
 const Header = () => {
   return (
@@ -34,7 +35,7 @@ const UserCard = () => {
       onKeyUp={() => setExpanded(!expanded)}
       type="button"
     >
-      <p className="max-mobile:hidden text-sm font-bold">{user?.username || "Guest"}</p>
+      <p className="text-sm font-bold">{user?.username || "Guest"}</p>
       <Icon />
       {expanded && <UserMenu isAuth={!!user} />}
     </button>
@@ -42,6 +43,7 @@ const UserCard = () => {
 };
 
 const UserMenu = ({ isAuth }: { isAuth: boolean }) => {
+  const t = useTranslations("layout.header.userMenu");
   const { logout } = useAuth();
 
   return (
@@ -49,22 +51,22 @@ const UserMenu = ({ isAuth }: { isAuth: boolean }) => {
       <ul className="py-1">
         {isAuth ? (
           <>
-            <li className="px-4 py-2 cursor-pointer duration-200 hover:bg-gray-100">Profile</li>
+            <li className="px-4 py-2 cursor-pointer duration-200 hover:bg-gray-100">{t("profile")}</li>
             <li
               className="px-4 py-2 cursor-pointer duration-200 hover:bg-gray-100"
               onClick={() => logout()}
               onKeyUp={() => logout()}
             >
-              Logout
+              {t("logout")}
             </li>
           </>
         ) : (
           <>
             <li className="px-4 py-2 cursor-pointer duration-200 hover:bg-gray-100">
-              <Link href="/login">Login</Link>
+              <Link href="/login">{t("login")}</Link>
             </li>
             <li className="px-4 py-2 cursor-pointer duration-200 hover:bg-gray-100">
-              <Link href="/register">Register</Link>
+              <Link href="/register">{t("register")}</Link>
             </li>
           </>
         )}

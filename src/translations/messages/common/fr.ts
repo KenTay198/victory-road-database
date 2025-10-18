@@ -20,6 +20,8 @@ const commonFr: ICommonTranslations = {
     logoAlt: "Logo d'Inazuma Eleven : Victory Road",
   },
   none: "Aucun{feminine}",
+  character: "Personnage",
+  mean: "Moyenne",
 };
 
 export default commonFr;
