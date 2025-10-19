@@ -1,0 +1,135 @@
+import type { IStatistics } from "@character/character.types";
+import AdvancedStatistics from "./advancedStatistics.entity";
+
+export default class Statistics implements IStatistics {
+  public kick: number;
+  public control: number;
+  public pressure: number;
+  public physical: number;
+  public agility: number;
+  public intelligence: number;
+  public technique: number;
+  public total: number;
+
+  constructor(data: Omit<Partial<IStatistics>, "total">) {
+    this.kick = data.kick || 0;
+    this.control = data.control || 0;
+    this.pressure = data.pressure || 0;
+    this.physical = data.physical || 0;
+    this.agility = data.agility || 0;
+    this.intelligence = data.intelligence || 0;
+    this.technique = data.technique || 0;
+    this.total = this.getTotalStats();
+  }
+
+  //#region Statistics calculations
+  getTotalStats(): number {
+    return Object.keys(this.toJSON())
+      .filter((e) => e !== "total")
+      .reduce((acc, key) => acc + this[key as keyof IStatistics], 0);
+  }
+
+  getAdvancedStatistics(): AdvancedStatistics {
+    const shoot = this.kick + this.control;
+    const focusAtt = this.technique + this.control;
+    const scrambleAtt = this.intelligence + this.physical;
+    const faceoffAtt = focusAtt + scrambleAtt;
+    const totalAtt = shoot + faceoffAtt;
+    const wall = this.physical + this.pressure;
+    const focusDef = this.technique + this.intelligence;
+    const scrambleDef = this.intelligence + this.pressure;
+    const faceoffDef = focusDef + scrambleDef;
+    const totalDef = wall + faceoffDef;
+    const gk = this.physical + this.agility;
+
+    return new AdvancedStatistics({
+      shoot,
+      focusAtt,
+      scrambleAtt,
+      faceoffAtt,
+      totalAtt,
+      wall,
+      focusDef,
+      scrambleDef,
+      faceoffDef,
+      totalDef,
+      gk,
+    });
+  }
+
+  mean(stats: IStatistics): Statistics {
+    return this.add(stats).multiply(0.5);
+  }
+
+  add(stats: IStatistics): Statistics {
+    return new Statistics({
+      kick: this.kick + stats.kick,
+      control: this.control + stats.control,
+      pressure: this.pressure + stats.pressure,
+      physical: this.physical + stats.physical,
+      agility: this.agility + stats.agility,
+      intelligence: this.intelligence + stats.intelligence,
+      technique: this.technique + stats.technique,
+    });
+  }
+
+  multiply(factor: number): Statistics {
+    return new Statistics({
+      kick: this.kick * factor,
+      control: this.control * factor,
+      pressure: this.pressure * factor,
+      physical: this.physical * factor,
+      agility: this.agility * factor,
+      intelligence: this.intelligence * factor,
+      technique: this.technique * factor,
+    });
+  }
+
+  round(nbDecimals = 0): Statistics {
+    const stats = new Statistics({
+      kick: Math.round(this.kick * 10 ** nbDecimals) / 10 ** nbDecimals,
+      control: Math.round(this.control * 10 ** nbDecimals) / 10 ** nbDecimals,
+      pressure: Math.round(this.pressure * 10 ** nbDecimals) / 10 ** nbDecimals,
+      physical: Math.round(this.physical * 10 ** nbDecimals) / 10 ** nbDecimals,
+      agility: Math.round(this.agility * 10 ** nbDecimals) / 10 ** nbDecimals,
+      intelligence: Math.round(this.intelligence * 10 ** nbDecimals) / 10 ** nbDecimals,
+      technique: Math.round(this.technique * 10 ** nbDecimals) / 10 ** nbDecimals,
+    });
+    stats.total = Math.round(stats.getTotalStats() * 10 ** nbDecimals) / 10 ** nbDecimals;
+    return stats;
+  }
+  //#endregion
+
+  //#region Initialisation
+  static initialize(defaultValue = 0): Statistics {
+    return new Statistics({
+      kick: defaultValue,
+      control: defaultValue,
+      pressure: defaultValue,
+      physical: defaultValue,
+      agility: defaultValue,
+      intelligence: defaultValue,
+      technique: defaultValue,
+    });
+  }
+  //#endregion
+
+  //#region Utils
+  toJSON(): IStatistics {
+    return {
+      kick: this.kick,
+      control: this.control,
+      pressure: this.pressure,
+      physical: this.physical,
+      agility: this.agility,
+      intelligence: this.intelligence,
+      technique: this.technique,
+      total: this.total,
+    };
+  }
+
+  static fromJSON(data: IStatistics): Statistics {
+    return new Statistics(data);
+  }
+  //#endregion
+}

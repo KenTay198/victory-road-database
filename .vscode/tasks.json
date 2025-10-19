@@ -1,0 +1,21 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Create Translation Module",
+      "type": "shell",
+      "command": "node",
+      "args": [".scripts/create-translations.js", "${input:moduleName}", "${fileDirname}"],
+      "group": "build",
+      "isBackground": false,
+      "problemMatcher": []
+    }
+  ],
+  "inputs": [
+    {
+      "id": "moduleName",
+      "description": "Translation module name (camelCase for a better type naming)",
+      "type": "promptString"
+    }
+  ]
+}

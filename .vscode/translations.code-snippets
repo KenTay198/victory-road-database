@@ -1,0 +1,15 @@
+{
+  "Translations Types": {
+    "prefix": "trtype",
+    "body": [
+      "interface I${1:}Translations {",
+      "  ${2:key}: {",
+      "    ${3:property}: ${4:string};",
+      "  };",
+      "}",
+      "",
+      "export default I${1:}Translations;"
+    ],
+    "description": "Crée un type pour les clés de traduction"
+  }
+}

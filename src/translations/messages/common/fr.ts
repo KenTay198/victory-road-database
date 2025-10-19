@@ -1,0 +1,30 @@
+import type ICommonTranslations from "./common.translations";
+
+const commonFr: ICommonTranslations = {
+  buttons: {
+    compare: "Comparer",
+    submit: "Soumettre",
+    add: "Ajouter",
+    delete: "Supprimer",
+    import: "Importer",
+    export: "Exporter",
+  },
+  locales: {
+    fr: "Français",
+    en: "Anglais",
+    jp: "Japonais",
+    vo: "Original",
+    west: "Occidental",
+  },
+  images: {
+    logoAlt: "Logo d'Inazuma Eleven : Victory Road",
+  },
+  none: "Aucun{feminine}",
+  entities: {
+    hissatsu: "Hissatsu{plural}",
+    character: "Personnage{plural}",
+  },
+  mean: "Moyenne",
+};
+
+export default commonFr;

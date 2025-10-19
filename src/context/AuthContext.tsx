@@ -1,35 +1,64 @@
 "use client";
-import { logout } from "@/controllers/users.controller";
-import { IUser } from "@/types/models/user.types";
-import React, { createContext, useContext, useState } from "react";
-
-type User = Omit<IUser, "password">;
+import type React from "react";
+import { createContext, useContext, useEffect, useState } from "react";
+import User from "@user/entities/user.entity";
+import type { IUserData, ILoginData } from "@user/user.types";
+import { createUserAction, getCurrentUserAction, loginAction, logoutAction } from "@/actions/auth.actions";
 
 interface IAuthContext {
-  user?: User;
-  setUser: (value: User) => void;
-  authLoading?: boolean;
-  setAuthLoading: (value: boolean) => void;
-  logout: () => void;
+  user: User | null;
+  register: (userData: IUserData) => Promise<string>;
+  login: (loginData: ILoginData) => Promise<User | null>;
+  logout: () => Promise<boolean>;
+  getAuthUser: () => Promise<User | null>;
 }
 
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-//@ts-ignore
+//@ts-expect-error
 const AuthContext = createContext<IAuthContext>({});
 
-export const useAuthState = () => {
+export const useAuth = () => {
   const context = useContext(AuthContext);
   return context;
 };
 
 export default function AuthProvider({ children }: { children: React.ReactNode }) {
-  const [user, setUser] = useState<User>();
-  const [authLoading, setAuthLoading] = useState(false);
+  const [user, setUser] = useState<User | null>(null);
 
-  const handleLogout = () => {
-    setUser(undefined);
-    logout();
+  const register = (userData: IUserData): Promise<string> => {
+    return createUserAction(userData);
   };
 
-  return <AuthContext.Provider value={{ user, setUser, authLoading, setAuthLoading, logout: handleLogout }}>{children}</AuthContext.Provider>;
+  const login = async (loginData: ILoginData): Promise<User | null> => {
+    let user: User | null = null;
+    const result = await loginAction(loginData);
+    if (result) {
+      user = new User(result);
+      setUser(user);
+    }
+    return user;
+  };
+
+  const logout = async (): Promise<boolean> => {
+    const result = await logoutAction();
+    if (result) {
+      setUser(null);
+    }
+    return result;
+  };
+
+  const getAuthUser = async (): Promise<User | null> => {
+    let user: User | null = null;
+    const result = await getCurrentUserAction();
+    if (result) {
+      user = new User(result);
+      setUser(user);
+    }
+    return user;
+  };
+
+  useEffect(() => {
+    getAuthUser().then(setUser);
+  }, []);
+
+  return <AuthContext.Provider value={{ user, register, login, logout, getAuthUser }}>{children}</AuthContext.Provider>;
 }
